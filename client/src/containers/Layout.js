@@ -71,7 +71,7 @@ function Layout() {
               }
               {
                 user.role === 'user' && 
-                <Redirect exact from="/app" to="/app/userDashboard" />
+                <Redirect exact from="/app" to="/app/create_ads" />
               }
               <Route component={Page404} />
             </Switch>

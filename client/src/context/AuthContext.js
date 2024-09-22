@@ -11,8 +11,28 @@ export const AuthContext = React.createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isLoaded, setLoaded] = useState(false);
-  const [user, setUser] = useState(null);
-  const [accessToken, setAccessToken] = useState(null);
+  const [use, setUser] = useState(null);
+  const [accessTok, setAccessToken] = useState(null);
+
+  const [user, setUs] = useState(null);
+  const [accessToken, setAccessTo] = useState(null);
+
+  const data ={
+    name: "John",
+    lastname: "Doe",
+    customerId: "C123456",
+    email: "john.doe@example.com",
+    emailError: false,
+    emailErrorDescription: "",
+    isEmailVerified: false,
+    stripeId: "stripe_123456789",
+    sepaClientSecret: "sepa_abcdefg",
+    password: "Password1",
+    role: "user",
+    token: "your_generated_token_here"
+}
+
+ 
 
   const refreshTokens = useCallback(() => {
     return axios
@@ -29,9 +49,10 @@ export const AuthProvider = ({ children }) => {
       });
   }, []);
 
+  console.log("=====", user)
   const startSilentRefresh = useCallback(() => {
     if (accessToken) {
-      const tokenExpires = moment(accessToken.expires);
+      const tokenExpires = moment(user.expires);
       const tokenMaxAge = tokenExpires.diff(moment().add(1, "minutes"));
       setTimeout(() => {
         refreshTokens();

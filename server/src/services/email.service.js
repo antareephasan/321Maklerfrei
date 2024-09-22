@@ -8,7 +8,7 @@ module.exports = class Email {
         this.to = user.email;
         this.name = user.name;
         this.from = config.email.from;
-        this.host = 'http://123provisionsfrei.de';
+        this.host = 'http://321maklerfrei.de';
         this.userId = user.userId;
     }
     createNewTransport() {
@@ -69,7 +69,7 @@ module.exports = class Email {
     }
     async listInactive(uniqId) {
         await this.send('list_inactive',
-            'Inaktive Anzeige - 123provisionsfrei',
+            'Inaktive Anzeige - 321maklerfrei',
             false,
             uniqId
         );

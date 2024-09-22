@@ -66,7 +66,7 @@ function Account() {
         <AccordionItemPanel>
           <p className="font-light">
             Um dein Konto zu löschen, sende uns bitte eine kurze Anfrage an
-            support@123provisionsfrei.de
+            support@321maklerfrei.de
           </p>
         </AccordionItemPanel>
       </AccordionItem>

@@ -10,7 +10,7 @@ function SectionFeaturesGrid({ children }) {
   return (
     <section className="flex justify-center py-8 md:py-16 bg-gray-50 break-normal">
       <Helmet>
-        <title>Allgemeine Geschäftsbedingungen - 123provisionsfrei</title>
+        <title>Allgemeine Geschäftsbedingungen - 321maklerfrei</title>
       </Helmet>
       <div className="text-left w-11/12 lg:w-3/4">
         <h1 className="text-2xl md:text-4xl font-bold text-gray-700">
@@ -18,7 +18,7 @@ function SectionFeaturesGrid({ children }) {
         </h1>
         <br />
         <p>
-          123provisionsfrei.de Inh. Dominik Wagenmann
+          321maklerfrei.de Inh. Dominik Wagenmann
           <br />
           Porschestr. 2c, 38440 Wolfsburg
           <br />
@@ -32,7 +32,7 @@ function SectionFeaturesGrid({ children }) {
           <br />
           <br />
           (1) F&uuml;r Nutzer des Immobilienportals
-          https://www.123provisionsfrei.de - im folgenden Portal genannt -, die
+          https://www.321maklerfrei.de - im folgenden Portal genannt -, die
           Immobilienanzeigen erstellen wollen, - im folgenden Nutzer genannt -
           gelten ausschlie&szlig;lich die nachfolgenden Allgemeinen
           Gesch&auml;ftsbedingungen in ihrer zum Zeitpunkt der Nutzungshandlung
@@ -53,7 +53,7 @@ function SectionFeaturesGrid({ children }) {
           &sect; 2 Vertragsgegenstand
           <br />
           <br />
-          Bei der Webanwendung unter der URL https://www.123provisionsfrei.de
+          Bei der Webanwendung unter der URL https://www.321maklerfrei.de
           handelt es sich um ein Immobilienportal. Registrierte Nutzer
           k&ouml;nnen &uuml;ber das Portal Immobilienanzeigen erstellen, die
           auch auf weiteren bekannten Immobilienportalen ver&ouml;ffentlicht
@@ -69,8 +69,8 @@ function SectionFeaturesGrid({ children }) {
           Nutzer kann zwischen mehreren kostenpflichtigen Buchungspaketen mit
           unterschiedlichem Leistungsumfang w&auml;hlen. Eine &Uuml;bersicht
           nebst Preisliste ist unter&nbsp;
-          <a href="https://www.123provisionsfrei.de/#preise">
-            https://www.123provisionsfrei.de/#Preise
+          <a href="https://www.321maklerfrei.de/#preise">
+            https://www.321maklerfrei.de/#Preise
           </a>
           <br />
           abrufbar. Die Buchung erfolgt &uuml;ber entsprechende
@@ -372,7 +372,7 @@ function SectionFeaturesGrid({ children }) {
           mit datenschutzrechtlichem Charakter. Dies gilt insbesondere f&uuml;r
           die Verarbeitung personenbezogener Daten. Weitere Informationen
           enth&auml;lt die Datenschutzerkl&auml;rung, die unter
-          https://www.123provisionsfrei.de/datenschutz abrufbar ist.
+          https://www.321maklerfrei.de/datenschutz abrufbar ist.
           <br />
           <br />
           <br />
@@ -383,7 +383,7 @@ function SectionFeaturesGrid({ children }) {
           http://ec.europa.eu/consumers/odr/ eine Plattform zur
           Online-Streitbeilegung (OS) bereit. Verbraucher k&ouml;nnen diese
           Plattform f&uuml;r die Beilegung ihrer Streitigkeiten nutzen. Die
-          E-Mail-Adresse des Veranstalters lautet support@123provisionsfrei.de.
+          E-Mail-Adresse des Veranstalters lautet support@321maklerfrei.de.
           <br />
           <br />
           <br />

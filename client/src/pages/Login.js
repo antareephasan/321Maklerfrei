@@ -12,7 +12,7 @@ function Login() {
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 mb-16">
       <Helmet>
-        <title>Login - 123provisionsfrei</title>
+        <title>Login - 321maklerfrei</title>
       </Helmet>
       <Link
         to="/"

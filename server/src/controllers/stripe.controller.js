@@ -198,7 +198,7 @@ const createSubscriptionWithPaypal = catchAsync(async (req, res) => {
           uniqId,
           email: data.formEmail,
         };
-        await new emailService({ name: 'Dominik', email: 'buchung@123provisionsfrei.de' }).EmailMePremium(formData);
+        await new emailService({ name: 'Dominik', email: 'buchung@321maklerfrei.de' }).EmailMePremium(formData);
         break;
     }
     //send email to the user * the listen is activated
@@ -317,7 +317,7 @@ const completeSubscription = catchAsync(async (req, res) => {
               uniqId: data.uniqId,
               email: data.formEmail,
             };
-            await new emailService({ name: 'Dominik', email: 'buchung@123provisionsfrei.de' }).EmailMePremium(formData);
+            await new emailService({ name: 'Dominik', email: 'buchung@321maklerfrei.de' }).EmailMePremium(formData);
             break;
         }
         //send email to the user * the listen is activated
@@ -365,7 +365,7 @@ const pauseSubscription = catchAsync(async (req, res) => {
             uniqId,
             email: data.formEmail,
           };
-          await new emailService({ name: 'Dominik', email: 'buchung@123provisionsfrei.de' }).EmailMePremium(formData);
+          await new emailService({ name: 'Dominik', email: 'buchung@321maklerfrei.de' }).EmailMePremium(formData);
           break;
       }
       await data.save();
@@ -400,7 +400,7 @@ const unpauseSubscription = catchAsync(async (req, res) => {
             uniqId,
             email: data.formEmail,
           };
-          await new emailService({ name: 'Dominik', email: 'buchung@123provisionsfrei.de' }).EmailMePremium(formData);
+          await new emailService({ name: 'Dominik', email: 'buchung@321maklerfrei.de' }).EmailMePremium(formData);
           break;
       }
       await data.save();
@@ -449,7 +449,7 @@ const sendEmailToDom = catchAsync(async (req, res) => {
     email: listData.email,
     formEmail: listData.formEmail,
   };
-  await new emailService({ name: 'Dominik', email: 'buchung@123provisionsfrei.de' }).EmailMePremium(data, type);
+  await new emailService({ name: 'Dominik', email: 'buchung@321maklerfrei.de' }).EmailMePremium(data, type);
   res.json({
     status: 'success',
   });

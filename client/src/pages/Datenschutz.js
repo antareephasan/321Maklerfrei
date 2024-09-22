@@ -10,7 +10,7 @@ function SectionFeaturesGrid({ children }) {
   return (
     <section className="flex justify-center py-8 md:py-16 bg-gray-50">
       <Helmet>
-        <title>Datenschutz - 123provisionsfrei</title>
+        <title>Datenschutz - 321maklerfrei</title>
       </Helmet>
       <div className="text-left w-11/12 lg:w-3/4 break-words">
         <h1 className="text-2xl md:text-4xl font-bold text-gray-700">
@@ -201,7 +201,7 @@ function SectionFeaturesGrid({ children }) {
           Die verantwortliche Stelle f&uuml;r die Datenverarbeitung auf dieser
           Website ist:
           <br />
-          123provisionsfrei - Inh. Dominik Wagenmann
+          321maklerfrei - Inh. Dominik Wagenmann
           <br />
           Porschestr. 2c
           <br />
@@ -209,7 +209,7 @@ function SectionFeaturesGrid({ children }) {
           <br />
           Telefon: +49 (0) 1522 &ndash; 1453300
           <br />
-          E-Mail: hallo@123provisionsfrei.de
+          E-Mail: hallo@321maklerfrei.de
           <br />
           <br />
           Verantwortliche Stelle ist die nat&uuml;rliche oder juristische

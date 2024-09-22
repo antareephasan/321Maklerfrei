@@ -13,13 +13,13 @@ const topicArnBounce = "arn:aws:sns:eu-central-1:147563043845:ses-bounces-topic-
 var paramsTopicBounces = {
   Protocol: "https",
   TopicArn: topicArnBounce,
-  Endpoint: "https://123provisionsfrei.de/aws/sns/handle-bounces"
+  Endpoint: "https://321maklerfrei.de/aws/sns/handle-bounces"
 };
 const topicArnComplaint = "arn:aws:sns:eu-central-1:147563043845:handle-complaints-production";
 var paramsTopicComplaints = {
   Protocol: "https",
   TopicArn: topicArnComplaint,
-  Endpoint: "https://123provisionsfrei.de/aws/sns/handle-complaints"
+  Endpoint: "https://321maklerfrei.de/aws/sns/handle-complaints"
 };
 catchAsync(sns.subscribe(paramsTopicBounces, function(error, data) {
     if (error) {

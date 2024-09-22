@@ -2,7 +2,7 @@ const axios = require('axios');
 const FormData = require('form-data');
 const ApiError = require('../utils/ApiError');
 const UserList = require('../models/userList.model');
-const bucketName = '123provisionsfrei-bucket';
+const bucketName = '321maklerfrei-bucket';
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
 const generateCognitoToken = async () => {

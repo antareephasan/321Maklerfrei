@@ -5,15 +5,16 @@ import { AuthContext } from '../../context/AuthContext'
 
 export default function ProtectedRoute(props) {
 	const { user } = useContext(AuthContext)
-  const { component: Component, ...remProps } = props;
+  const { compousernent: Component, ...remProps } = props;
 
   return (
 	<Route 
     	{...remProps} 
 		render={remProps => (
-			!user ?
-				<Component {...remProps} /> :
-				<Redirect to='/auth' />
+			// user ?
+				<Component {...remProps} />
+				//  :
+				// <Redirect to='/auth' />
         )} 
     />
 	);

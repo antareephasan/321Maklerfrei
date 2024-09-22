@@ -7,24 +7,24 @@
  */
  const routes = [
     {
-      path: '/app/userDashboard',
-      icon: 'OutlinePersonIcon',
-      name: 'dashboard',
+      path: '/app/user_dashboard',
+      icon: 'HomeIcon',
+      name: 'Dashboard',
     },
     {
-      path: '/app/createListing',
+      path: '/app/create_ads',
       icon: 'PlusIcon',
-      name: 'create listing',
+      name: 'Create ads',
     },
     {
       path: '/app/userLists',
-      icon: 'HomeIcon',
+      icon: 'OutlineCogIcon',
       name: 'my listings',
     },
     {
       path: '/app/profile',
-      icon: 'OutlineCogIcon',
-      name: 'settings',
+      icon: 'OutlinePersonIcon',
+      name: 'Profile',
     },
     {
       path: '/app/faq',

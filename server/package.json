@@ -107,11 +107,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/123provisionsfrei/server.git"
+    "url": "git+https://github.com/321maklerfrei/server.git"
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/123provisionsfrei/server/issues"
+    "url": "https://github.com/321maklerfrei/server/issues"
   },
-  "homepage": "https://github.com/123provisionsfrei/server#readme"
+  "homepage": "https://github.com/321maklerfrei/server#readme"
 }

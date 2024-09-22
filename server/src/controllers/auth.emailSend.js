@@ -15,11 +15,11 @@ const awsConfig =   {
     const reqData = req.body.data 
     const email = req.body.email 
 
-    const BccEmail = "123provisionsfrei.de+a51280bceb@invite.trustpilot.com"
+    const BccEmail = "321maklerfrei.de+a51280bceb@invite.trustpilot.com"
     try {
        
        const params ={
-        Source:"123provisionsfrei<hallo@123provisionsfrei.de>",
+        Source:"321maklerfrei<hallo@321maklerfrei.de>",
         Destination:{
             ToAddresses: [email] ,
             CcAddresses: [BccEmail],

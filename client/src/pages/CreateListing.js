@@ -7,7 +7,7 @@ import { Helmet } from "react-helmet";
 function SetTitleTag () {
   return (
     <Helmet>
-      <title>Anzeige erstellen - 123provisionsfrei</title>
+      <title>Create ads - 321maklerfrei</title>
     </Helmet>
   )
 }

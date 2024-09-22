@@ -10,7 +10,7 @@ import { Helmet } from "react-helmet";
 function SetTitleTag () {
   return (
     <Helmet>
-      <title>Einstellungen - 123provisionsfrei</title>
+      <title>Einstellungen - 321maklerfrei</title>
     </Helmet>
   )
 }
@@ -23,16 +23,21 @@ function Profile() {
     <>
       <SetTitleTag />
       <PageTitle>{t("settings")}</PageTitle>
+     
+
+      <div className='flex flex-wrap gap-4'>
+      <div className="w-full md:w-5/12 p-6 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
       <SectionTitle>{t("edit profile")}</SectionTitle>
 
-      <div className="w-full md:w-1/2 p-6 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <UpdateUserForm m_user={user}/>
       </div>
 
-      <SectionTitle>{t("change password")}</SectionTitle>
+    
 
-      <div className="w-full md:w-1/2 p-6 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+      <div className="w-full md:w-5/12 p-6 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+      <SectionTitle>{t("change password")}</SectionTitle>
         <UpdatePasswordForm m_user={user}/>
+      </div>
       </div>
     </>
   )

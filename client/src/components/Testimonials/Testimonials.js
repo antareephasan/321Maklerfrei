@@ -60,7 +60,7 @@ function ReviewCard({ customer, review }) {
   //       <div className="flex text-blue-600 font-medium hover:underline items-end pr-8 mt-4 md:mt-3">
   //         <a
   //           target="_blank"
-  //           href="https://www.trustpilot.com/review/123provisionsfrei.de"
+  //           href="https://www.trustpilot.com/review/321maklerfrei.de"
   //         >
   //           <small>Auf Trustpilot ansehen </small>
   //         </a>

@@ -10,7 +10,7 @@ function SectionFeaturesGrid({ children }) {
   return (
     <section className="flex justify-center py-8 md:py-16 bg-gray-50">
       <Helmet>
-        <title>123provisionsfrei | Widerrufsbelehrung</title>
+        <title>321maklerfrei | Widerrufsbelehrung</title>
       </Helmet>
       <div className="text-left w-11/12 lg:w-3/4">
         <h1 className="text-2xl md:text-4xl font-bold text-gray-700">
@@ -40,11 +40,11 @@ function SectionFeaturesGrid({ children }) {
         <p className="my-3">Um Ihr Widerrufsrecht auszu&uuml;ben, m&uuml;ssen Sie uns(</p>
 
         <p className="my-3">
-          123provisionsfrei.de - Inh. Dominik Wagenmann
+          321maklerfrei.de - Inh. Dominik Wagenmann
           <br />
           Telefon: +49 (0) 1522 – 1453300
           <br />
-          E-Mail: support@123provisionsfrei.de
+          E-Mail: support@321maklerfrei.de
         </p>
 
         <p className="my-3">

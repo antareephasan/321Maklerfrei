@@ -20,7 +20,7 @@ import { Helmet } from "react-helmet";
 function SetTitleTag () {
   return (
     <Helmet>
-      <title>FAQ - 123provisionsfrei</title>
+      <title>FAQ - 321maklerfrei</title>
     </Helmet>
   )
 }
@@ -134,11 +134,11 @@ function Faq() {
               </p>
               <p className="mt-2 mb-4 text-sm text-gray-600 dark:text-gray-400">
                 <Mailto
-                  email="support@123provisionsfrei.de"
+                  email="support@321maklerfrei.de"
                   subject="Problem mit ..."
                   body="Guten Tag, leider habe ich ein Problem mit..."
                 >
-                  support@123provisionsfrei.de
+                  support@321maklerfrei.de
                 </Mailto>
               </p>
             </CardBody>

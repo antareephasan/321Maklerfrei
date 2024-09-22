@@ -8,7 +8,7 @@ const envVarsSchema = Joi.object()
   .keys({
     NODE_ENV: Joi.string().valid('production', 'development', 'demo', 'test').required(),
     PORT: Joi.number().default(3000),
-    CLIENT_URL: Joi.string().default('123provisionsfrei.de'),
+    CLIENT_URL: Joi.string().default('321maklerfrei.de'),
     MONGODB_URL: Joi.string().required().description('Mongo DB url'),
     MONGODB_URL_TEST: Joi.string().required().description('Mongo DB test url'),
     JWT_SECRET: Joi.string().required().description('JWT secret key'),
@@ -43,8 +43,8 @@ module.exports = {
   env: envVars.NODE_ENV,
   port: envVars.PORT,
   corsOrigin: envVars.NODE_ENV === 'production' ? envVars.CLIENT_URL : '*',
-  clientURL: envVars.NODE_ENV === 'production' ? envVars.CLIENT_URL : '123provisionsfrei.de',
-  serverURL: envVars.NODE_ENV === 'production' ? envVars.SERVER_URL : '123provisionsfrei.de',
+  clientURL: envVars.NODE_ENV === 'production' ? envVars.CLIENT_URL : '321maklerfrei.de',
+  serverURL: envVars.NODE_ENV === 'production' ? envVars.SERVER_URL : '321maklerfrei.de',
   mongoose: {
     url: envVars.NODE_ENV === 'test' ? envVars.MONGODB_URL_TEST : envVars.MONGODB_URL,
     options: {

@@ -5,6 +5,6 @@ require("babel-register")({
   const Sitemap = require('react-router-sitemap').default;
   (
      new Sitemap(router)
-        .build("https://123provisionsfrei.de/")
+        .build("https://321maklerfrei.de/")
         .save('./public/sitemap.xml')
   );

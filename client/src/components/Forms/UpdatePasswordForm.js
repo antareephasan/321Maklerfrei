@@ -45,7 +45,17 @@ function UpdatePasswordForm({formRef, callback, m_user}) {
     >  
       {({ errors, status, touched, isSubmitting }) => (
         <Form>
-          <Label>
+           <Label>
+            <span>{t("Old password")}:</span>
+            <Field className="mt-1" as={Input} name="password" type="password" placeholder="***************" />
+            {errors.password && touched.password ? (
+              <div>   
+                <HelperText valid={false}>{t(errors.password)}</HelperText>
+              </div>
+            ) : null}
+          </Label>
+
+          <Label className='mt-5'>
             <span>{t("type new password")}:</span>
             <Field className="mt-1" as={Input} name="password" type="password" placeholder="***************" />
             {errors.password && touched.password ? (

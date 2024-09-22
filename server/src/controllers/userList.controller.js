@@ -579,7 +579,7 @@ const messageTemp = (data)=> {
                 <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                   <tr>
                     <td class="content-block powered-by">
-                      Powered by <a href="https://123provisionsfrei.de/">123provisionsfrei</a>.
+                      Powered by <a href="https://321maklerfrei.de/">321maklerfrei</a>.
                     </td>
                   </tr>
                 </table>
@@ -739,7 +739,7 @@ const unpublishExpiredLists = catchAsync(async () => {
 });
 const getImgList  = catchAsync(async (req, res) => {
     // unique bucket name
-    const bucketName = '123provisionsfrei-bucket';
+    const bucketName = '321maklerfrei-bucket';
     // object key || imgId
     let keyName = `${req.params.imgId}`;
     const objectParams = { Bucket: bucketName, Key: keyName };
@@ -787,7 +787,7 @@ const updateUserList = catchAsync(async (req, res) => {
             uniqId,
             email: data.formEmail
           }
-          await new emailService({name: 'Dominik', email: 'buchung@123provisionsfrei.de'}).EmailMePremium(formData);
+          await new emailService({name: 'Dominik', email: 'buchung@321maklerfrei.de'}).EmailMePremium(formData);
           break;
       }
       await data.save();

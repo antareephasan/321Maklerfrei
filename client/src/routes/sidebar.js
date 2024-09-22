@@ -35,7 +35,7 @@ const routes = [
         name: "Admin Dashboard", // name that appear in Sidebar
       },
       {
-        path: "/app/userDashboard",
+        path: "/app/create_ads",
         name: "User Dashboard",
       },
     ],

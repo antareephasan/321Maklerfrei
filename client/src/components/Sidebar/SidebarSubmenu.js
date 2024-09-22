@@ -9,15 +9,17 @@ function Icon({ icon, ...props }) {
   return <Icon {...props} />
 }
 
-function SidebarSubmenu({ route }) {
+function SidebarSubmenu({ route,pathname}) {
   const [isDropdownMenuOpen, setIsDropdownMenuOpen] = useState(false)
 
   function handleDropdownMenuClick() {
     setIsDropdownMenuOpen(!isDropdownMenuOpen)
   }
 
+  console.log("pathname====", pathname)
+
   return (
-    <li className="relative px-6 py-3" key={route.name}>
+    <li className="relative px-6 py-3 "  key={route.name}>
       <button
         className="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
         onClick={handleDropdownMenuClick}

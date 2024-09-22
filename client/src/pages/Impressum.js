@@ -10,12 +10,12 @@ function SectionFeaturesGrid({ children }) {
   return (
     <section className="flex justify-center py-8 md:py-16 bg-gray-50">
       <Helmet>
-        <title>Impressum - 123provisionsfrei</title>
+        <title>Impressum - 321maklerfrei</title>
       </Helmet>
       <div className="text-left w-11/12 lg:w-3/4">
         <h1 className="text-2xl md:text-4xl font-bold text-gray-700">Impressum</h1>
         <p className="my-4 text-md text-gray-600">
-          123provisionsfrei.de
+          321maklerfrei.de
           <br />
           Dominik Wagenmann
           <br />
@@ -33,7 +33,7 @@ function SectionFeaturesGrid({ children }) {
           <br />
           Tel.: +49 (0) 1522 – 1453300
           <br />
-          E-Mail: hallo@123provisionsfrei.de
+          E-Mail: hallo@321maklerfrei.de
           <br />
           <br />
           Zuständige Aufsichtsbehörde für die Tätigkeit nach § 34c GewO:

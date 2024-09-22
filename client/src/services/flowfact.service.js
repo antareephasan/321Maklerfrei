@@ -390,8 +390,8 @@ const publishImagesToFlowFact = async (
         firstName: data.nameHide ? 'Privater' : data.contactName,
         lastName: data.nameHide ? 'Anbieter' : data.lastName,
         emails: [data.formEmail],
-        company: '123provisionsfrei',
-        homepage: ['https://123provisionsfrei.de'],
+        company: '321maklerfrei',
+        homepage: ['https://321maklerfrei.de'],
       };
       let phone = data.phoneNumber || data.phone;
       if (phone?.length > 5) {
@@ -994,8 +994,8 @@ const publishToFlowFact = async (
         firstName: data.nameHide ? 'Privater' : data.contactName,
         lastName: data.nameHide ? 'Anbieter' : data.lastName,
         emails: [data.formEmail],
-        company: '123provisionsfrei',
-        homepage: ['https://123provisionsfrei.de'],
+        company: '321maklerfrei',
+        homepage: ['https://321maklerfrei.de'],
       };
       let phone = data.phoneNumber || data.phone;
       if (phone?.length > 5) {
@@ -1638,8 +1638,8 @@ const updateFlowFactContact = async (data) => {
       firstName: data.nameHide ? 'Privater' : data.contactName,
       lastName: data.nameHide ? 'Anbieter' : data.lastName,
       emails: [data.formEmail],
-      company: '123provisionsfrei',
-      homepage: ['https://123provisionsfrei.de'],
+      company: '321maklerfrei',
+      homepage: ['https://321maklerfrei.de'],
     };
     if (data.phoneNumber?.length > 5) {
       Object.assign(newData, {

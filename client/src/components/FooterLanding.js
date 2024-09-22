@@ -25,7 +25,7 @@ function FooterLanding() {
             <div className="flex">
               <a
                 target="_blank"
-                href="https://www.facebook.com/123provisionsfrei"
+                href="https://www.facebook.com/321maklerfrei"
               >
                 <svg
                   role="img"
@@ -53,7 +53,7 @@ function FooterLanding() {
               </a>
               <a
                 target="_blank"
-                href="https://www.instagram.com/123provisionsfrei/"
+                href="https://www.instagram.com/321maklerfrei/"
               >
                 <svg
                   role="img"

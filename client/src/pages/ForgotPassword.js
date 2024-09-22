@@ -12,7 +12,7 @@ function ForgotPassword() {
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
       <Helmet>
-        <title>Passwort vergessen - 123provisionsfrei</title>
+        <title>Passwort vergessen - 321maklerfrei</title>
       </Helmet>
       <Link
         to="/"

@@ -5,7 +5,7 @@ const Logout = lazy(() => import('../pages/Logout'))
 const Profile = lazy(() => import('../pages/Profile'))
 const Users = lazy(() => import('../pages/Users'))
 const Billing = lazy(() => import('../pages/Billing'))
-const DashboardUser = lazy(() => import('../pages/DashboardUser'))
+const DashboardUser = lazy(() => import('../components/Dashboard/DashboardUser'))
 const Forms = lazy(() => import('../pages/Forms'));
 const Faq = lazy(() => import('../pages/FAQ'));
 const CreateListing = lazy(() => import('../pages/CreateListing'));
@@ -34,7 +34,7 @@ const routes = [
     component: Profile,
   },
   {
-    path: '/createListing',
+    path: '/create_ads',
     component: CreateListing,
   },
   {
@@ -58,7 +58,7 @@ const routes = [
     component: Buttons,
   },
   {
-    path: '/userDashboard', // the url
+    path: '/user_dashboard', // the url
     component: DashboardUser, // view rendered
   },
   {

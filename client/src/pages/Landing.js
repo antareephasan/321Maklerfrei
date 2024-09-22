@@ -105,7 +105,7 @@ function SectionCenteredHeader({ children }) {
 //           Zuletzt veröffentlicht
 //         </p>
 //         <p className="mt-4 text-xl text-center text-gray-600">
-//           Immobilien auf 123provisionsfrei:
+//           Immobilien auf 321maklerfrei:
 //         </p>
 //       </div>
 //       {recentImmobilien.length !== 0 && (
@@ -322,7 +322,7 @@ function Landing() {
                   controls={true}
                   width="500px"
                   height="280px"
-                  // url="https://info-at-123provisionsfrei.wistia.com/medias/cplog1zr82"
+                  // url="https://info-at-321maklerfrei.wistia.com/medias/cplog1zr82"
                   url="https://www.youtube.com/watch?v=QFYur6WTqoY"
                 />
               </div>
@@ -331,7 +331,7 @@ function Landing() {
                   controls={true}
                   width="360px"
                   height="200px"
-                  // url="https://info-at-123provisionsfrei.wistia.com/medias/cplog1zr82"
+                  // url="https://info-at-321maklerfrei.wistia.com/medias/cplog1zr82"
                   url="https://www.youtube.com/watch?v=QFYur6WTqoY"
                   playsinline={true}
 

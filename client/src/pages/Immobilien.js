@@ -80,7 +80,7 @@ function SectionFeaturesGrid({ recentImmobilien, setForm, formData }) {
   return (
     <section className="flex justify-center py-8 md:py-16 bg-gray-50">
       <Helmet>
-        <title>Immobilien - 123provisionsfrei</title>
+        <title>Immobilien - 321maklerfrei</title>
       </Helmet>
       <div className="text-left w-11/12 lg:w-3/4">
         <h1 className="text-2xl md:text-4xl font-bold text-gray-700">
