@@ -21,6 +21,7 @@ const Datenschutz = lazy(() => import("./pages/Datenschutz"));
 const Widerrufsbelehrung = lazy(() => import("./pages/Widerrufsbelehrung"));
 const Agb = lazy(() => import("./pages/Agb"));
 const EmailVerification = lazy(() => import("./pages/EmailVerification"));
+const AdDetails = lazy(() => import("./pages/AdDetails"));
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
           <Route exact path="/unsubscribe" component={Unsubscribe} />
           <Route exact path="/widerrufsbelehrung" component={Widerrufsbelehrung} />
           <Route exact path="/agb" component={Agb} />
+          <Route exact path="/details" component={AdDetails} />
           {/* Place new routes over this */}
           <ProtectedRoute path="/app" component={Layout} />
           <Route exact path="/verify-email" component={EmailVerification} />
