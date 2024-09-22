@@ -1,0 +1,12 @@
+@media only screen and (max-width: 600px) {
+    
+      
+      .video-responsive iframe {
+        left: 1%;
+        top: 33.3333%;
+        height: 33.3333%;
+        width: 98%;
+        position: absolute;
+      }
+      
+}

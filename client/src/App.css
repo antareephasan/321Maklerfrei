@@ -1,0 +1,16 @@
+.hero-bg {
+    background: linear-gradient(134deg, #174276 -5.34%, #092642 32.22%);
+}
+
+.steps-bg {
+    background-image: url("./assets/img/offerings-bg2.png");
+    /* background-attachment: fixed; */
+    /* background-position: 100%; */
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* margin-top: -90px; */
+  }
+
+  .nav-bg {
+    background: linear-gradient(135deg, #174276 13.26%, #092642 40.86%);
+  }

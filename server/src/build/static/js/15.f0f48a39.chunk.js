@@ -1,0 +1,2 @@
+(this.webpackJsonprocket=this.webpackJsonprocket||[]).push([[15],{440:function(t,e,c){"use strict";c.r(e);var n=c(0),o=c.n(n),s=c(18),u=c(19),a=c(1);e.default=function(){var t=Object(n.useContext)(s.a).logout;return o.a.useEffect((function(){t()}),[t]),Object(a.jsx)(u.a,{})}}}]);
+//# sourceMappingURL=15.f0f48a39.chunk.js.map
