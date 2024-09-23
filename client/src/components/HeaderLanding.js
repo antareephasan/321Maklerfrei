@@ -14,50 +14,50 @@ function NavbarContent() {
     <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-4">
       <div className="items-center grid grid-cols-1 lg:flex lg:gap-10 gap-6 text-sm font-bold text-gray-800 md:mr-4 mr-0">
         <HashLink
-          className="text-white hover:text-gray-400 text-base"
+          className="text-white hover:text-gray-400 text-sm"
           smooth
           to="/landing/#Ablauf"
         >
           Ablauf
         </HashLink>
         <HashLink
-          className="text-white  hover:text-gray-400 text-base"
+          className="text-white  hover:text-gray-400 text-sm"
           smooth
           to="/landing/#Leistungen"
         >
           Leistungen
         </HashLink>
         <HashLink
-          className="text-white  hover:text-gray-400 text-base"
+          className="text-white  hover:text-gray-400 text-sm"
           smooth
           to="/landing/#Rezensionen"
         >
           Rezensionen
         </HashLink>
-        <HashLink className="text-white  hover:text-gray-400 text-base" smooth to="/landing/#Preise">
+        <HashLink className="text-white  hover:text-gray-400 text-sm" smooth to="/landing/#Preise">
           Preise
         </HashLink>
-        <HashLink className="text-white hover:text-gray-400 text-base" smooth to="/landing/#FAQ">
+        <HashLink className="text-white hover:text-gray-400 text-sm" smooth to="/landing/#FAQ">
           FAQ
         </HashLink>
       </div>
       {!user && (
         <Link to="/auth/login">
-          <Button layout="outline" className="outline text-base px-10 py-3">
+          <Button layout="outline" className="text-sm px-10 py-3">
             Login
           </Button>
         </Link>
       )}
       {!user && (
         <Link to="/auth/create-account">
-          <Button className="text-base px-10 py-3">
+          <Button className="text-sm px-10 py-3">
             Registrieren
           </Button>
         </Link>
       )}
       {user && (
         <Link to="/app">
-          <Button className="text-base px-10 py-3">
+          <Button className="text-sm px-10 py-3">
             Dashboard
           </Button>
         </Link>
