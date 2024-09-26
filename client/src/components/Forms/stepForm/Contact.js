@@ -5,20 +5,21 @@ import { useTranslation } from "react-i18next";
 import "./style.module.css"
 import 'react-phone-number-input/style.css';
 import PhoneInput, { isValidPhoneNumber }  from 'react-phone-number-input';
+import { dictionary } from "../../../resources/multiLanguages";
 export const Contact = ({ formData, setForm, navigation, isReviewMode, my_swiper, fRequired, setFRequired, phone, setPhone}) => {
   const { go } = navigation;
   const { formEmail, contactName, nameHide, lastName } = formData;
   const { t } = useTranslation();
-
+  const languageReducer = "de";
   return (
     <div className="container mx-auto px-4">
       <Label className="mt-4">
-        <span>{t("contact name")}:</span>
+        <span>{dictionary["createAds"][languageReducer]["contact"]["contactName"]}:</span>
         <span style={{color: "red"}}>*</span>
         <div className="flex gap-4">
         <Input
             className="w-1/2 mb-4 mt-1"
-            placeholder={t("enter first name")}
+            placeholder={dictionary["createAds"][languageReducer]["contact"]["enterFirstName"]}
             name="contactName"
             value={formData.contactName}
             onChange={setForm}
@@ -30,7 +31,7 @@ export const Contact = ({ formData, setForm, navigation, isReviewMode, my_swiper
           />
            <Input
             className="w-1/2 mb-4 mt-1"
-            placeholder={t("enter last name")}
+            placeholder={dictionary["createAds"][languageReducer]["contact"]["enterLastName"]}
             name="lastName"
             value={formData.lastName}
             onChange={setForm}
@@ -53,7 +54,7 @@ export const Contact = ({ formData, setForm, navigation, isReviewMode, my_swiper
         </div>
       </Label>
       <Label className="mt-4">
-        <span>{t("e-mail")}:</span>
+        <span>{dictionary["createAds"][languageReducer]["contact"]["email"]}:</span>
         <span style={{color: "red"}}>*</span>
         <div>
           <Input
@@ -65,7 +66,7 @@ export const Contact = ({ formData, setForm, navigation, isReviewMode, my_swiper
             margin="normal"
             variant="outlined"
             autoComplete="off"
-            placeholder={t("enter e-mail")}
+            placeholder={dictionary["createAds"][languageReducer]["contact"]["enterEmail"]}
             fullwidth='true'
             type="email"
           />
@@ -73,7 +74,7 @@ export const Contact = ({ formData, setForm, navigation, isReviewMode, my_swiper
       </Label>
       <Label className="mt-4">
         <span>{t("phone number")}:</span>
-        { fRequired && <span style={{color: "red"}}>{t("Please Provide A Valid Phone Number!")}</span> }
+        { fRequired && <span style={{color: "red"}}>{dictionary["createAds"][languageReducer]["contact"]["pleaseProvideValidPhone"]}</span> }
         <div>
           <PhoneInput
             className="mb-4 mt-1 "
@@ -93,7 +94,7 @@ export const Contact = ({ formData, setForm, navigation, isReviewMode, my_swiper
       </Label>
       <div style={{ marginTop: "1rem" }}>
           <>
-           {fRequired && <div style={{color: "red"}}>{t("Please fill in the required fields *")}</div>}
+           {fRequired && <div style={{color: "red"}}>{dictionary["createAds"][languageReducer]["contact"]["pleaseFillRequiredFields"]}</div>}
            <>
             <Button
               layout="link"

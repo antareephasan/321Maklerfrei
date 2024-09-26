@@ -4,37 +4,40 @@ import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import { EuroIcon } from "../../../icons";
 import { LimitedInput } from "./LimitedText";
-export const Data = ({ formData, setForm, navigation, 
-        isReviewMode, my_swiper, fRequired, setFRequired, defaultData}) => {
+import { dictionary } from "../../../resources/multiLanguages";
+export const Data = ({ formData, setForm, navigation,
+  isReviewMode, my_swiper, fRequired, setFRequired, defaultData }) => {
   const { go } = navigation;
   const { listingTitle, listingType, buildingType, rentPrice, listingPrice, contactType } =
     formData;
   function numberWithCommas(x) {
     x = x.replace(/\./g, "");
     var parts = x.toString().split(".");
-    parts[0]=parts[0].replace(/\B(?=(\d{3})+(?!\d))/g,".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     return parts.join(",");
-    }
+  }
   const { t } = useTranslation();
   useEffect(() => {
     let current = { listingTitle, listingType, buildingType, rentPrice, listingPrice, contactType };
     Object.assign(formData, defaultData, current);
   }, [buildingType]);
+
+  const languageReducer="de";
   return (
     <div className="container mx-auto px-4">
       <Label className="mt-4">
-        <span>{t("listing title")}:</span>
-        <span style={{color: "red"}}>*</span>
+        <span>{dictionary["createAds"][languageReducer]["data"]["listingTitle"]}:</span>
+        <span style={{ color: "red" }}>*</span>
         <LimitedInput
-        limit={100}
-        setForm={setForm}
-        value={listingTitle}
-        name="listingTitle"
-        t={t}
+          limit={100}
+          setForm={setForm}
+          value={listingTitle}
+          name="listingTitle"
+          t={t}
         />
       </Label>
       <Label className="lg:flex">
-        <span>{t("listing type")}:</span>
+        <span>{dictionary["createAds"][languageReducer]["data"]["listingType"]}:</span>
         <div className="ml-3 mt-3 sm:mt-0 sm:block">
           <Input
             readOnly={true}
@@ -44,7 +47,7 @@ export const Data = ({ formData, setForm, navigation,
             onClick={setForm}
             name="listingType"
           />
-          <span className="ml-2">{t("for sale")}</span>
+          <span className="ml-2">{dictionary["createAds"][languageReducer]["data"]["forSale"]}</span>
           <Input
             readOnly={true}
             className="ml-2"
@@ -54,11 +57,11 @@ export const Data = ({ formData, setForm, navigation,
             onClick={setForm}
             name="listingType"
           />
-          <span className="ml-2">{t("for rent")}</span>
+          <span className="ml-2">{dictionary["createAds"][languageReducer]["data"]["forRent"]}</span>
         </div>
       </Label>
       <Label className="mt-4">
-        <span>{t("building type")}:</span>
+        <span>{dictionary["createAds"][languageReducer]["data"]["buildingType"]}:</span>
         <Select
           className="mb-4 mt-1"
           label="Building Type"
@@ -79,8 +82,8 @@ export const Data = ({ formData, setForm, navigation,
       </Label>
       {listingType === "For Sale" && (
         <Label className="mt-4">
-          <span>{t("listing price")}:</span>
-          <span style={{color: "red"}}>*</span>
+          <span>{dictionary["createAds"][languageReducer]["data"]["listingPrice"]}:</span>
+          <span style={{ color: "red" }}>*</span>
           <div className="relative w-full focus-within:text-blue-400">
             <div className="absolute inset-y-0 right-0 flex items-center pr-3">
               <EuroIcon className="w-4 h-4" aria-hidden="true" />
@@ -88,11 +91,11 @@ export const Data = ({ formData, setForm, navigation,
             <Input
               className="mb-4 mt-1 p-2 pl-3 border border-solid border-gray-300 focus-within:text-gray-700"
               label="Listing Price"
-              placeholder={t("enter the price")}
+              placeholder={dictionary["createAds"][languageReducer]["data"]["enterThePrice"]}
               name="listingPrice"
               value={numberWithCommas(listingPrice)}
               onChange={setForm}
-              onKeyDown={(e)=> !/^\d+$/.test(e.key) && e.key !== 'Backspace' ? e.preventDefault() : true }
+              onKeyDown={(e) => !/^\d+$/.test(e.key) && e.key !== 'Backspace' ? e.preventDefault() : true}
               margin="normal"
               type="String"
               variant="outlined"
@@ -104,8 +107,8 @@ export const Data = ({ formData, setForm, navigation,
       )}
       {listingType === "For Rent" && (
         <Label className="mt-4">
-          <span>{t("rent price")}:</span>
-          <span style={{color: "red"}}>*</span>
+          <span>{dictionary["createAds"][languageReducer]["data"]["rentPrice"]}:</span>
+          <span style={{ color: "red" }}>*</span>
           <div className="relative w-full focus-within:text-blue-400">
             <div className="absolute inset-y-0 right-0 flex items-center pr-3">
               <EuroIcon className="w-4 h-4" aria-hidden="true" />
@@ -113,11 +116,11 @@ export const Data = ({ formData, setForm, navigation,
             <Input
               className="mb-4 mt-1 p-2 pl-3 border border-solid border-gray-300 focus-within:text-gray-700"
               label="Rent Price"
-              placeholder={t("enter rent price")}
+              placeholder={dictionary["createAds"][languageReducer]["data"]["enterRentPrice"]}
               name="rentPrice"
               value={numberWithCommas(rentPrice)}
               onChange={setForm}
-              onKeyDown={(e)=> !/^\d+$/.test(e.key) && e.key !== 'Backspace' ? e.preventDefault() : true }
+              onKeyDown={(e) => !/^\d+$/.test(e.key) && e.key !== 'Backspace' ? e.preventDefault() : true}
               margin="normal"
               type="String"
               variant="outlined"
@@ -128,7 +131,7 @@ export const Data = ({ formData, setForm, navigation,
         </Label>
       )}
       <Label className="lg:flex mb-4 mt-1">
-        <span>{t("Is it a private or business listing?")}</span>
+        <span>{dictionary["createAds"][languageReducer]["data"]["istItaPrivateOrBusinessListing"]}</span>
         <div className="ml-3 mt-3 sm:mt-0 sm:block">
           <Input
             readOnly={true}
@@ -138,7 +141,7 @@ export const Data = ({ formData, setForm, navigation,
             onClick={setForm}
             name="contactType"
           />
-          <span className="ml-2">{t("private person")}</span>
+          <span className="ml-2">{dictionary["createAds"][languageReducer]["data"]["privatePerson"]}</span>
           <Input
             readOnly={true}
             className="ml-2"
@@ -148,37 +151,37 @@ export const Data = ({ formData, setForm, navigation,
             onClick={setForm}
             name="contactType"
           />
-          <span className="ml-2">{t("business")}</span>
+          <span className="ml-2">{dictionary["createAds"][languageReducer]["data"]["business"]}</span>
         </div>
       </Label>
-        <>
-          {fRequired && <div style={{color: "red"}}>{t("Please fill in the required fields *")}</div>}
-          <Button
-            variant="contained"
-            fullwidth='true'
-            color="primary"
-            style={{ marginTop: "1rem" }}
-            onClick={() => {
-              if(listingType === "For Sale" && Number(listingPrice.replaceAll(".", "")) <= 50) {
-                setFRequired(true);
-                return;
-              }
-              if(listingType === "For Rent" && Number(rentPrice.replaceAll(".", "")) <= 50) {
-                setFRequired(true);
-                return;
-              }
-              if(listingTitle.length === 0){
-                setFRequired(true);
-                return;
-              }
-              setFRequired(false);
-              my_swiper.slideNext();
-              return navigation.next()
-            }}
-          >
-            {t("next")}
-          </Button>
-        </>
+      <>
+        {fRequired && <div style={{ color: "red" }}>{dictionary["createAds"][languageReducer]["data"]["pleaseFillInTheRequiredFields"]}</div>}
+        <Button
+          variant="contained"
+          fullwidth='true'
+          color="primary"
+          style={{ marginTop: "1rem" }}
+          onClick={() => {
+            if (listingType === "For Sale" && Number(listingPrice.replaceAll(".", "")) <= 50) {
+              setFRequired(true);
+              return;
+            }
+            if (listingType === "For Rent" && Number(rentPrice.replaceAll(".", "")) <= 50) {
+              setFRequired(true);
+              return;
+            }
+            if (listingTitle.length === 0) {
+              setFRequired(true);
+              return;
+            }
+            setFRequired(false);
+            my_swiper.slideNext();
+            return navigation.next()
+          }}
+        >
+          {dictionary["createAds"][languageReducer]["data"]["next"]}
+        </Button>
+      </>
     </div>
   );
 };

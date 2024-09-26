@@ -30,6 +30,7 @@ export const dictionary = {
         "With just one ad we publish your property automatically on all leading ones portals, and you save up to half.",
       startedButton: "LET’S GET STARTED",
       pricesButton: "See Prices",
+      dashboardButton: "Go to Dashboard"
     },
     de: {
       title: "Immobilie maklerfrei verkaufen und vermieten",
@@ -37,6 +38,7 @@ export const dictionary = {
         "Mit nur einer Anzeige veröffentlichen wir Ihre Immobilie automatisch auf allen führenden Portalen und Sie sparen dabei bis zur Hälfte.",
       startedButton: "Jetzt kostenlos registrieren",
       pricesButton: "Preise ansehen",
+      dashboardButton: "Zum Dashboard"
     },
   },
   working: {
@@ -307,6 +309,9 @@ export const dictionary = {
       month1: "1 Month",
       month2: "2 Month",
       month3: "3 Month",
+      packageTitle1: "Necessary visibility",
+      packageTitle2: "Our bestseller",
+      packageTitle3: "Up to 2x more inquiries",
       cardBtn: "REGISTRATION PAGE",
     },
     de: {
@@ -321,6 +326,9 @@ export const dictionary = {
       month1: "1 Monat",
       month2: "2 Monate",
       month3: "3 Monate",
+      packageTitle1: "Notwendige Sichtbarkeit",
+      packageTitle2: "Unser Bestseller",
+      packageTitle3: "Bis 2x mehr Anfragen",
       cardBtn: "Immobilie inserieren",
     },
   },
@@ -408,6 +416,18 @@ export const dictionary = {
       },
     },
   },
+  waiting: {
+    en: {
+      title: "What are you waiting for?",
+      description: "Click on the button and receive more inquiries for your property.",
+      advertiseBtn: "Advertise Property"
+    },
+    de: {
+      title: "Worauf wartest du noch?",
+      description: "Klicke auf den Button und erhalte mehr Anfragen für deine Immobilie.",
+      advertiseBtn: "Immobilie inserieren"
+    }
+  },
   footerHomepage: {
     en: {
       title: "Don't miss any information and promotions:",
@@ -438,4 +458,507 @@ export const dictionary = {
         "Wir sind eine unabhängige Plattform für die Veröffentlichung von Immobilienanzeigen. Wir sind nicht an eine bestimmte Immobilienplattform gebunden und stellen Immobilienanzeigen ausschließlich auf anderen Portalen ein.",
     },
   },
+
+
+  userDashboard: {
+    en: {
+      activeAds: "Active ads",
+      welcomeGreeting: "Welcome to 321maklerfrei",
+      noListingMessage: "You have not created any listings yet. Click on the blue button and create your first listing.",
+      createAdBtn: "Create Ad",
+      interactMessage: "Just click on the blue button to view, edit or add new images to your current listings."
+    },
+    de: {
+      activeAds: "Aktive Anzeigen",
+      welcomeGreeting: "herzlich Willkommen bei 321maklerfrei.",
+      noListingMessage: "Sie haben noch keine Einträge erstellt. Klicken Sie auf den blauen Button und erstellen Sie Ihren ersten Eintrag.",
+      createAdBtn: "Anzeige erstellen",
+      interactMessage: "Klicken Sie einfach auf die blaue Schaltfläche, um Ihre aktuellen Angebote anzuzeigen, zu bearbeiten oder neue Bilder hinzuzufügen."
+    }
+  },
+  createAds: {
+    en: {
+      title: "Create Ad",
+      data: {
+        listingTitle: "Ad title",
+        listingType: "Ad type",
+        forSale: "For sale",
+        forRent: "For rent",
+        buildingType: "Building type",
+        house: "House",
+        flat: "Flat",
+        land: "Land",
+        commercial: "Commercial",
+        investment: "Investment",
+        listingPrice: "Ad price",
+        enterThePrice: "Enter the price",
+        rentPrice: "Rent price",
+        enterRentPrice: "Enter rent price",
+        istItaPrivateOrBusinessListing: "Is it a private or business ad?",
+        privatePerson: "Private",
+        business: "Business",
+        pleaseFillInTheRequiredFields: "Please fill in the required fields *",
+        next: "Next",
+      },
+      details: {
+        amountOfCommission: "Amount of Commission (incl. Tax)",
+        enterAmountOfCommision: "Enter amount of commission",
+        energy: "Energy",
+        noEnergy: "No Energy",
+        energyPass: "Energy Pass",
+        enterEnergyPass: "Enter energy pass",
+        energyEfficiencyClass: "Energy Efficiency Class",
+        chooseAnOption: "Choose an option",
+        a: "A",
+        aplus: "A+",
+        b: "B",
+        c: "C",
+        d: "D",
+        e: "E",
+        f: "F",
+        g: "G",
+        h: "H",
+        energyPassCreationDate: "Energy Pass Creation Date",
+        energyPassCreationDateExample: "Enter energy pass creation date | example: z.B. 13.01.2012",
+        typeOfHeating: "Type of heating",
+        furnaceHeating: "Furnace heating",
+        centralHeating: "Central heating",
+        floorHeating: "Floor heating",
+        underfloorHeating: "Underfloor heating",
+        typeOfEnergyPass: "Type of energy pass",
+        consumptionPass: "Consumption pass",
+        requirePass: "Require pass",
+        energySource: "Energy Source",
+        oil: "Oil",
+        gas: "Gas",
+        geothermalEnergy: "Geothermal energy",
+        districtHeating: "District heating",
+        solar: "Solar",
+        woodPellets: "Wood pellets",
+        electricity: "Electricity",
+        wood: "Wood",
+        yearOfBuilding: "Year of building",
+        enterYearOfBuilding: "Enter year of building",
+        buildingPhase: "Building Phase",
+        noInformation: "No information",
+        completed: "Completed",
+        inPlanning: "In planning",
+        underConstruction: "Under construction",
+        additionalCostsWithoutHeating: "Additional costs without heating",
+        enterAdditionalCostsWithoutHeating: "Enter additional costs without heating",
+        heatingCost: "Heating cost",
+        enterHeatingCost: "Enter heating cost",
+        securityCost: "Security cost",
+        enterSecurityCost: "Enter security cost",
+        pleaseFillInRequiredFields: "Please fill in the required fields *",
+        back: "Back",
+        next: "Next",
+      },
+      contact: {
+        contactName: "Contact Name",
+        enterFirstName: "Enter first name",
+        enterLastName: "Enter last name",
+        hideName: "Hide name",
+        email: "E-mail",
+        enterEmail: "Enter e-mail",
+        phoneNumber: "Phone number",
+        pleaseProvideValidPhone: "Please Provide A Valid Phone Number!",
+        pleaseFillRequiredFields: "Please fill in the required fields *",
+        back: "Back",
+        next: "Next"
+      },
+      address: {
+        Address_of_the_listing: "Address of the listing",
+        street_and_number: "Street and Number",
+        enter_street_and_number: "Enter Street and Number",
+        zip: "Zip Code",
+        enter_zip_code: "Enter Zip Code",
+        city: "City",
+        enter_city: "Enter City",
+        hide_address: "Hide Address",
+        Please_fill_in_the_required_fields: "Please fill in the required fields *",
+        back: "Back",
+        next: "Next"
+      },
+      images: {
+        Saving_please_wait: "Saving please wait...",
+        Images: "Images",
+        Floorplans: "Floorplans",
+        back: "Back",
+        next: "Next",
+        Max_characters_on_every_field: "Max 3800 characters on every field",
+        Max_files: "Max 50 pictures / 10 floorplans / 20MB",
+        Hochladen_Bild: "Uploading Image",
+        Hochladen_Grundriss: "Uploading Floorplan"
+      }
+    },
+    de: {
+      title: "Anzeige erstellen",
+      data: {
+        listingTitle: "Anzeigentitel",
+        listingType: "Anzeigentyp",
+        forSale: "Zu verkaufen",
+        forRent: "Zu vermieten",
+        buildingType: "Gebäudetyp",
+        house: "Haus",
+        flat: "Wohnung",
+        land: "Grundstück",
+        commercial: "Gewerbe",
+        investment: "Investment",
+        listingPrice: "Anzeigenpreis",
+        enterThePrice: "Preis eingeben",
+        rentPrice: "Mietpreis",
+        enterRentPrice: "Mietpreis eingeben",
+        istItaPrivateOrBusinessListing: "Ist es eine private oder geschäftliche Anzeige?",
+        privatePerson: "Privat",
+        business: "Geschäftlich",
+        pleaseFillInTheRequiredFields: "Bitte füllen Sie die erforderlichen Felder aus *",
+        next: "Weiter",
+      },
+      details: {
+        amountOfCommission: "Provisionsbetrag (inkl. Steuer)",
+        enterAmountOfCommision: "Provisionsbetrag eingeben",
+        energy: "Energie",
+        noEnergy: "Keine Energie",
+        energyPass: "Energieausweis",
+        enterEnergyPass: "Energieausweis eingeben",
+        energyEfficiencyClass: "Energieeffizienzklasse",
+        chooseAnOption: "Wählen Sie eine Option",
+        a: "A",
+        aplus: "A+",
+        b: "B",
+        c: "C",
+        d: "D",
+        e: "E",
+        f: "F",
+        g: "G",
+        h: "H",
+        energyPassCreationDate: "Erstellungsdatum des Energieausweises",
+        energyPassCreationDateExample: "Energieausweis-Erstellungsdatum eingeben | Beispiel: z.B. 13.01.2012",
+        typeOfHeating: "Heizungsart",
+        furnaceHeating: "Ofenheizung",
+        centralHeating: "Zentralheizung",
+        floorHeating: "Fußbodenheizung",
+        underfloorHeating: "Unterfußbodenheizung",
+        typeOfEnergyPass: "Energieausweis-Typ",
+        consumptionPass: "Verbrauchsausweis",
+        requirePass: "Bedarfsausweis",
+        energySource: "Energiequelle",
+        oil: "Öl",
+        gas: "Gas",
+        geothermalEnergy: "Geothermie",
+        districtHeating: "Fernwärme",
+        solar: "Solar",
+        woodPellets: "Holzpellets",
+        electricity: "Strom",
+        wood: "Holz",
+        yearOfBuilding: "Baujahr",
+        enterYearOfBuilding: "Baujahr eingeben",
+        buildingPhase: "Bauphase",
+        noInformation: "Keine Information",
+        completed: "Fertiggestellt",
+        inPlanning: "In Planung",
+        underConstruction: "Im Bau",
+        additionalCostsWithoutHeating: "Nebenkosten ohne Heizung",
+        enterAdditionalCostsWithoutHeating: "Nebenkosten ohne Heizung eingeben",
+        heatingCost: "Heizkosten",
+        enterHeatingCost: "Heizkosten eingeben",
+        securityCost: "Kaution",
+        enterSecurityCost: "Kaution eingeben",
+        pleaseFillInRequiredFields: "Bitte füllen Sie die erforderlichen Felder aus *",
+        back: "Zurück",
+        next: "Weiter",
+      },
+      contact: {
+        contactName: "Kontaktname",
+        enterFirstName: "Vorname eingeben",
+        enterLastName: "Nachname eingeben",
+        hideName: "Name verbergen",
+        email: "E-Mail",
+        enterEmail: "E-Mail eingeben",
+        phoneNumber: "Telefonnummer",
+        pleaseProvideValidPhone: "Bitte geben Sie eine gültige Telefonnummer an!",
+        pleaseFillRequiredFields: "Bitte füllen Sie die erforderlichen Felder aus *",
+        back: "Zurück",
+        next: "Weiter"
+      },
+      address: {
+        Address_of_the_listing: "Adresse des Angebots",
+        street_and_number: "Straße und Nummer",
+        enter_street_and_number: "Geben Sie Straße und Nummer ein",
+        zip: "Postleitzahl",
+        enter_zip_code: "Postleitzahl eingeben",
+        city: "Stadt",
+        enter_city: "Stadt eingeben",
+        hide_address: "Adresse verbergen",
+        Please_fill_in_the_required_fields: "Bitte füllen Sie die erforderlichen Felder aus *",
+        back: "Zurück",
+        next: "Weiter"
+      },
+      images: {
+        Saving_please_wait: "Speichern, bitte warten...",
+        Images: "Bilder",
+        Floorplans: "Grundrisse",
+        back: "Zurück",
+        next: "Weiter",
+        Max_characters_on_every_field: "Maximal 3800 Zeichen pro Feld",
+        Max_files: "Maximal 50 Bilder / 10 Grundrisse / 20MB",
+        Hochladen_Bild: "Hochladen Bild",
+        Hochladen_Grundriss: "Hochladen Grundriss"
+      }
+    }
+  },
+
+
+  profile: {
+    en: {
+      settings: "Settings",
+      editProfile: "Edit profile",
+      userform: {
+        firstNameReq: 'First Name is required',
+        lastNameReq: 'Last Name is required',
+        emailReq: 'Email is required',
+        enterFirstName: "Enter first name",
+        enterLastName: "Enter last name",
+        enterEmail: "Enter email",
+        saveDetails: "Save Details",
+      },
+      passwordForm: {
+        oldPassword: "Old password",
+        typeNewPassword: "Type new password",
+        savePassword: "Save Password",
+      }
+    },
+    de: {
+      settings: "Einstellungen",
+      editProfile: "Profil bearbeiten",
+      userform: {
+        firstNameReq: "Vorname ist erforderlich",
+        lastNameReq: "Nachname ist erforderlich",
+        emailReq: "E-Mail ist erforderlich",
+        enterFirstName: "Vornamen eingeben",
+        enterLastName: "Nachnamen eingeben",
+        enterEmail: "E-Mail eingeben",
+        saveDetails: "Änderungen speichern",
+      },
+      passwordForm: {
+        oldPassword: "Altes Passwort",
+        typeNewPassword: "Neues Passwort eingeben",
+        savePassword: "Passwort speichern",
+      }
+
+    }
+  },
+
+  faq: {
+    en: {
+      title: "FAQ",
+      account: "Account",
+      listings: "Listings",
+      payment: "Payment",
+      others: "Others",
+      support: "Support",
+      contactHours: "Mon-Fri, 9 am to 6 pm",
+      directPhoneSupport: "Direct phone support",
+      callForFree: "Call us for free at",
+      questionsOrProblems: "Questions or problems?",
+      sendEmail: "Send us an email",
+      helloProblem: "Dear [Company], I am writing to you because I am having a problem with..."
+    },
+    de: {
+      title: "FAQ",
+      account: "Konto",
+      listings: "Angebote",
+      payment: "Zahlung",
+      others: "Sonstiges",
+      support: "Kundendienst",
+      contactHours: "Mo.-Fr. 9 bis 18 Uhr",
+      directPhoneSupport: "Direkter Telefonsupport",
+      callForFree: "Unverbindlich anrufen unter",
+      questionsOrProblems: "Fragen oder Probleme?",
+      sendEmail: "Sende uns eine Mail",
+      helloProblem: "Guten Tag, leider habe ich ein Problem mit..."
+    }
+
+  },
+
+  faqContent: {
+    en: {
+      account: {
+        title: "Account",
+        questions: [
+          {
+            question: "How can I change my password?",
+            answer: "To change your password, click on \"Settings\" on the left. Here you can enter and save a new password."
+          },
+          {
+            question: "How many accounts can I have?",
+            answer: "Everyone can create and use as many user accounts as they want. However, we recommend creating all ads in one user account."
+          },
+          {
+            question: "How can I turn off account notifications?",
+            answer: "To stop receiving emails, click on \"unsubscribe\" in one of the email links."
+          },
+          {
+            question: "How can I delete my account?",
+            answer: "To delete your account, please send us a short request to support@321maklerfrei.de."
+          }
+        ]
+      },
+      payment: {
+        title: "Payment",
+        questions: [
+          {
+            question: "How can I cancel my subscription?",
+            answer: "To cancel the automatic renewal, click on \"My properties\" and click on the \"Cancel subscription\" button and confirm it. The remaining term will then be displayed."
+          },
+          {
+            question: "What payment methods are available?",
+            answer: "Payment is possible with Paypal, credit card, and SEPA direct debit."
+          },
+          {
+            question: "Will the ad remain active even if the subscription is stopped?",
+            answer: "After the subscription has been stopped, the ad will expire after the remaining term. However, you can manually stop the ad at any time."
+          }
+        ]
+      },
+      listings: {
+        title: "Listings",
+        questions: [
+          {
+            question: "When will my ad be published on the portals?",
+            answer: "After the ad shows the status \"Active\", the data will be checked by us. This usually takes no more than an hour and then the property will be transferred to the portals."
+          },
+          {
+            question: "How do interested parties contact me?",
+            answer: "Inquiries from interested parties will be forwarded to your email."
+          },
+          {
+            question: "How can I change/edit my real estate ad?",
+            answer: "Real estate ads can be changed/edited at any time. Simply click on \"My properties\", enter the desired changes and click on \"Save\".\n\nHow quickly are the changes visible on the portals?\n\nOn Immowelt and Immonet, it can take up to 30 minutes for the changes to be visible. On Immobilienscout24 and Ebay Kleinanzeigen, the changes appear earlier."
+          },
+          {
+            question: "How many inquiries do I get for my property?",
+            answer: "This depends mainly on the location, price, and exposé. Our form and the type of ads are designed for maximum visibility."
+          },
+          {
+            question: "How can I pause the real estate ad?",
+            answer: "After the subscription has been stopped, the \"Pause ad\" button will appear. As soon as the status \"Inactive\" appears, the ad will be deactivated by us and will no longer appear on the portals."
+          },
+          {
+            question: "What personal data of mine is published on the portals?",
+            answer: "Only the necessary data about the property and you as the contact person will appear. If you click on the \"Do not show\" checkbox under an entry, the dataset will not be published."
+          },
+          {
+            question: "Do I have to specify the exact address of my house?",
+            answer: "For the optimal promotion of the property, it is advantageous to specify the exact address. However, you can click on the \"Do not show address\" checkbox and thus prevent the address from being published."
+          },
+          {
+            question: "How many pictures can I set in one ad?",
+            answer: "In the ad you can set 50 pictures, 15 floor plans and 1 PDF file. If you have less than 50 pictures and more than 15 floor plans, you can also upload the floor plans under the pictures. However, some portals show less than 50 pictures, for example, Ebay Kleinanzeigen only supports a maximum of 15 photos. We therefore recommend positioning the most important photos in the front."
+          }
+        ]
+      },
+      others: {
+        title: "Others",
+        questions: [
+          {
+            question: "How can you be cheaper than the portals themselves?",
+            answer: "Due to the large number of ads, we receive special conditions. We pass these on to you as a user."
+          }
+        ]
+      }
+    },
+    de: {
+      account: {
+        title: "Konto",
+        description: "Hier findest du die häufigsten Fragen und Probleme zu deinem Konto.",
+        questions: [
+          {
+            question: "Wie kann ich mein Passwort ändern?",
+            answer: "Um Ihr Passwort zu ändern, klicken Sie links auf \"Einstellungen\". Hier können Sie ein neues Passwort eingeben und speichern."
+          },
+          {
+            question: "Wie viele Konten darf ich haben?",
+            answer: "Jeder kann beliebig viele Nutzerkonten erstellen und nutzen. Wir empfehlen jedoch alle Anzeigen in einem Nutzerkonto zu erstellen."
+          },
+          {
+            question: "Wie kann ich die Kontobenachrichtigungen ausschalten?",
+            answer: "Um keine Mails mehr zu empfangen, klicken Sie in einem der E-Mail-Links auf \"abmelden\"."
+          },
+          {
+            question: "Wie kann ich mein Konto löschen?",
+            answer: "Um Ihr Konto zu löschen, senden Sie uns bitte eine kurze Anfrage an support@321maklerfrei.de."
+          }
+        ]
+      },
+      payment: {
+        title: "Zahlung",
+        description: "Hier findest du die häufigsten Fragen rund um das Thema Zahlung.",
+        questions: [
+          {
+            question: "Wie kann ich das Abonnement kündigen?",
+            answer: "Um die automatische Verlängerung zu kündigen, klicken Sie auf \"Meine Immobilien\" und klicken Sie auf den Button \"Abo kündigen\" und bestätigen Sie es. Anschließend wird die Restlaufzeit angezeigt."
+          },
+          {
+            question: "Welche Zahlungsarten gibt es?",
+            answer: "Die Bezahlung ist mit Paypal, Kreditkarte und SEPA-Lastschrift möglich."
+          },
+          {
+            question: "Bleibt auch bei gestopptem Abonnement die Anzeige aktiv?",
+            answer: "Nachdem das Abonnement gestoppt wurde, läuft die Anzeige nach der Restlaufzeit ab. Sie können die Anzeige jedoch jederzeit manuell stoppen."
+          }
+        ]
+      },
+      listings: {
+        title: "Immobilienanzeigen",
+        description: "Hier findest du die häufigsten Fragen zu deinen Immobilienanzeigen.",
+        questions: [
+          {
+            question: "Wann wird meine Anzeige auf den Portalen veröffentlicht?",
+            answer: "Nachdem die Anzeige den Status \"Aktiv\" anzeigt, werden die Daten von uns geprüft. Dies dauert in der Regel nicht länger als eine Stunde und schon wird die Immobilie auf die Portalen übertragen."
+          },
+          {
+            question: "Wie nehmen Interessenten Kontakt zu mir auf?",
+            answer: "Anfragen von Interessenten werden an Ihre E-Mail weitergeleitet."
+          },
+          {
+            question: "Wie kann ich meine Immobilienanzeige ändern / bearbeiten?",
+            answer: "Immobilienanzeigen können jederzeit geändert / bearbeitet werden. Klicken Sie einfach auf \"Meine Immobilien\", geben Sie die gewünschten Änderungen ein und klicken Sie auf \"Speichern\".\n\nWie schnell sind die Änderungen auf den Portalen sichtbar?\n\nAuf Immowelt und Immonet kann es bis zu 30 Minuten dauern, bis die Änderungen sichtbar sind. Immobilienscout24 und Ebay Kleinanzeigen erscheinen die Änderungen schon vorher."
+          },
+          {
+            question: "Wie viele Anfragen bekomme ich für meine Immobilie?",
+            answer: "Das hängt vor allem von der Lage, dem Preis und dem Exposé ab. Unser Formular und die Art der Anzeigen sind auf maximale Sichtbarkeit ausgerichtet."
+          },
+          {
+            question: "Wie kann ich die Immobilienanzeige pausieren?",
+            answer: "Nachdem das Abonnement gestoppt wurde, erscheint der Button \"Anzeige pausieren\". Sobald der Status \"Inaktiv\" erscheint, wird die Anzeige von uns deaktiviert und erscheint nicht mehr auf den Portalen."
+          },
+          {
+            question: "Welche persönlichen Daten von mir werden auf den Portalen veröffentlicht?",
+            answer: "Es erscheinen nur die notwendigsten Daten zu der Immobilie und Ihnen als Ansprechpartner. Wenn Sie das Häkchen \"Nicht anzeigen\" unter einer Angabe anklicken, wird der Datensatz nicht veröffentlicht."
+          },
+          {
+            question: "Muss ich die genaue Adresse meines Hauses angeben?",
+            answer: "Für die optimale Bewerbung des Objekts ist es von Vorteil die genaue Adresse anzugeben. Sie können aber das Häkchen \"Adresse nicht anzeigen\" anklicken und somit verhindern, dass die Adresse veröffentlicht wird."
+          },
+          {
+            question: "Wie viele Bilder kann ich in einer Anzeige einstellen?",
+            answer: "In der Anzeige können Sie 50 Bilder, 15 Grundrisse und 1 PDF-Datei einstellen. Sollten Sie weniger als 50 Bilder haben und mehr als 15 Grundrisse einstellen, können Sie die Grundrisse auch unter den Bildern hochladen. Manche Portale zeigen jedoch weniger als 50 Bilder an, eBay Kleinanzeigen unterstützt bspw. nur max. 15 Fotos.Wir empfehlen daher, die wichtigsten Fotos auf den vorderen Plätzen zu positionieren."
+          }
+        ]
+      },
+      others: {
+        title: "Sonstiges",
+        description: "Häufige Fragen, die zu keinem Thema passen, werden hier aufgelistet.",
+        questions: [
+          {
+            question: "Wie könnt ihr billiger sein, als die Portale selbst?",
+            answer: "Durch die große Anzahl an Anzeigen, erhalten wir spezielle Konditionen. Diese reichen wir an dich als Nutzer weiter."
+          }
+        ]
+      }
+    }
+  },
+
 };

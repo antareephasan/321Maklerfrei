@@ -15,6 +15,7 @@ import { Button, Badge, Card, CardBody } from "@windmill/react-ui";
 import { config } from "../../assets/config/config";
 import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet";
+import { dictionary } from "../../resources/multiLanguages";
 // import { PricingCardEnergy } from "../components/Cards/PricingCardEnergy";
 
 function SetTitleTag() {
@@ -30,7 +31,7 @@ const apiUrl = config.api.url;
 function Dashboard() {
   const { t } = useTranslation();
   // const { user } = useContext(AuthContext);
-  const user = { 
+  const user = {
     name: "Fullname",
     username: "username",
     email: "rayhan@example.com",
@@ -48,9 +49,9 @@ function Dashboard() {
   const history = useHistory();
   const [userLists, setUserLists] = useState([]);
 
-  const [valuation, setValuation ] = useState(false);
-  const [energy, setEnergyForm ] = useState(false);
-  
+  const [valuation, setValuation] = useState(false);
+  const [energy, setEnergyForm] = useState(false);
+
   const handlePush = () => {
     history.push("/app/create_ads");
   };
@@ -83,6 +84,7 @@ function Dashboard() {
   // }, [email]);
 
   console.log("user=========", user)
+  const languageReducer = "de";
   return (
     <>
       {!valuation && !energy &&
@@ -90,14 +92,14 @@ function Dashboard() {
           <div className="flex items-center">
             <SetTitleTag />
             <PageTitle className="mr-5">Home</PageTitle>
-            
+
           </div>
 
-             {/* <!-- Cards --> */}
+          {/* <!-- Cards --> */}
           <div className="block flex flex-wrap gap-4 mb-10">
-             <div className="md:w-5/12 sm:w-12"> 
+            <div className="md:w-5/12 sm:w-12">
               <div className="whitespace h-4"></div>
-              <InfoCard title={t("active listings")} value={activeListLength}>
+              <InfoCard title={dictionary["userDashboard"][languageReducer]["activeAds"]} value={activeListLength}>
                 <RoundIcon
                   icon={HomeIcon}
                   iconColorClass="text-blue-500 dark:text-blue-100"
@@ -106,9 +108,9 @@ function Dashboard() {
                 />
               </InfoCard>
             </div>
-            <div className="md:w-5/12 sm:w-12"> 
+            <div className="md:w-5/12 sm:w-12">
               <div className="whitespace h-4"></div>
-              <InfoCard title={t("active listings")} value={activeListLength}>
+              <InfoCard title={dictionary["userDashboard"][languageReducer]["activeAds"]} value={activeListLength}>
                 <RoundIcon
                   icon={HomeIcon}
                   iconColorClass="text-blue-500 dark:text-blue-100"
@@ -117,8 +119,8 @@ function Dashboard() {
                 />
               </InfoCard>
             </div>
-            </div>
-            
+          </div>
+
           {/* Welcome Card */}
           <div className="flex flex-wrap gap-4 items-start">
             {userLists.length >= 1 ? (
@@ -126,15 +128,13 @@ function Dashboard() {
                 <CardBody className="mt-0 pt-0 pr-4 md:pr-0">
                   <div>
                     <div className="text-gray-600 dark:text-gray-400 pt-4">
-                      
+
                       <p className="mb-6 font-semibold text-gray-600 dark:text-gray-300">
-                        Hey {user?.name} 👋, {t("welcome greeting")}
+                        Hey {user?.name} 👋, {dictionary["userDashboard"][languageReducer]["welcomeGreeting"]}
                       </p>
                       <p>
                         {" "}
-                        {t(
-                          "Just click on the blue button to view, edit or add new images to your current listings."
-                        )}{" "}
+                        {dictionary["userDashboard"][languageReducer]["interactMessage"]}{" "}
                       </p>
                       <Button onClick={viewListings} className="mt-6">
                         {t("view listings")}
@@ -153,12 +153,10 @@ function Dashboard() {
                           <p className="mb-6 font-semibold text-gray-600 dark:text-gray-300">
                             Hey {user?.name} 👋, {t("welcome greeting")}
                           </p>{" "}
-                          {t(
-                            "You have not created any listings yet. Click on the blue button and create your first listing."
-                          )}{" "}
+                          {dictionary["userDashboard"][languageReducer]["noListingMessage"]}{" "}
                         </div>
                         <Button onClick={handlePush} className="mt-6">
-                          {t("create listing")}
+                          { dictionary["userDashboard"][languageReducer]["createAdBtn"] }
                         </Button>
                       </div>
                       {/* <div className="block md:hidden mt-8">
@@ -183,11 +181,11 @@ function Dashboard() {
                 </CardBody>
               </Card>
             )}
-          
-           
+
+
           </div>
-         
-        </>                        
+
+        </>
       }
       {/* {valuation &&
         <>

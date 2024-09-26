@@ -10,6 +10,7 @@ import axios from 'axios';
 import { config } from '../../../assets/config/config';
 import { AuthContext } from '../../../context/AuthContext';
 import { LinearProgress, Typography } from '@mui/material';
+import { dictionary } from '../../../resources/multiLanguages';
 
 const apiUrl = config.api.url;
 
@@ -59,11 +60,12 @@ export const Images = (props) => {
 
   const { t } = useTranslation();
 
+  const languageReducer = "de";
   useEffect(() => {
     if (enabled) {
       closeSnackbar();
     } else {
-      openSnackbar(t('Saving please wait...'));
+      openSnackbar(dictionary["createAds"][languageReducer]["images"]["Saving_please_wait"]);
     }
   }, [enabled, openSnackbar, closeSnackbar]);
 
@@ -168,8 +170,14 @@ export const Images = (props) => {
             alt={`Image ${currentImgIdx}`}
           />
           <Typography variant='h6'>
-            Hochladen{' '}
-            {currentImgForm === 'imgMultiStepForm' ? 'Bild ' : 'Grundriss '}
+            
+            {dictionary["createAds"][languageReducer]["images"]["uploading_image"]}{' '}
+
+            {currentImgForm === 'imgMultiStepForm'
+
+              ? dictionary["createAds"][languageReducer]["images"]["uploading_image"]
+
+              : dictionary["createAds"][languageReducer]["images"]["uploading_floorplan"]}{' '}
             {currentImgIdx + 1} / {props[currentImgForm].selectedType.length}
           </Typography>
           <LinearProgress variant='determinate' value={progressValue} />
@@ -180,13 +188,13 @@ export const Images = (props) => {
             className='flex-wrap'
             MultiStepForm={imgMultiStepForm}
             renderPhotos={() => renderType(imgMultiStepForm, t)}
-            title={t('Images')}
+            title={dictionary["createAds"][languageReducer]["images"]["images"]}
           />
           <ImageType
             className='flex-wrap'
             MultiStepForm={planMultiStepForm}
             renderPhotos={() => renderType(planMultiStepForm, t)}
-            title={t('Floorplans')}
+            title={dictionary["createAds"][languageReducer]["images"]["Floorplans"]}
           />
         </div>
       )}
@@ -199,12 +207,12 @@ export const Images = (props) => {
             <>
               {maxCharacters && (
                 <div style={{ color: 'red' }}>
-                  Max 3800 characters on every field
+                  {dictionary["createAds"][languageReducer]["images"]["Max_characters_on_every_field"]}
                 </div>
               )}
               {maxFiles && (
                 <div style={{ color: 'red' }}>
-                  Max 50 pictures / 10 floorplans / 20MB
+                  {dictionary["createAds"][languageReducer]["images"]["Max_files"]}
                 </div>
               )}
               <Button
@@ -217,7 +225,7 @@ export const Images = (props) => {
                   return navigation.previous();
                 }}
               >
-                {t('back')}
+                {dictionary["createAds"][languageReducer]["images"]["back"]}
               </Button>
               <Button
                 variant='contained'
@@ -226,8 +234,8 @@ export const Images = (props) => {
                 style={{ marginTop: '1rem' }}
                 onClick={handleNext}
               >
-                {t('next')}
-              </Button>
+                {dictionary["createAds"][languageReducer]["images"]["next"]}
+                </Button>
             </>
           </div>
         </>

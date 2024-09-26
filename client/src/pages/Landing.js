@@ -293,25 +293,30 @@ function Landing() {
 
                 <div className="flex flex-col justify-center px-4 lg:px-0">
                   <p className="mb-4 mt-10 leading-36 text-3xl md:text-5xl font-bold text-white">
-                    Immobilie maklerfrei verkaufen und vermieten
+                    {dictionary["hero"][languageReducer]["title"]}
                   </p>
                   <p className="md:mt-2 mb-8 lg:w-5/6 text-md text-white">
-                    Mit nur einer Anzeige veroffentlichen wir Ihre Immobilie automatisch auf allen fuhrenden Potalen und Sie sparen dabei bis zur Halfte.
+                    {dictionary["prices"][languageReducer]["description"]}
                   </p>
                   <div className="flex flex-wrap md:flex-nowrap gap-4 justify-start items-end">
                     {!user && (
                       <Link to="/auth/create-account">
-                        <Button size="larger" className="rounded-2xl">JETZT KOSTENLOS REGISTRIEREN</Button>
+                        <Button size="larger" className="rounded-2xl">
+                          {dictionary["hero"][languageReducer]["startedButton"]}
+                        </Button>
                       </Link>
                     )}
                     {user && (
                       <Link to="/app">
-                        <Button size="larger" className="rounded-2xl">Zum Dashboard</Button>
+                        <Button size="larger" className="rounded-2xl">
+                          {dictionary["hero"][languageReducer]["dashboardButton"]}
+                        </Button>
                       </Link>
                     )}
                     <HashLink smooth to="/landing/#Preise">
                       <Button className="bg-gray-100 mt-2 md:mt-0 rounded-2xl" layout="link" size="regular">
-                        Preise ansehen
+                        {dictionary["hero"][languageReducer]["pricesButton"]}
+
                       </Button>
                     </HashLink>
                   </div>
@@ -364,31 +369,31 @@ function Landing() {
               id="Ablauf"
               className="pt-10 text-2xl lg:text-3xl text-center md:text-4xl font-bold text-gray-700"
             >
-              So funktioniert 321maklerfrei.de
+              {dictionary["working"][languageReducer]["title"]}
             </h2>
             <p className="mt-4 text-base lg:text-xl text-center text-gray-600 px-5">
-              In drei einfachen Schritten konnen Sie unsere Dienste in Anspruch nehmen. Wir geben immer unser Bestes, um unseren Benutzern ein gutes Erlebnis zu bieten.
+              {dictionary["working"][languageReducer]["description"]}
             </p>
 
             <div className="flex justify-center items-center py-20">
 
               <div className="flex flex-col xl:flex-row gap-2 lg:gap-5 xl:gap-10 justify-between items-center w-full md:w-11/12 lg:w-3/4 px-5 lg:px-0">
                 <StepCard
-                  header="Schritt 1"
-                  title="Registrieren"
-                  description="Estrellen Sie ein kostenloses Nutzerkonto auf 321maklerfrei.de mit Ihrer E-Mail-Adresse und einem Passwort."
+                  header={dictionary["working"][languageReducer]["tile1"]["title"]}
+                  title={dictionary["working"][languageReducer]["tile1"]["subtitle"]}
+                  description={dictionary["working"][languageReducer]["tile1"]["description"]}
                 />
                 <NextStepIcon className="fill-current text-blue-400 w-20 h-20 xl:w-40 xl:h-40 transform rotate-90 xl:rotate-0" />
                 <StepCard
-                  header="Schritt 2"
-                  title="Immobilienanzeige erstellen"
-                  description="Geben Sie die Objektdaten und Texte ein, laden Sie Bilder hoch. Sie können die Informationen jederzeit bearbeiten."
+                  header={dictionary["working"][languageReducer]["tile2"]["title"]}
+                  title={dictionary["working"][languageReducer]["tile2"]["subtitle"]}
+                  description={dictionary["working"][languageReducer]["tile2"]["description"]}
                 />
                 <NextStepIcon className="fill-current text-blue-400 w-20 h-20 xl:w-40 xl:h-40 transform rotate-90 xl:rotate-0" />
                 <StepCard
-                  header="Schritt 3"
-                  title="Laufzeit und Portale wahen"
-                  description="Wählen Sie die Laufzeit und die Portale Ihrer Wahl aus, auf denen Ihre Immobilie veröffentlicht werden soll. Kein Abo, keine automatische Verlängerung!"
+                  header={dictionary["working"][languageReducer]["tile2"]["title"]}
+                  title={dictionary["working"][languageReducer]["tile3"]["subtitle"]}
+                  description={dictionary["working"][languageReducer]["tile3"]["description"]}
                 />
               </div>
             </div>
@@ -506,10 +511,10 @@ function Landing() {
         {/* Reviews  or Rezensionen*/}
         <section id="Rezensionen" className="py-8 md:py-16 bg-gray-50">
           <h2 className="text-3xl text-center md:text-4xl font-bold text-gray-700">
-            Was sagen bisherige Kunden?
+            {dictionary["testimonials"][languageReducer]["title"]}
           </h2>
           <p className="my-4 text-xl text-center text-gray-600">
-            Kunden berichten:
+            {dictionary["testimonials"][languageReducer]["description"]}
           </p>
 
           <div className="w-full md:w-2/3 mx-auto">
@@ -521,10 +526,11 @@ function Landing() {
         <section id="Preise" className="py-8 md:py-16 bg-gray-50">
           <div className="max-w-4xl text-center justify-content-center mx-auto">
             <h1 className="text-3xl md:text-4xl font-bold text-gray-700">
-              Unsere Preise
+              {dictionary["prices"][languageReducer]["title"]}
+
             </h1>
             <p className="my-4 text-xl text-gray-600">
-              Alle Anzeigen sind jederzeit kündbar.
+              {dictionary["prices"][languageReducer]["description"]}
             </p>
 
             <PricingSection />
@@ -674,10 +680,10 @@ function Landing() {
         {/* What are you waiting for? */}
         <SectionCenteredHeader>
           <h2 className="text-3xl md:text-4xl font-semibold mt-8 mb-2">
-            Worauf wartest du noch?
+            {dictionary["waiting"][languageReducer]["title"]}
           </h2>
           <p className="text-gray-50 text-center text-md">
-            Klicke auf den Button und erhalte mehr Anfragen für deine Immobilie.
+            {dictionary["waiting"][languageReducer]["description"]}
           </p>
           <div className="mt-8">
             <Link to="/auth/create-account">

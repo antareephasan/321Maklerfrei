@@ -6,6 +6,7 @@ import BuildingTypeLand from "./conditionalFormElements/BuildingTypeLand";
 import BuildingTypeCommercial from "./conditionalFormElements/BuildingTypeCommercial";
 import BuildingTypeInvestment from "./conditionalFormElements/BuildingTypeInvestment";
 import { useTranslation } from "react-i18next";
+import { dictionary } from "../../../resources/multiLanguages";
 
 export const Details = ({ formData, setForm, navigation, isReviewMode,
    my_swiper, fRequired, setFRequired,
@@ -31,6 +32,7 @@ export const Details = ({ formData, setForm, navigation, isReviewMode,
   } = formData;
   const buildingTypeProps = { formData, setForm };
   const { t } = useTranslation();
+  const languageReducer = "de";
   return (
     <div className="container mx-auto px-4">
       {buildingType === "House" && <BuildingTypeHouse {...buildingTypeProps} />}
@@ -43,12 +45,12 @@ export const Details = ({ formData, setForm, navigation, isReviewMode,
         <BuildingTypeInvestment {...buildingTypeProps} />
       )}
       {contactType === "business" && <Label className="mt-4">
-        <span>{t("Amount of Commission (incl. Tax)")}:</span>
+        <span>{dictionary["createAds"][languageReducer]["details"]["amountOfCommission"]}:</span>
         <Input
           type="text"
           className="mb-4 mt-1"
           label="Commission"
-          placeholder={t("Enter amount of commission")}
+          placeholder={dictionary["createAds"][languageReducer]["details"]["enterAmountOfCommision"]}
           name="commission"
           value={commission}
           onChange={setForm}
@@ -59,7 +61,7 @@ export const Details = ({ formData, setForm, navigation, isReviewMode,
         />
       </Label>}
       <Label className="lg:flex">
-        <span>{t("Energy")}:</span>
+        <span>{dictionary["createAds"][languageReducer]["details"]["energy"]}:</span>
         <div className="ml-3 mt-3 sm:mt-0 block md:flex">
           <div className="block md:flex items-center">
             <Input
@@ -75,7 +77,7 @@ export const Details = ({ formData, setForm, navigation, isReviewMode,
               onChange={setForm}
               name="energy"
             />
-            <span className="ml-2">{t("Energy")}</span>
+            <span className="ml-2">{dictionary["createAds"][languageReducer]["details"]["energy"]}</span>
           </div>
           <div className="block md:flex md:mt-0 mt-1 items-center">
             <Input
@@ -92,7 +94,7 @@ export const Details = ({ formData, setForm, navigation, isReviewMode,
               onChange={setForm}
               name="energy"
             />
-            <span className="ml-2">{t("No Energy")}</span>
+            <span className="ml-2">{dictionary["createAds"][languageReducer]["details"]["noEnergy"]}</span>
           </div>
         </div>
       </Label>
@@ -100,13 +102,13 @@ export const Details = ({ formData, setForm, navigation, isReviewMode,
         energy &&
         <>
           <Label className="mt-4">
-            <span>{t("energy pass")}:</span>
+            <span>{dictionary["createAds"][languageReducer]["details"]["energyPass"]}:</span>
             <span style={{color: "red"}}>*</span>
             <Input
               type="number"
               className="mb-4 mt-1"
               label="Energy Pass"
-              placeholder={t("enter energy pass")}
+              placeholder={dictionary["createAds"][languageReducer]["details"]["enterEnergyPass"]}
               name="energyPass"             
               value={energyPass}
               onChange={setForm}
@@ -117,7 +119,7 @@ export const Details = ({ formData, setForm, navigation, isReviewMode,
             />
           </Label>
           <Label className="mt-4">
-            <span>{t("Energy Efficiency Class")}:</span>
+            <span>{dictionary["createAds"][languageReducer]["details"]["energyEfficiencyClass"]}:</span>
             <span style={{color: "red"}}>*</span>
             <Select
               className="mb-4 mt-1"
@@ -131,20 +133,20 @@ export const Details = ({ formData, setForm, navigation, isReviewMode,
               fullwidth='true'
               readOnly={true}
             >
-              <option value="00">{t("Choose an option")}</option>
-              <option value="01">{t("A")}</option>
-              <option value="02">{t("A+")}</option>
-              <option value="03">{t("B")}</option>
-              <option value="04">{t("C")}</option>
-              <option value="05">{t("D")}</option>
-              <option value="06">{t("E")}</option>
-              <option value="07">{t("F")}</option>
-              <option value="08">{t("G")}</option>
-              <option value="09">{t("H")}</option>
+              <option value="00">{dictionary["createAds"][languageReducer]["details"]["chooseAnOption"]}</option>
+              <option value="01">{dictionary["createAds"][languageReducer]["details"]["a"]}</option>
+              <option value="02">{dictionary["createAds"][languageReducer]["details"]["aplus"]}</option>
+              <option value="03">{dictionary["createAds"][languageReducer]["details"]["b"]}</option>
+              <option value="04">{dictionary["createAds"][languageReducer]["details"]["c"]}</option>
+              <option value="05">{dictionary["createAds"][languageReducer]["details"]["d"]}</option>
+              <option value="06">{dictionary["createAds"][languageReducer]["details"]["e"]}</option>
+              <option value="07">{dictionary["createAds"][languageReducer]["details"]["f"]}</option>
+              <option value="08">{dictionary["createAds"][languageReducer]["details"]["g"]}</option>
+              <option value="09">{dictionary["createAds"][languageReducer]["details"]["h"]}</option>
             </Select>
           </Label>
           <Label className="mt-4">
-            <span>{t("energy Pass Creation Date")}:</span>
+            <span>{dictionary["createAds"][languageReducer]["details"]["energyPassCreationDate"]}:</span>
             <span style={{ color: "red" }}>* </span>
             {fRequired && 
             <span style={{ color: "red" }}>{t("(dd.mm.yyyy)")}</span>
@@ -152,8 +154,8 @@ export const Details = ({ formData, setForm, navigation, isReviewMode,
             <Input
               type="text"
               className="mb-4 mt-1"
-              label="energy Pass Creation Date"
-              placeholder={t("enter energy pass creation date | exemple: z.B. 13.01.2012")}
+              label="Energy Pass Creation Date"
+              placeholder={dictionary["createAds"][languageReducer]["details"]["energyPassCreationDateExample"]}
               name="energyPassCreationDate"
               value={energyPassCreationDate}
               onChange={setForm}
@@ -164,7 +166,7 @@ export const Details = ({ formData, setForm, navigation, isReviewMode,
             />
           </Label>
           <Label className="mt-4">
-            <span>{t("type of heating")}:</span>
+            <span>{dictionary["createAds"][languageReducer]["details"]["typeOfHeating"]}:</span>
             <span style={{color: "red"}}>*</span>
             <Select
               className="mb-4 mt-1"
@@ -178,15 +180,15 @@ export const Details = ({ formData, setForm, navigation, isReviewMode,
               fullwidth='true'
               readOnly={true}
             >
-              <option value="">{t("Choose an option")}</option>
-              <option value="02">{t("Furnace heating")}</option>
-              <option value="03">{t("Central heating")}</option>
-              <option value="01">{t("Floor heating")}</option>
-              <option value="FUS">{t("Underfloor heating")}</option>
+              <option value="">{dictionary["createAds"][languageReducer]["details"]["chooseAnOption"]}</option>
+              <option value="02">{dictionary["createAds"][languageReducer]["details"]["furnaceHeating"]}</option>
+              <option value="03">{dictionary["createAds"][languageReducer]["details"]["centralHeating"]}</option>
+              <option value="01">{dictionary["createAds"][languageReducer]["details"]["floorHeating"]}</option>
+              <option value="FUS">{dictionary["createAds"][languageReducer]["details"]["underfloorHeating"]}</option>
             </Select>
           </Label>
           <Label className="mt-4">
-            <span>{t("type of energypass")}</span>
+            <span>{dictionary["createAds"][languageReducer]["details"]["typeOfEnergyPass"]}</span>
             <span style={{color: "red"}}>*</span>
             <Select
               className="mb-4 mt-1"
@@ -200,15 +202,15 @@ export const Details = ({ formData, setForm, navigation, isReviewMode,
               fullwidth='true'
               readOnly={true}
             >
-              <option value="1">{t("Choose an option")}</option>
-              <option value="3">{t("consumption pass")}</option>
-              <option value="2">{t("require pass")}</option>
+              <option value="1">{dictionary["createAds"][languageReducer]["details"]["chooseAnOption"]}</option>
+              <option value="3">{dictionary["createAds"][languageReducer]["details"]["consumptionPass"]}</option>
+              <option value="2">{dictionary["createAds"][languageReducer]["details"]["requirePass"]}</option>
             </Select>
           </Label>
         </>
       }
       <Label className="mt-4">
-        <span>{t("Energy Source")}:</span>
+        <span>{dictionary["createAds"][languageReducer]["details"]["energySource"]}:</span>
         <Select
           className="mb-4 mt-1"
           label="Energy Source"
@@ -221,29 +223,30 @@ export const Details = ({ formData, setForm, navigation, isReviewMode,
           fullwidth='true'
           readOnly={true}
         > 
-          <option value="">{t("Choose an option")}</option>
-          <option value="ol">{t("oil")}</option>
-          <option value="ga">{t("Gas")}</option>
-          <option value="er">{t("Geothermal energy")}</option>
-          <option value="fe">{t("District heating")}</option>
-          <option value="so">{t("Solar")}</option>
-          <option value="HO2">{t("Wood pellets")}</option>
-          <option value="st">{t("Strom")}</option>
+          <option value="">{dictionary["createAds"][languageReducer]["details"]["choose"]}</option>
+
+          <option value="ol">{dictionary["createAds"][languageReducer]["details"]["oil"]}</option>
+          <option value="ga">{dictionary["createAds"][languageReducer]["details"]["gas"]}</option>
+          <option value="er">{dictionary["createAds"][languageReducer]["details"]["geothermalEnergy"]}</option>
+          <option value="fe">{dictionary["createAds"][languageReducer]["details"]["districtHeating"]}</option>
+          <option value="so">{dictionary["createAds"][languageReducer]["details"]["solar"]}</option>
+          <option value="HO2">{dictionary["createAds"][languageReducer]["details"]["woodPellets"]}</option>
+          <option value="st">{dictionary["createAds"][languageReducer]["details"]["electricity"]}</option>
           <option value="ko">{t("money")}</option>
-          <option value="HO1">{t("wood")}</option>
+          <option value="HO1">{dictionary["createAds"][languageReducer]["details"]["wood"]}</option>
         </Select>
       </Label>
       {buildingType !== 'Land' &&
       <Label className="mt-4">
         <span>
-          {t("year of building")}:
+          {dictionary["createAds"][languageReducer]["details"]["yearOfBuilding"]}:
           <span style={{color: "red"}}>*</span>
         </span>
         <Input
           type="number"
           className="mb-4 mt-1"
           label="Year Of Building"
-          placeholder={t("enter year of building")}
+          placeholder={dictionary["createAds"][languageReducer]["details"]["enterYearOfBuilding"]}
           name="yearOfBuilding"
           value={yearOfBuilding}
           onChange={setForm}
@@ -256,7 +259,7 @@ export const Details = ({ formData, setForm, navigation, isReviewMode,
       {buildingType === 'House' &&
           <Label className="mt-4">
             <span>
-              {t("Building Phase")}:
+              {dictionary["createAds"][languageReducer]["details"]["buildingPhase"]}:
               <span style={{color: "red"}}>*</span>
             </span>
             <Select
@@ -270,11 +273,11 @@ export const Details = ({ formData, setForm, navigation, isReviewMode,
               fullwidth='true'
               readOnly={true}
             > 
-              <option value="">{t("Choose an option")}</option>
-              <option value="no_information">{t("No information")}</option>
-              <option value="completed">{t("Completed")}</option>
-              <option value="in_planning">{t("In planning")}</option>
-              <option value="under_construction">{t("Under construction")}</option>
+              <option value="">{dictionary["createAds"][languageReducer]["details"]["chooseAnOption"]}</option>
+              <option value="no_information">{dictionary["createAds"][languageReducer]["details"]["noInformation"]}</option>
+              <option value="completed">{dictionary["createAds"][languageReducer]["details"]["completed"]}</option>
+              <option value="in_planning">{dictionary["createAds"][languageReducer]["details"]["inPlanning"]}</option>
+              <option value="under_construction">{dictionary["createAds"][languageReducer]["details"]["underConstruction"]}</option>
             </Select>
           </Label>
       }
@@ -282,12 +285,12 @@ export const Details = ({ formData, setForm, navigation, isReviewMode,
       {listingType === "For Rent" && (
         <div>
           <Label className="mt-4">
-            <span>{t("additional costs without heating")}</span>
+            <span>{dictionary["createAds"][languageReducer]["details"]["additionalCostsWithoutHeating"]}</span>
             <Input
               type="text"
               className="mb-4 mt-1"
               label="Additional Cost"
-              placeholder={t("enter additional costs without heating")}
+              placeholder={dictionary["createAds"][languageReducer]["details"]["enterAdditionalCostsWithoutHeating"]}
               name="additionalCost"
               value={additionalCost}
               onChange={setForm}
@@ -298,12 +301,12 @@ export const Details = ({ formData, setForm, navigation, isReviewMode,
             />
           </Label>
           <Label className="mt-4">
-            <span>{t("heating cost")}</span>
+            <span>{dictionary["createAds"][languageReducer]["details"]["heatingCost"]}</span>
             <Input
               type="text"
               className="mb-4 mt-1"
               label="Heating Cost in Details"
-              placeholder={t("enter heating cost")}
+              placeholder={dictionary["createAds"][languageReducer]["details"]["enterHeatingCost"]}
               name="heatingCostinDetails"
               value={heatingCostinDetails}
               onChange={setForm}
@@ -314,12 +317,12 @@ export const Details = ({ formData, setForm, navigation, isReviewMode,
             />
           </Label>
           <Label className="mt-4">
-            <span>{t("security cost")}</span>
+            <span>{dictionary["createAds"][languageReducer]["details"]["securityCost"]}</span>
             <Input
               type="number"
               className="mb-4 mt-1"
               label="Secuirity Cost"
-              placeholder={t("enter security cost")}
+              placeholder={dictionary["createAds"][languageReducer]["details"]["enterSecurityCost"]}
               name="secuirityCost"
               value={secuirityCost}
               onChange={setForm}
@@ -332,7 +335,7 @@ export const Details = ({ formData, setForm, navigation, isReviewMode,
         </div>
       )}
         <>
-          {fRequired ? <div style={{color: "red"}}>{t("Please fill in the required fields *")}</div> : false}
+          {fRequired ? <div style={{color: "red"}}>{dictionary["createAds"][languageReducer]["details"]["pleaseFillInRequiredFields"]}</div> : false}
           <>
             <Button
               layout="link"
@@ -344,7 +347,7 @@ export const Details = ({ formData, setForm, navigation, isReviewMode,
                 return navigation.previous()
               }}
             >
-              {t("back")}
+              {dictionary["createAds"][languageReducer]["details"]["back"]}
             </Button>
             <Button
               variant="contained"
@@ -422,7 +425,7 @@ export const Details = ({ formData, setForm, navigation, isReviewMode,
                 return navigation.next()
               }}
             >
-              {t("next")}
+              {dictionary["createAds"][languageReducer]["details"]["next"]}
             </Button>
           </>
         </>

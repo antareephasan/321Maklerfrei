@@ -6,6 +6,7 @@ import UpdateUserForm from '../components/Forms/UpdateUserForm'
 import UpdatePasswordForm from '../components/Forms/UpdatePasswordForm'
 import { AuthContext } from '../context/AuthContext'
 import { Helmet } from "react-helmet";
+import { dictionary } from '../resources/multiLanguages'
 
 function SetTitleTag () {
   return (
@@ -18,16 +19,17 @@ function SetTitleTag () {
 function Profile() {
   const { user } = useContext(AuthContext)
   const { t } = useTranslation();
+  const languageReducer = "de";
 
   return (
     <>
       <SetTitleTag />
-      <PageTitle>{t("settings")}</PageTitle>
+      <PageTitle>{dictionary["profile"][languageReducer]["settings"]}</PageTitle>
      
 
       <div className='flex flex-wrap gap-4'>
       <div className="w-full md:w-5/12 p-6 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-      <SectionTitle>{t("edit profile")}</SectionTitle>
+      <SectionTitle>{dictionary["profile"][languageReducer]["editProfile"]}</SectionTitle>
 
         <UpdateUserForm m_user={user}/>
       </div>

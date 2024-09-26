@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PriceCard from '../Cards/PriceCard'
+import { dictionary } from '../../resources/multiLanguages';
 
 const PricingCards = ({
   type,
@@ -111,10 +112,17 @@ const PricingCards = ({
     ]
   };
 
+  const languageReducer = "de";
+
   const [basicCardPrice, setBasicCardPrice] = useState();
   const [mediumCardPrice, setMediumCardPrice] = useState();
   const [premiumCardPrice, setPremiumCardPrice] = useState();
-  const [month, setMonth] = useState(time === "monate1" ? "1" : "3");
+  const [month, setMonth] = useState(time === "monate1"
+    ? dictionary["prices"][languageReducer]["month1"]
+    : time === "monate2"
+      ? dictionary["prices"][languageReducer]["month2"]
+      : dictionary["prices"][languageReducer]["month3"]
+  );
 
 
   useEffect(() => {
@@ -126,25 +134,28 @@ const PricingCards = ({
   return (
     <div className="md:flex mx-auto block md:w-full gap-4 justify-center px-5">
       <PriceCard
-        packageTitle={"Notwendige Sichtbarkeit"}
-        plan={"BASIC"}
+        packageTitle={dictionary["prices"][languageReducer]["packageTitle1"]}
+        plan={dictionary["prices"][languageReducer]["mode1"]}
         price={basicCardPrice}
         month={month}
         options={optionsDictionary.BASIC}
+        highlight={false}
       />
       <PriceCard
-        packageTitle={"Unser Bestseller"}
-        plan={"MEDIUM"}
+        packageTitle={dictionary["prices"][languageReducer]["packageTitle2"]}
+        plan={dictionary["prices"][languageReducer]["mode2"]}
         price={mediumCardPrice}
         month={month}
         options={optionsDictionary.MEDIUM}
+        highlight={true}
       />
       <PriceCard
-        packageTitle={"Bis 2x mehr Anfragen"}
-        plan={"PREMIUM"}
+        packageTitle={dictionary["prices"][languageReducer]["packageTitle3"]}
+        plan={dictionary["prices"][languageReducer]["mode3"]}
         price={premiumCardPrice}
         month={month}
         options={optionsDictionary.PREMIUM}
+        highlight={false}
       />
     </div>
   )

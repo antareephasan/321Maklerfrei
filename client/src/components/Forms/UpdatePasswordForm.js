@@ -4,11 +4,12 @@ import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
 import { userService } from '../../services'
 import { useTranslation } from 'react-i18next'
+import { dictionary } from '../../resources/multiLanguages'
 
 function UpdatePasswordForm({formRef, callback, m_user}) {
   const [saved, setSaved] = useState(false)
   const { t } = useTranslation();
-
+  const languageReducer = "de";
   return (
     <Formik
       innerRef={formRef}
@@ -46,7 +47,7 @@ function UpdatePasswordForm({formRef, callback, m_user}) {
       {({ errors, status, touched, isSubmitting }) => (
         <Form>
            <Label>
-            <span>{t("Old password")}:</span>
+            <span>{dictionary["profile"][languageReducer]["passwordForm"]["oldPassword"]}:</span>
             <Field className="mt-1" as={Input} name="password" type="password" placeholder="***************" />
             {errors.password && touched.password ? (
               <div>   
@@ -56,7 +57,7 @@ function UpdatePasswordForm({formRef, callback, m_user}) {
           </Label>
 
           <Label className='mt-5'>
-            <span>{t("type new password")}:</span>
+            <span>{dictionary["profile"][languageReducer]["passwordForm"]["typeNewPassword"]}:</span>
             <Field className="mt-1" as={Input} name="password" type="password" placeholder="***************" />
             {errors.password && touched.password ? (
               <div>   
@@ -67,7 +68,7 @@ function UpdatePasswordForm({formRef, callback, m_user}) {
 
           {!formRef && 
             <Button className="mt-6" block type="submit" value="submit" disabled={isSubmitting}>
-              {t("Save Password")}
+              {dictionary["profile"][languageReducer]["passwordForm"]["savePassword"]}
             </Button> 
           }
 
