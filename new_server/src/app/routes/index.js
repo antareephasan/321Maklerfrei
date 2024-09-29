@@ -6,6 +6,7 @@ const AdminRoutes = require("../modules/admin/admin.routes");
 const DashboardRoutes = require("../modules/dashboard/dashboard.routes");
 const PaymentRoutes = require("../modules/payment/payment.routes");  
 // Define routes--------------------
+
 const moduleRoutes = [
   {
     path: "/auth",

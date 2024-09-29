@@ -10,12 +10,12 @@ import { useHistory } from "react-router-dom";
 // import  LineLeftIcon from "../icons/line-angle-left.svg";
 import { HomeIcon } from "../../icons";
 import { Button, Badge, Card, CardBody } from "@windmill/react-ui";
-// import { AuthContext } from "../context/AuthContext";
 // import axios from "axios";
 import { config } from "../../assets/config/config";
 import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet";
 import { dictionary } from "../../resources/multiLanguages";
+import { AuthContext } from "../../context/AuthContext";
 // import { PricingCardEnergy } from "../components/Cards/PricingCardEnergy";
 
 function SetTitleTag() {
@@ -30,22 +30,22 @@ const apiUrl = config.api.url;
 
 function Dashboard() {
   const { t } = useTranslation();
-  // const { user } = useContext(AuthContext);
-  const user = {
-    name: "Fullname",
-    username: "username",
-    email: "rayhan@example.com",
-    phone: "+88 123 456 789",
-    avatar: "https://i.ibb.co.com/xS5TKHj/378-v9-be.jpg",
-    address: {
-      street: "123 Main St",
-      city: "New York",
-      state: "NY",
-      zip: "10001",
-    },
-    roles: "user",
-  }
-  // const email = user.email;
+  const { user } = useContext(AuthContext);
+  // const user = {
+  //   name: "Fullname",
+  //   username: "username",
+  //   email: "rayhan@example.com",
+  //   phone: "+88 123 456 789",
+  //   avatar: "https://i.ibb.co.com/xS5TKHj/378-v9-be.jpg",
+  //   address: {
+  //     street: "123 Main St",
+  //     city: "New York",
+  //     state: "NY",
+  //     zip: "10001",
+  //   },
+  //   roles: "user",
+  // }
+  const email = user.email;
   const history = useHistory();
   const [userLists, setUserLists] = useState([]);
 
@@ -85,6 +85,7 @@ function Dashboard() {
 
   console.log("user=========", user)
   const languageReducer = "de";
+
   return (
     <>
       {!valuation && !energy &&

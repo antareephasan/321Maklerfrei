@@ -11,10 +11,10 @@ export default function ProtectedRoute(props) {
 	<Route 
     	{...remProps} 
 		render={remProps => (
-			// user ?
+			user ?
 				<Component {...remProps} />
-				//  :
-				// <Redirect to='/auth' />
+				 :
+				<Redirect to='/auth' />
         )} 
     />
 	);

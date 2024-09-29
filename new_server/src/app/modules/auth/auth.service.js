@@ -15,7 +15,7 @@ const { logger } = require("../../../shared/logger");
 const { assign } = require("nodemailer/lib/shared");
 const Auth = require("./auth.model");
 const User = require("../user/user.model");
-const Admin = require("../admin/admin.model"); 
+const Admin = require("../admin/admin.model");
 
 
 // Create activation token -done
@@ -53,19 +53,19 @@ const registrationAccount = async (req) => {
   const auth = {
     role,
     name: other.name,
-    email,  
+    email,
     activationCode,
     password,
     expirationTime: Date.now() + 3 * 60 * 1000,
   };
 
- if(role !== "ADMIN"){
-  const emailPromise = sendEmail({
-    email: auth.email,
-    subject: "Activate Your Account",
-    html: registrationSuccessEmailBody({ user: { name: auth.name }, activationCode }),
-  }).catch(error => console.error("Failed to send email:", error.message));
- }
+  if (role !== "ADMIN") {
+    const emailPromise = sendEmail({
+      email: auth.email,
+      subject: "Activate Your Account",
+      html: registrationSuccessEmailBody({ user: { name: auth.name }, activationCode }),
+    }).catch(error => console.error("Failed to send email:", error.message));
+  }
 
   // Create auth record
   const createAuth = await Auth.create(auth);
@@ -83,7 +83,7 @@ const registrationAccount = async (req) => {
   console.log("Creating user with email:", other.email, "and authId:", other.authId);
 
   // Handle file uploads (same as before)
-  const fileFields = [ 
+  const fileFields = [
     { field: 'profile_image', path: '/images/profile/' },
   ];
 
@@ -97,7 +97,7 @@ const registrationAccount = async (req) => {
   let result;
   switch (role) {
     case ENUM_USER_ROLE.USER:
-      result = await User.create(other);   
+      result = await User.create(other);
       break;
     case ENUM_USER_ROLE.ADMIN:
       result = await Admin.create(other);
@@ -108,14 +108,14 @@ const registrationAccount = async (req) => {
 
   // Final result
   console.log("User created successfully:", result);
-  return {result, role};
+  return { result, role };
 };
 
 // Activate user - done
 const activateAccount = async (payload) => {
   const { activation_code, userEmail } = payload;
 
-  const existUser = await Auth.findOne({ email: userEmail }); 
+  const existUser = await Auth.findOne({ email: userEmail });
   if (!existUser) {
     throw new ApiError(400, "User not found");
   }
@@ -131,12 +131,12 @@ const activateAccount = async (payload) => {
     }
   );
 
-  let result = {} 
+  let result = {}
   if (existUser.role === ENUM_USER_ROLE.USER) {
-    result = await User.findOne({ authId: existUser._id }); 
+    result = await User.findOne({ authId: existUser._id });
   } else if (existUser.role === ENUM_USER_ROLE.ADMIN || ENUM_USER_ROLE.SUPER_ADMIN) {
-    result = await Admin.findOne({ authId: existUser._id }); 
-  }   else {
+    result = await Admin.findOne({ authId: existUser._id });
+  } else {
     throw new ApiError(400, "Invalid role provided!");
   }
 
@@ -152,7 +152,7 @@ const activateAccount = async (payload) => {
 
   // Create refresh token
   const refreshToken = jwtHelpers.createToken(
-    { authId: existUser._id,  userId: result._id, role: existUser.role },
+    { authId: existUser._id, userId: result._id, role: existUser.role },
     config.jwt.refresh_secret,
     config.jwt.refresh_expires_in
   );
@@ -169,10 +169,10 @@ const loginAccount = async (payload) => {
 
   const isUserExist = await Auth.isAuthExist(email);
   const checkUser = await Auth.findOne({ email });
-  const userDetails = await User.findOne({ authId: checkUser._id });
   if (!isUserExist) {
     throw new ApiError(404, "User does not exist");
   }
+  const userDetails = await User.findOne({ authId: checkUser._id }).populate("authId");
 
   if (
     isUserExist.password &&
@@ -206,6 +206,7 @@ const loginAccount = async (payload) => {
     isPaid: checkUser?.isPaid,
     accessToken,
     refreshToken,
+    user: userDetails
   };
 };
 
@@ -433,7 +434,7 @@ const resendCodeActivationAccount = async (payload) => {
   user.verifyExpire = expiryTime;
   await user.save();
 
-   sendResetEmail(
+  sendResetEmail(
     user.email,
     `<!DOCTYPE html>
      <html lang="en">
@@ -483,26 +484,26 @@ const resendCodeActivationAccount = async (payload) => {
     </body>
     </html>
       `
-   );
+  );
 };
 
 const resendCodeForgotAccount = async (payload) => {
   const email = payload.email;
- 
+
   if (!email) {
     throw new ApiError(httpStatus.BAD_REQUEST, "Email not found!");
-  } 
-  const user = await Auth.findOne({ email }); 
+  }
+  const user = await Auth.findOne({ email });
   if (!user) {
     throw new ApiError(httpStatus.BAD_REQUEST, "User not found!");
-  } 
+  }
   const verifyCode = forgetActivationCode();
-  const expiryTime = new Date(Date.now() + 3 * 60 * 1000); 
+  const expiryTime = new Date(Date.now() + 3 * 60 * 1000);
   user.verifyCode = verifyCode;
   user.verifyExpire = expiryTime;
   await user.save();
 
-   sendResetEmail(
+  sendResetEmail(
     user.email,
     `<!DOCTYPE html>
      <html lang="en">
@@ -552,7 +553,7 @@ const resendCodeForgotAccount = async (payload) => {
     </body>
     </html>
       `
-   );
+  );
 };
 
 const blockAccount = async (id) => {

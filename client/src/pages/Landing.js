@@ -242,8 +242,8 @@ function SectionFeaturesGrid({ children }) {
 function FeatureCard({ title, description, img }) {
   return (
     <Card colored className="bg-white shadow-lg">
-      <CardBody className="p-6">
-        <div className="flex flex-row gap-5 justify-around items-start">
+      <CardBody className="p-6 flex h-full">
+        <div className="flex flex-row gap-5 justify-around items-center">
           <img
             className="h-12 w-12"
             src={img}
@@ -460,7 +460,7 @@ function Landing() {
               ]
             }
           />
-          {/* <FeatureCard
+          <FeatureCard
             img={chatIcon}
             title={
               dictionary["offerings"][languageReducer]["tile6"]["title"]
@@ -470,9 +470,9 @@ function Landing() {
                 "description"
               ]
             }
-          /> */}
+          />
 
-          <Card colored className="bg-white shadow-lg">
+          {/* <Card colored className="bg-white shadow-lg">
             <CardBody className="p-6">
               <div className="flex flex-row gap-5 justify-around items-start">
                 <img
@@ -502,7 +502,7 @@ function Landing() {
 
               </div>
             </CardBody>
-          </Card>
+          </Card> */}
 
 
 

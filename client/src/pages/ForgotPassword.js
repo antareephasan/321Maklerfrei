@@ -1,18 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
 import logo from "../assets/img/logo.svg";
 import ImageLight from "../assets/img/forgot-password-office.jpeg";
 import ImageDark from "../assets/img/forgot-password-office-dark.jpeg";
 import ForgotPasswordForm from "../components/Forms/ForgotPasswordForm";
 import { Helmet } from "react-helmet";
+import { dictionary } from "../resources/multiLanguages";
 
 function ForgotPassword() {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const languageReducer = "de";
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
       <Helmet>
-        <title>Passwort vergessen - 321maklerfrei</title>
+        <title>{dictionary["forgotPasswordPage"][languageReducer]["title"]} - 321maklerfrei</title>
       </Helmet>
       <Link
         to="/"
@@ -41,7 +43,7 @@ function ForgotPassword() {
               <main className="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
                 <div className="w-full">
                   <h1 className="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">
-                    {t("Forgot password")}
+                    {dictionary["forgotPasswordPage"][languageReducer]["title"]}
                   </h1>
 
                   <ForgotPasswordForm />
@@ -53,35 +55,35 @@ function ForgotPassword() {
                       className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
                       to="/auth/create-account"
                     >
-                      {t("create account")}
+                      {dictionary["forgotPasswordPage"][languageReducer]["createAcount"]}
                     </Link>
                   </p>
                   <div className="mt-16 flex">
-                <p className="">
-                  <Link
-                    className="text-xs font-medium text-gray-700 dark:text-gray-100 hover:underline"
-                    to="/impressum"
-                  >
-                    {t("Impressum")}
-                  </Link>
-                </p>
-                <p className="ml-2">
-                  <Link
-                    className="text-xs font-medium text-gray-700 dark:text-gray-100 hover:underline"
-                    to="/datenschutz"
-                  >
-                    {t("Datenschutz")}
-                  </Link>
-                </p>
-                <p className="ml-2">
-                  <Link
-                    className="text-xs font-medium text-gray-700 dark:text-gray-100 hover:underline"
-                    to="/agb"
-                  >
-                    {t("AGB")}
-                  </Link>
-                </p>
-                </div>
+                    <p className="">
+                      <Link
+                        className="text-xs font-medium text-gray-700 dark:text-gray-100 hover:underline"
+                        to="/impressum"
+                      >
+                        {dictionary["forgotPasswordPage"][languageReducer]["imprint"]}
+                      </Link>
+                    </p>
+                    <p className="ml-2">
+                      <Link
+                        className="text-xs font-medium text-gray-700 dark:text-gray-100 hover:underline"
+                        to="/datenschutz"
+                      >
+                        {dictionary["forgotPasswordPage"][languageReducer]["dataProtection"]}
+                      </Link>
+                    </p>
+                    <p className="ml-2">
+                      <Link
+                        className="text-xs font-medium text-gray-700 dark:text-gray-100 hover:underline"
+                        to="/agb"
+                      >
+                        {dictionary["forgotPasswordPage"][languageReducer]["termsAndConditionZ"]}
+                      </Link>
+                    </p>
+                  </div>
                 </div>
               </main>
             </div>

@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import { useHistory } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import { SidebarContext } from "../context/SidebarContext";
 import { AuthContext } from "../context/AuthContext";
@@ -32,29 +33,37 @@ function Header() {
     setIsProfileMenuOpen(!isProfileMenuOpen);
   }
 
-  // const { user } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
+  const history = useHistory();
 
-  const user = { 
-    name: "Fullname",
-    username: "username",
-    email: "rayhan@example.com",
-    phone: "+88 123 456 789",
-    img: "https://i.ibb.co.com/xS5TKHj/378-v9-be.jpg",
-    address: {
-      street: "123 Main St",
-      city: "New York",
-      state: "NY",
-      zip: "10001",
-    },
-    roles: "user",
-  }
+
+
+  // const user = { 
+  //   name: "Fullname",
+  //   username: "username",
+  //   email: "rayhan@example.com",
+  //   phone: "+88 123 456 789",
+  //   img: "https://i.ibb.co.com/xS5TKHj/378-v9-be.jpg",
+  //   address: {
+  //     street: "123 Main St",
+  //     city: "New York",
+  //     state: "NY",
+  //     zip: "10001",
+  //   },
+  //   roles: "user",
+  // }
 
   const { t } = useTranslation();
   const _ = require("lodash");
 
+  const handleLogout = () => {
+    logout();
+    history.push("/auth/login");
+  }
+
   return (
     <header className="z-40 py-4 bg-white shadow-bottom dark:bg-gray-800">
-      <div className="container flex lg:justify-end justify-between h-full px-6 mx-auto text-blue-600 dark:text-gray-200"> 
+      <div className="container flex lg:justify-end justify-between h-full px-6 mx-auto text-blue-600 dark:text-gray-200">
         <button
           className="p-1 mr-5 -ml-1 rounded-md lg:hidden focus:outline-none focus:shadow-outline-purple"
           onClick={toggleSidebar}
@@ -63,11 +72,11 @@ function Header() {
           <MenuIcon className="w-6 h-6" aria-hidden="true" />
         </button>
         <ul className="flex items-center flex-shrink-0 space-x-6">
-          
+
           <li className="flex">
-           
+
           </li>
-        
+
           {/* <!-- Profile menu --> */}
           <li className="relative">
             <button
@@ -76,7 +85,7 @@ function Header() {
               aria-label="Account"
               aria-haspopup="true"
             >
-              {user.name.slice(0,1)}
+              {user.name.slice(0, 1)}
             </button>
             <Dropdown
               align="right"
@@ -120,7 +129,7 @@ function Header() {
                 </DropdownItem>
               </HashLink>
               <div className="border-b my-2"></div>
-              <Link to="/app/logout">
+              <Link onClick={handleLogout}>
                 <DropdownItem className="mb-1" tag="a">
                   <OutlineLogoutIcon
                     className="w-4 h-4 mr-3"

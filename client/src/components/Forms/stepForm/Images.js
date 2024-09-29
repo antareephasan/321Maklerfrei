@@ -170,7 +170,7 @@ export const Images = (props) => {
             alt={`Image ${currentImgIdx}`}
           />
           <Typography variant='h6'>
-            
+
             {dictionary["createAds"][languageReducer]["images"]["uploading_image"]}{' '}
 
             {currentImgForm === 'imgMultiStepForm'
@@ -235,7 +235,7 @@ export const Images = (props) => {
                 onClick={handleNext}
               >
                 {dictionary["createAds"][languageReducer]["images"]["next"]}
-                </Button>
+              </Button>
             </>
           </div>
         </>

@@ -5,12 +5,14 @@ import ImageLight from "../assets/img/create-account-office.jpeg";
 import ImageDark from "../assets/img/create-account-office-dark.jpeg";
 import CreateAccountForm from "../components/Forms/CreateAccountForm";
 import { Helmet } from "react-helmet";
+import { dictionary } from "../resources/multiLanguages";
 
 function CreateAccount() {
+  const languageReducer = "de";
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
       <Helmet>
-        <title>Registrieren - 321maklerfrei</title>
+        <title>{dictionary["createAccount"][languageReducer]["title"]} - 321maklerfrei</title>
       </Helmet>
       <Link
         to="/"
@@ -38,10 +40,10 @@ function CreateAccount() {
             <main className="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
               <div className="w-full">
                 <h1 className="mb-2 text-xl font-semibold text-gray-700 dark:text-gray-200">
-                  Schritt 1: Gratis Registrieren
+                  {dictionary["createAccount"][languageReducer]["header"]}
                 </h1>
                 <p className="text-sm mb-6">
-                  Um Ihre Immobilie einfach und schnell zu inserieren, müssen Sie sich zunächst registrieren.
+                  {dictionary["createAccount"][languageReducer]["subHeader"]}
                 </p>
 
                 <CreateAccountForm />
@@ -53,7 +55,7 @@ function CreateAccount() {
                     className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
                     to="/auth/login"
                   >
-                    Du hast bereits einen Account? Login
+                    {dictionary["createAccount"][languageReducer]["alreadyHaveAccount"]}
                   </Link>
                 </p>
                 <div className="mt-16 flex">
@@ -62,7 +64,7 @@ function CreateAccount() {
                       className="text-xs font-medium text-gray-700 dark:text-gray-100 hover:underline"
                       to="/impressum"
                     >
-                      Impressum
+                      {dictionary["createAccount"][languageReducer]["imprint"]}
                     </Link>
                   </p>
                   <p className="ml-2">
@@ -70,7 +72,7 @@ function CreateAccount() {
                       className="text-xs font-medium text-gray-700 dark:text-gray-100 hover:underline"
                       to="/datenschutz"
                     >
-                      Datenschutz
+                      {dictionary["createAccount"][languageReducer]["dataProtection"]}
                     </Link>
                   </p>
                   <p className="ml-2">
@@ -78,7 +80,7 @@ function CreateAccount() {
                       className="text-xs font-medium text-gray-700 dark:text-gray-100 hover:underline"
                       to="/agb"
                     >
-                      AGB
+                      {dictionary["createAccount"][languageReducer]["termsAndCondition"]}
                     </Link>
                   </p>
                 </div>

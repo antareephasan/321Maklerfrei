@@ -153,9 +153,9 @@ export const dictionary = {
           "Die Rechnung für die ausgewählten Portale wird Ihnen automatisch per E-Mail zugestellt.",
       },
       tile6: {
-        title: "Telefonische Beratung",
+        title: "Persönliche Beratung",
         description:
-          "Für jegliche Anliegen sind wir für Sie da. Sie können uns von Montag bis Freitag zwischen 9 und 17 Uhr telefonisch kontaktieren oder uns eine E-Mail an kontakt@321maklerfrei.de schicken.",
+          "Unser Service-Team steht Ihnen persönlich zur Verfügung und unterstützt Sie gerne bei Ihren Anliegen. Sie erreichen uns unter unserer Hotline, um schnelle kompetente Hilfe zu erhalten."
       },
     },
   },
@@ -460,6 +460,132 @@ export const dictionary = {
   },
 
 
+  createAccount: {
+    en: {
+      title: "Registration",
+      header: "Step 1: Register for free",
+      subHeader: "To advertise your property quickly and easily, you must first register.",
+      alreadyHaveAccount: "Already have an account? Login",
+      imprint: "Imprint",
+      dataProtection: "Data Protection",
+      termsAndCondition: "Terms and Conditions"
+    },
+    de: {
+      title: "Registrierung",
+      header: "Schritt 1: Kostenlos registrieren",
+      subHeader: "Um Ihre Immobilie schnell und einfach zu inserieren, müssen Sie sich zuerst registrieren.",
+      alreadyHaveAccount: "Bereits ein Konto? Anmelden",
+      imprint: "Impressum",
+      dataProtection: "Datenschutz",
+      termsAndCondition: "AGB"
+    }
+  },
+
+  createAccountForm: {
+    en: {
+      atleastOneNumberRequired: "Atleast one number required",
+      mustAgreePrivacyPolicy: "Must agree Privacy Policy",
+      required: "Required",
+      errorMessage: "Some error occured. Please try again.",
+      firstName: "First Name",
+      lastName: "Last Name",
+      email: "Email",
+      password: "Password",
+      confirmPassword: "Confirm Password",
+      phone: "Phone",
+      iagreetothe: "I agree to the",
+      privacyPolicy: "privacy policy",
+      createAccount: "Create Account"
+    },
+    de: {
+      atleastOneNumberRequired: "Mindestens eine Zahl erforderlich",
+      mustAgreePrivacyPolicy: "Sie müssen der Datenschutzrichtlinie zustimmen",
+      required: "Erforderlich",
+      errorMessage: "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+      firstName: "Vorname",
+      lastName: "Nachname",
+      email: "E-Mail",
+      password: "Passwort",
+      confirmPassword: "Passwort bestätigen",
+      phone: "Telefon",
+      iagreetothe: "Ich stimme der",
+      privacyPolicy: "Datenschutzrichtlinie zu",
+      createAccount: "Konto erstellen"
+    }
+  },
+
+  loginPage: {
+    en: {
+      title: "Login",
+      forgotYourPassword: "Forgot your password?",
+      createAcount: "Create account",
+      imprint: "Imprint",
+      dataProtection: "Data Protection",
+      termsAndCondition: "Terms and Conditions"
+    },
+    de: {
+      title: "Anmeldung",
+      forgotYourPassword: "Passwort vergessen?",
+      createAcount: "Konto erstellen",
+      imprint: "Impressum",
+      dataProtection: "Datenschutz",
+      termsAndCondition: "AGB"
+    }
+  },
+
+  loginForm: {
+    en: {
+      emailIsRequired: "Email is required",
+      passwordIsRequired: "Password is required",
+      errorMessage: "Some error occured. Please try again.",
+      emailPlaceholder: "Email address",
+      passwordPlaceholder: "Password",
+      loginButton: "Login"
+    },
+    de: {
+      emailIsRequired: "E-Mail ist erforderlich",
+      passwordIsRequired: "Passwort ist erforderlich",
+      errorMessage: "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+      emailPlaceholder: "E-Mail-Adresse",
+      passwordPlaceholder: "Passwort",
+      loginButton: "Anmelden"
+    }
+  },
+
+  forgotPasswordPage: {
+    en: {
+      title: "Forgot Password",
+      createAccount: "Create account",
+      imprint: "Imprint",
+      dataProtection: "Data Protection",
+      termsAndCondition: "Terms and Conditions",
+    },
+    de: {
+      title: "Passwort Vergessen",
+      createAcount: "Konto erstellen",
+      imprint: "Impressum",
+      dataProtection: "Datenschutz",
+      termsAndCondition: "AGB"
+    }
+  },
+
+  forgotPasswordForm: {
+    en: {
+      savedMessage: "We have sent you instructions on how to reset your password via email. If you cannot find them, please check your spam folder.",
+      errorMessage: "Some error occured. Please try again.",  
+      email: "Email",
+      recoverPassword: "Recover password",      
+      emailIsRequired: "Email is required",
+    },
+    de: {
+      savedMessage: "Wir haben dir eine Anleitung zum Zurücksetzen deines Passwortes per E-Mail geschickt. Falls du sie nicht findest, schau bitte auch im Spam Ordner nach.",
+      errorMessage: "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+      email: "Email",
+      recoverPassword: "Passwort wiederherstellen",      
+      emailIsRequired: "E-Mail ist erforderlich",
+    }
+  },
+
   userDashboard: {
     en: {
       activeAds: "Active ads",
@@ -750,37 +876,37 @@ export const dictionary = {
     }
   },
 
-  faq: {
-    en: {
-      title: "FAQ",
-      account: "Account",
-      listings: "Listings",
-      payment: "Payment",
-      others: "Others",
-      support: "Support",
-      contactHours: "Mon-Fri, 9 am to 6 pm",
-      directPhoneSupport: "Direct phone support",
-      callForFree: "Call us for free at",
-      questionsOrProblems: "Questions or problems?",
-      sendEmail: "Send us an email",
-      helloProblem: "Dear [Company], I am writing to you because I am having a problem with..."
-    },
-    de: {
-      title: "FAQ",
-      account: "Konto",
-      listings: "Angebote",
-      payment: "Zahlung",
-      others: "Sonstiges",
-      support: "Kundendienst",
-      contactHours: "Mo.-Fr. 9 bis 18 Uhr",
-      directPhoneSupport: "Direkter Telefonsupport",
-      callForFree: "Unverbindlich anrufen unter",
-      questionsOrProblems: "Fragen oder Probleme?",
-      sendEmail: "Sende uns eine Mail",
-      helloProblem: "Guten Tag, leider habe ich ein Problem mit..."
-    }
+  // faq: {
+  //   en: {
+  //     title: "FAQ",
+  //     account: "Account",
+  //     listings: "Listings",
+  //     payment: "Payment",
+  //     others: "Others",
+  //     support: "Support",
+  //     contactHours: "Mon-Fri, 9 am to 6 pm",
+  //     directPhoneSupport: "Direct phone support",
+  //     callForFree: "Call us for free at",
+  //     questionsOrProblems: "Questions or problems?",
+  //     sendEmail: "Send us an email",
+  //     helloProblem: "Dear [Company], I am writing to you because I am having a problem with..."
+  //   },
+  //   de: {
+  //     title: "FAQ",
+  //     account: "Konto",
+  //     listings: "Angebote",
+  //     payment: "Zahlung",
+  //     others: "Sonstiges",
+  //     support: "Kundendienst",
+  //     contactHours: "Mo.-Fr. 9 bis 18 Uhr",
+  //     directPhoneSupport: "Direkter Telefonsupport",
+  //     callForFree: "Unverbindlich anrufen unter",
+  //     questionsOrProblems: "Fragen oder Probleme?",
+  //     sendEmail: "Sende uns eine Mail",
+  //     helloProblem: "Guten Tag, leider habe ich ein Problem mit..."
+  //   }
 
-  },
+  // },
 
   faqContent: {
     en: {

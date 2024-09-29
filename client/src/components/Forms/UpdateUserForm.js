@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { dictionary } from '../../resources/multiLanguages'
 
 function UpdateUserForm({ formRef, callback, m_user }) {
-  const { user, lastname, setUser } = useContext(AuthContext)
+  const { user, setUser } = useContext(AuthContext)
   const [saved, setSaved] = useState(false)
   const { t } = useTranslation()
   const languageReducer = "de";

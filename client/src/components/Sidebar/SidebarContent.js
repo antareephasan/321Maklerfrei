@@ -15,21 +15,18 @@ function Icon({ icon, ...props }) {
 
 function SidebarContent() {
   const {pathname}= useLocation()
-  // const { user } = useContext(AuthContext);
-  const user = {
-    role: "user"
-  }
+  const { user } = useContext(AuthContext);
 
   let sidebarOptions;
-  if (user.role === "user") {
+  if (user?.authId?.role === "USER") {
     sidebarOptions = userRoutes;
   }
-  else if (user.role === "admin") {
+  else if (user?.authId?.role === "ADMIN") {
     sidebarOptions = adminRoutes;
   }
   const { t } = useTranslation();
 
-  console.log("====", sidebarOptions)
+  console.log("SidebarContent > sidebarOptions====", sidebarOptions)
   return (
     <div className="py-4 text-gray-500 dark:text-gray-400">
       <Link to="/app">

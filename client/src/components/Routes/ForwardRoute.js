@@ -10,18 +10,10 @@ export default function ForwardRoute(props) {
 	<Route 
     	{...remProps} 
 		render={remProps => (
-			!user ?
+			user ?
 				<Redirect to='/app' /> :
 				<Component {...remProps} />
         )} 
     />
-	// <Route 
-    // 	{...remProps} 
-	// 	render={remProps => (
-	// 		user ?
-	// 			<Redirect to='/app' /> :
-	// 			<Component {...remProps} />
-    //     )} 
-    // />
 	);
 }

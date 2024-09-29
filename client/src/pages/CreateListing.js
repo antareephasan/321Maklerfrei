@@ -1,20 +1,19 @@
 import React from "react";
 import { MultiStepForm } from "../components/Forms/MultiStepForm";
 import PageTitle from "../components/Typography/PageTitle";
-import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet";
 import { dictionary } from "../resources/multiLanguages";
 
 function SetTitleTag () {
+  const languageReducer = "de";
   return (
     <Helmet>
-      <title>Create ads - 321maklerfrei</title>
+      <title>{dictionary["createAds"][languageReducer]["title"]} - 321maklerfrei</title>
     </Helmet>
   )
 }
 
 function Dashboard() {
-  const { t } = useTranslation();
   const languageReducer = "de";
 
   return (
