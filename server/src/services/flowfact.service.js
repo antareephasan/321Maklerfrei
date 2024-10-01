@@ -5,6 +5,7 @@ const UserList = require('../models/userList.model');
 const bucketName = '321maklerfrei-bucket';
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
+
 const generateCognitoToken = async () => {
     try{
       let req = await axios.get(`https://api.production.cloudios.flowfact-prod.cloud/admin-token-service/public/adminUser/authenticate` , {
