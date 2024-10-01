@@ -8,7 +8,7 @@ const apiUrl = config.api.url;
 // const UserList = require('../models/userList.model');
 const generateCognitoToken = async () => {
   try {
-    let requestCognitoToken = await axios.get(`${apiUrl}/v1/userList/t-d-t`);
+    let requestCognitoToken = await axios.get(`${apiUrl}/userList/t-d-t`);
     return requestCognitoToken.data.cognitoToken;
   } catch (er) {
     throw new Error(404, er.message);
@@ -342,6 +342,9 @@ const publishImagesToFlowFact = async (
   try {
     console.log('data', data);
     const cognitoToken = await generateCognitoToken();
+
+    console.log("client flowfact.services.js> cognitoToken:",cognitoToken);
+    return ;
     // test if we have contact
     let contact = await axios.get(
       `https://api.production.cloudios.flowfact-prod.cloud/contact-service/contact?email=${data.formEmail}`,

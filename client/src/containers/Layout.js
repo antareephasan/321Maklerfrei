@@ -20,7 +20,7 @@ function Layout() {
     history.push("/auth/login");
   }
 
-  console.log("LAYOUT: USER> ",user);
+  // console.log("LAYOUT: USER> ",user);
 
   const { isSidebarOpen, closeSidebar } = useContext(SidebarContext)
   let location = useLocation()

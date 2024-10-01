@@ -5,7 +5,7 @@ import { userService } from '../../services'
 import { AuthContext } from '../../context/AuthContext'
 import { Input, Label, HelperText, Button } from '@windmill/react-ui'
 import { useTranslation } from 'react-i18next'
-import { dictionary } from '../../resources/multiLanguages'
+import { dictionary } from '../../resources/multiLanguages';
 
 function UpdateUserForm({ formRef, callback, m_user }) {
   const { user, setUser } = useContext(AuthContext)
@@ -17,25 +17,34 @@ function UpdateUserForm({ formRef, callback, m_user }) {
     <Formik
       innerRef={formRef}
       initialValues={{
-        username: m_user ? m_user.name : '',
-        lastname: m_user ? m_user.lastname : '',
-        email: m_user ? m_user.email : '',
+        name: m_user ? m_user.name : '',
+        phone_number: m_user ? m_user.phone_number : '',
+        address: m_user ? m_user.address : '',
       }}
       validationSchema={Yup.object().shape({
-        username: Yup.string().required(dictionary["profile"][languageReducer]["userform"]["firstNameReq"]),
-        lastname: Yup.string().required(dictionary["profile"][languageReducer]["userform"]["lastNameReq"]),
-        email: Yup.string().email().required(dictionary["profile"][languageReducer]["userform"]["emailReq"]),
+        name: Yup.string().required(dictionary["profile"][languageReducer]["userform"]["firstNameReq"]),
+        phone_number: Yup.string().required(dictionary["profile"][languageReducer]["userform"]["lastNameReq"]),
+        address: Yup.string(),
       })}
-      onSubmit={({ username, lastname, email }, { setStatus, setSubmitting }) => {
+      onSubmit={({ name, phone_number, address }, { setStatus, setSubmitting }) => {
         setSaved(false)
         setStatus()
-        userService.updateUserDetails(m_user.id, username, email, lastname)
+        userService.updateUserDetails({
+          name,
+          phone_number,
+          address,
+        })
           .then(
             response => {
               setSaved(true)
               setSubmitting(false)
-              if (user.id === m_user.id) setUser(response.data)
-              if (callback) callback(response.data)
+
+              console.log("Updatform response.data", response.data);
+
+              if (user._id === m_user._id) {
+                setUser(response.data.data)
+                localStorage.setItem("user", JSON.stringify(response.data.data));
+              } if (callback) callback(response.data)
             },
             error => {
               setSubmitting(false);
@@ -51,35 +60,38 @@ function UpdateUserForm({ formRef, callback, m_user }) {
     >
       {({ errors, status, touched, isSubmitting }) => (
         <Form>
-          <div className='flex gap-4'>
+          <div className='flex flex-col gap-4'>
             <Label className='flex-1'>
-              <span>{t("First Name")}:</span>
-              <Field className="mt-1" as={Input} name="username" type="text" placeholder={dictionary["profile"][languageReducer]["userform"]["enterFirstName"]} />
-              {errors.username && touched.username ? (
+              <span>{t("Name")}:</span>
+              <Field className="mt-1" as={Input} name="name" type="text" placeholder={dictionary["profile"][languageReducer]["userform"]["enterFirstName"]} />
+              {errors.name && touched.name ? (
                 <div>
-                  <HelperText valid={false}>{t(errors.username)}</HelperText>
+                  <HelperText valid={false}>{t(errors.name)}</HelperText>
                 </div>
               ) : null}
             </Label>
             <Label className='flex-1'>
-              <span>{t("Last Name")}:</span>
-              <Field className="mt-1" as={Input} name="lastname" type="text" placeholder={dictionary["profile"][languageReducer]["userform"]["enterLastName"]} />
-              {errors.lastname && touched.lastname ? (
+              <span>{t("Phone")}:</span>
+              <Field className="mt-1" as={Input} name="phone_number" type="text" placeholder={dictionary["profile"][languageReducer]["userform"]["enterLastName"]} />
+              {errors.phone_number && touched.phone_number ? (
                 <div>
-                  <HelperText valid={false}>{t(errors.lastname)}</HelperText>
+                  <HelperText valid={false}>{t(errors.phone_number)}</HelperText>
+                </div>
+              ) : null}
+            </Label>
+
+
+            <Label className='flex-1'>
+              <span>{t("Address")}:</span>
+              <Field className="mt-1" as={Input} name="address" type="text" placeholder={dictionary["profile"][languageReducer]["userform"]["enterFirstName"]} />
+              {errors.address && touched.address ? (
+                <div>
+                  <HelperText valid={false}>{t(errors.address)}</HelperText>
                 </div>
               ) : null}
             </Label>
           </div>
-          <Label className="mt-4">
-            <span>E-Mail:</span>
-            <Field className="mt-1" as={Input} name="email" type="email" placeholder={dictionary["profile"][languageReducer]["userform"]["enterEmail"]} />
-            {errors.email && touched.email ? (
-              <div>
-                <HelperText valid={false}>{t(errors.email)}</HelperText>
-              </div>
-            ) : null}
-          </Label>
+
 
           {!formRef &&
             <Button className="mt-6" block type="submit" value="submit" disabled={isSubmitting}>

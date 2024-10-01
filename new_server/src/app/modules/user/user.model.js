@@ -12,11 +12,6 @@ const UserSchema = new Schema(
       required: true,
       ref: "Auth",
     }, 
-    user_name: {
-      type: String,
-      unique: true,
-      sparse: true,
-    }, 
     name: {
       type: String,
       required: true,

@@ -3,6 +3,10 @@ const PaymentController = require("../payment/payment.controller");
 
 const router = Router();
 
+// router.post("/create-checkout-session", PaymentController.createCheckoutSession);
+
+
+
 router.post("/create-payment-intent", PaymentController.createPaymentIntent);
 
 router.post(

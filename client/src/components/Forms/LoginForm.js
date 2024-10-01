@@ -6,12 +6,13 @@ import { useTranslation } from "react-i18next";
 
 import { Label, Input, HelperText, Button } from "@windmill/react-ui";
 import { dictionary } from "../../resources/multiLanguages";
+import { useHistory } from "react-router-dom";
 
 function LoginForm() {
   const { login } = useContext(AuthContext);
   const { t } = useTranslation();
   const languageReducer = "de";
-
+  const history = useHistory();
   return (
     <Formik
       initialValues={{
@@ -27,8 +28,14 @@ function LoginForm() {
         setSubmitting(true);
         setStatus();
         login(email, password).catch((error) => {
+
           if (error.response) {
-            setStatus(error.response.data.message);
+            if (error.response.data.message === "Please activate your account then try to login") {
+              localStorage.setItem("active_email", email);
+              history.push("/auth/active-account");
+            } else {
+              setStatus(error.response.data.message);
+            }
           } else {
             setStatus(dictionary["loginForm"][languageReducer]["errorMessage"]);
           }

@@ -4,13 +4,15 @@ import * as Yup from "yup";
 import { useTranslation } from "react-i18next";
 import { AuthContext } from "../../context/AuthContext";
 import { Input, Label, HelperText, Button } from "@windmill/react-ui";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { dictionary } from "../../resources/multiLanguages";
 
 function CreateAccountForm() {
   const { register } = useContext(AuthContext);
   const { t } = useTranslation();
   const languageReducer = "de";
+  const history = useHistory();
+  
   return (
     <Formik
       initialValues={{
@@ -48,7 +50,13 @@ function CreateAccountForm() {
       ) => {
         setSubmitting(true);
         setStatus();
-        register(username, email, phone_number, password, confirmPassword, lastname, role).catch((error) => {
+        register(username, email, phone_number, password, confirmPassword, lastname, role)
+        .then((response) => {
+          localStorage.setItem("active_email", email);
+          history.push("/auth/active-account");   
+          console.log("response", response.data)
+        })
+        .catch((error) => {
           if (error.response) {
             setStatus(error.response.data.message);
           } else {

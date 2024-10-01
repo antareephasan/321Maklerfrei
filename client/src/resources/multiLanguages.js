@@ -572,16 +572,16 @@ export const dictionary = {
   forgotPasswordForm: {
     en: {
       savedMessage: "We have sent you instructions on how to reset your password via email. If you cannot find them, please check your spam folder.",
-      errorMessage: "Some error occured. Please try again.",  
+      errorMessage: "Some error occured. Please try again.",
       email: "Email",
-      recoverPassword: "Recover password",      
+      recoverPassword: "Recover password",
       emailIsRequired: "Email is required",
     },
     de: {
       savedMessage: "Wir haben dir eine Anleitung zum Zurücksetzen deines Passwortes per E-Mail geschickt. Falls du sie nicht findest, schau bitte auch im Spam Ordner nach.",
       errorMessage: "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
       email: "Email",
-      recoverPassword: "Passwort wiederherstellen",      
+      recoverPassword: "Passwort wiederherstellen",
       emailIsRequired: "E-Mail ist erforderlich",
     }
   },
@@ -1086,5 +1086,103 @@ export const dictionary = {
       }
     }
   },
+
+
+  activeAccountOTP: {
+    en: {
+      title: "Activate Account",
+      forgotYourPassword: "Forgot your password?",
+      createAcount: "Create account",
+      imprint: "Imprint",
+      dataProtection: "Data Protection",
+      termsAndCondition: "Terms and Conditions"
+    },
+    de: {
+      title: "Konto aktivieren",
+      forgotYourPassword: "Passwort vergessen?",
+      createAcount: "Konto erstellen",
+      imprint: "Impressum",
+      dataProtection: "Datenschutz",
+      termsAndCondition: "AGB"
+    }
+  },
+
+  activeAccountOTPForm: {
+    en: {
+      savedMessage: "Account Activated Successfully",
+      codePlaceholder: "Enter your OTP code",
+      requiredMessage: "Active OTP code is required",
+      errorMessage: "Some error occurred. Please try again.",
+      cofirmButton: "Confirm OTP"
+    },
+    de: {
+      savedMessage: "Konto erfolgreich aktiviert",
+      codePlaceholder: "Geben Sie Ihren OTP-Code ein",
+      requiredMessage: "Aktivierungs-OTP-Code ist erforderlich",
+      errorMessage: "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+      cofirmButton: "OTP bestätigen"
+    }
+  },
+
+  forgotPasswordOtpForm: {
+    en: {
+      savedMessage: "Password Changed Successfully",
+      code: "OTP code",
+      codePlaceholder: "Enter your OTP code",
+      requiredMessage: "Active OTP code is required",
+      errorMessage: "Some error occurred. Please try again.",
+      cofirmButton: "Confirm OTP"
+    },
+    de: {
+      savedMessage: "Passwort erfolgreich geändert",
+      code: "OTP-Code",
+      codePlaceholder: "Geben Sie Ihren OTP-Code ein",
+      requiredMessage: "Aktivierungs-OTP-Code ist erforderlich",
+      errorMessage: "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+      cofirmButton: "OTP bestätigen"
+    }
+  },
+
+  recoverPasswordPage: {
+    en: {
+      title: "Recover Password",
+      createAcount: "Create account",
+      imprint: "Imprint",
+      dataProtection: "Data Protection",
+      termsAndCondition: "Terms and Conditions"
+    },
+    de: {
+      title: "Passwort wiederherstellen",
+      createAcount: "Konto erstellen",
+      imprint: "Impressum",
+      dataProtection: "Datenschutz",
+      termsAndCondition: "AGB"
+    }
+  },
+
+  recoverPasswordForm: {
+    en: {
+      savedMessage: "Password Changed Successfully",
+      newPassword: "New Password",
+      confirmPassword: "Confirm Password",
+      newPasswordPlaceholder: "Enter your new password",
+      confirmPasswordPlaceholder: "Confirm your password",
+      passwordRequiredMessage: "New password is required",
+      confirmPasswordRequiredMessage: "Confirm password is required",
+      errorMessage: "Some error occurred. Please try again.",
+      cofirmButton: "Confirm Password"
+    },
+    de: {
+      savedMessage: "Passwort erfolgreich geändert",
+      newPassword: "Neues Passwort",
+      confirmPassword: "Passwort bestätigen",
+      newPasswordPlaceholder: "Geben Sie Ihr neues Passwort ein",
+      confirmPasswordPlaceholder: "Bestätigen Sie Ihr Passwort",
+      passwordRequiredMessage1: "Neues Passwort muss eine Zahl enthalten",
+      passwordRequiredMessage2: "Neues Passwort muss ein Zeichen enthalten",
+      errorMessage: "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+      cofirmButton: "Bestätigen"
+    }
+  }
 
 };

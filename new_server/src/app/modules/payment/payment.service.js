@@ -6,6 +6,25 @@ const User = require("../auth/auth.model");
 const Payment = require("./payment.model");
 const stripe = require("stripe")(config.stripe.stripe_secret_key);
 
+const YOUR_DOMAIN = "http://localhost:3000";
+
+const createCheckoutSession = async (payload) => {
+  const session = await stripe.checkout.sessions.create({
+    line_items: [
+      {
+        // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+        price: payload.priceId,
+        quantity: 1,
+      },
+    ],
+    mode: 'payment',
+    success_url: `${YOUR_DOMAIN}?success=true`,
+    cancel_url: `${YOUR_DOMAIN}?canceled=true`,
+  });
+
+  return session.url;
+}
+
 const createPaymentIntent = async (payload) => {
   const { amount } = payload;
 
@@ -15,7 +34,7 @@ const createPaymentIntent = async (payload) => {
 
   const paymentIntent = await stripe.paymentIntents.create({
     amount: parseInt(Math.trunc(amount) * 100),
-    currency: "usd",
+    currency: "EUR",
     payment_method_types: ["card"],
   });
 
@@ -73,6 +92,7 @@ const createPaymentIntent = async (payload) => {
 // };
 
 const PaymentService = {
+  createCheckoutSession,
   createPaymentIntent,
   // savePaymentUpdateSpending,
   // updateTotalEarning,

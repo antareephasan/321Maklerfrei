@@ -71,6 +71,7 @@ AuthSchema.statics.isAuthExist = async function (email) {
       password: 1,
       role: 1,
       // phone_number: 1,
+      isActive: 1
     }
   );
 };

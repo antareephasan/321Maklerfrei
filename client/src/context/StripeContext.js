@@ -21,11 +21,13 @@ export const StripeProvider = ({ children }) => {
   const loadProducts = useCallback(() => {
     // axios.post(`${apiUrl}/v1/stripe/get-products`, {})
     axios
-      .get(`${apiUrl}/v1/package/getAllPackages`)
+      .get(`${apiUrl}/package/getAllPackages`)
       .then((response) => {
         setLoaded(true);
         // setProducts(response.data.products)
         setProducts(response.data.data);
+        console.log("--------------------------------------");
+        console.log("Stripe Context> load Products > response.data.data: ",response.data.data);
       })
       .catch((err) => {
         setLoaded(true);

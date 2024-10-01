@@ -2,6 +2,11 @@ const catchAsync = require("../../../shared/catchasync");
 const sendResponse = require("../../../shared/sendResponse");
 const PaymentService = require("../payment/payment.service");
 
+// const createCheckoutSession = catchAsync(async (req, res) => {
+//   const result = await PaymentService.createCheckoutSession(req.body);
+
+//   sendResponse(res.redirect(303, session.url));
+// });
 const createPaymentIntent = catchAsync(async (req, res) => {
   const result = await PaymentService.createPaymentIntent(req.body);
 
@@ -36,6 +41,7 @@ const updateTotalEarning = catchAsync(async (req, res) => {
 });
 
 const PaymentController = {
+  // createCheckoutSession,
   createPaymentIntent,
   savePaymentUpdateSpending,
   updateTotalEarning,

@@ -33,11 +33,11 @@ function SidebarContent() {
         <img src={logo} className="w-3/5 ml-4" alt="My logo" />
       </Link>
       <ul className="mt-16">
-        {sidebarOptions.map((route, i) =>
-          route.routes ? (
+        {sidebarOptions && sidebarOptions?.map((route, i) =>
+          route?.routes ? (
             <SidebarSubmenu route={route} key={route.name} />
           ) : (
-            route.name ? (  
+            route?.name ? (  
               <li className={`relative px-6 py-3 ${route.path === pathname && 'active_route'}`} key={route.name} >
                 <NavLink
                   exact

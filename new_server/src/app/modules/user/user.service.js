@@ -15,6 +15,8 @@ const updateProfile = async (req) => {
     throw new Error("Data is missing in the request body!");
   }
 
+  console.log("Server data: ---------",data);
+
   const checkUser = await User.findById(userId); 
  
   if (!checkUser) {
@@ -84,7 +86,7 @@ const deleteMyAccount = async (payload) => {
          await User.deleteOne({authId: isUserExist._id}) 
   return await Auth.deleteOne({ email });
 };
- 
+
 const UserService = { 
   getProfile, 
   deleteMyAccount, 

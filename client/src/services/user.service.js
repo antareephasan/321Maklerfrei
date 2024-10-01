@@ -4,14 +4,14 @@ import { config } from '../assets/config/config'
 const apiUrl = config.api.url
 
 const getUsers = (page) => {
-	return axios.get(`${apiUrl}/v1/users?limit=${config.users.resultsPerPage}&page=${page}`, {})
+	return axios.get(`${apiUrl}/users?limit=${config.users.resultsPerPage}&page=${page}`, {})
 		.then(response => {
 	    return response.data
 	  })
 }
 
 const createUser = (username, email, password, role) => {
-	return axios.post(`${apiUrl}/v1/users`, {
+	return axios.post(`${apiUrl}/users`, {
     name: username,
     email: email,
     password: password,
@@ -19,26 +19,28 @@ const createUser = (username, email, password, role) => {
   })
 }
 
-const updateUserPassword = (userId, password) => {
-	return axios.patch(`${apiUrl}/v1/users/${userId}`, {
-    password: password
+const updateUserPassword = (oldPassword, newPassword, confirmPassword) => {
+	return axios.patch(`${apiUrl}/auth/change-password`, {
+    oldPassword,
+    newPassword,
+    confirmPassword
   })
 }
 
-const updateUserDetails = (userId, username, email, lastname) => {
-	return axios.patch(`${apiUrl}/v1/users/${userId}`, {
-    name: username,
-    email: email,
-    lastname
-  })
+const updateUserDetails = (data) => {
+
+  console.log("data", data)
+	return axios.patch(`${apiUrl}/user/edit-profile`,
+    data
+  )
 }
 
 
 const deleteUser = (userId) => {
-	return axios.delete(`${apiUrl}/v1/users/${userId}`, {})
+	return axios.delete(`${apiUrl}/users/${userId}`, {})
 }
 const deleteUserList = (uniqId) => {
-	return axios.delete(`${apiUrl}/v1/userList/deleteList/${uniqId}`, {})
+	return axios.delete(`${apiUrl}/userList/deleteList/${uniqId}`, {})
 }
 
 export const userService = {

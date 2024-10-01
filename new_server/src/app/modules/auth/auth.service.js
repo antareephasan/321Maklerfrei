@@ -133,9 +133,9 @@ const activateAccount = async (payload) => {
 
   let result = {}
   if (existUser.role === ENUM_USER_ROLE.USER) {
-    result = await User.findOne({ authId: existUser._id });
+    result = await User.findOne({ authId: existUser._id }).populate("authId");
   } else if (existUser.role === ENUM_USER_ROLE.ADMIN || ENUM_USER_ROLE.SUPER_ADMIN) {
-    result = await Admin.findOne({ authId: existUser._id });
+    result = await Admin.findOne({ authId: existUser._id }).populate("authId");
   } else {
     throw new ApiError(400, "Invalid role provided!");
   }
@@ -159,7 +159,7 @@ const activateAccount = async (payload) => {
   return {
     accessToken,
     refreshToken,
-    user,
+    user: result,
   };
 };
 
@@ -172,21 +172,24 @@ const loginAccount = async (payload) => {
   if (!isUserExist) {
     throw new ApiError(404, "User does not exist");
   }
-  const userDetails = await User.findOne({ authId: checkUser._id }).populate("authId");
-
+  const userDetailsWithPassword = await User.findOne({ authId: checkUser._id }).populate("authId");
+// Exclude the password field
+const { password:pass, ...userDetails } = userDetailsWithPassword._doc;
   if (
     isUserExist.password &&
     !(await Auth.isPasswordMatched(password, isUserExist.password))
   ) {
     throw new ApiError(402, "Password is incorrect");
   }
+
+  console.log("--------", isUserExist);
   if (isUserExist.isActive === false) {
     throw new ApiError(
       httpStatus.UNAUTHORIZED,
       "Please activate your account then try to login"
     );
   }
-
+  console.log("--------", isUserExist.isActive);
   const { _id: authId, role } = isUserExist;
   const accessToken = jwtHelpers.createToken(
     { authId, role, userId: userDetails._id },
@@ -199,6 +202,8 @@ const loginAccount = async (payload) => {
     config.jwt.refresh_secret,
     config.jwt.refresh_expires_in
   );
+
+  console.log("User Details>>>>>>>>>>>>>", userDetails)
 
   return {
     id: checkUser?._id,

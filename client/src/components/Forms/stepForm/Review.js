@@ -11,6 +11,7 @@ import { SnackbarContext } from '../../../context/SnackbarContext';
 import * as LottiePlayer from '@lottiefiles/lottie-player';
 import Loading from '../../../assets/animation/loading.txt';
 import { Box, LinearProgress, Typography } from '@mui/material';
+import UploadImageToCloudinary from '../../CloudinaryUpload/ImageUpload';
 
 const apiUrl = config.api.url;
 
@@ -153,6 +154,108 @@ export const Review = (props) => {
     }
   }
 
+  // const handleSubmit = async () => {
+  //   openSnackbar(t('Creating UserList'));
+  //   setIsSnackbarOpen(true);
+
+  //   const isBelowMax = (f) => String(f).length < 3800;
+  //   const isBelowMaxF = (f) => f.size < 200000000;
+  //   let fields = Object.values(formData);
+  //   if (
+  //     imgMultiStepForm.selectedType.length > 50
+  //     // || !imgMultiStepForm.selectedType.every(isBelowMaxF)
+  //   ) {
+  //     setMaxFiles(true);
+  //     return;
+  //   }
+  //   if (
+  //     planMultiStepForm.selectedType.length > 10
+  //     // || !planMultiStepForm.selectedType.every(isBelowMaxF)
+  //   ) {
+  //     setMaxFiles(true);
+  //     return;
+  //   }
+  //   if (!fields.every(isBelowMax)) {
+  //     setMaxCharacters(true);
+  //     return;
+  //   }
+  //   // setEnabled(false);
+  //   setLoading(true);
+  //   const sendData = new FormData();
+  //   //request uniqId
+  //   let reqUniqId = await axios.post(
+  //     `${apiUrl}/userList/create?uniqId=true`,
+  //     {
+  //       email,
+  //     }
+  //   );
+  //   let uniqId = reqUniqId.data.uniqId;
+  //   let listNumber = reqUniqId.data.listNumber;
+  //   const data = { ...formData, email, uniqId, listNumber };
+  //   if (formData.energy === 'true') {
+  //     data.energy = true;
+  //   } else {
+  //     data.energy = false;
+  //   }
+  //   // let oldDate = Date.now();
+
+  //   let info = flowFactData?.flowFactInfo;
+  //   if (!info) {
+  //     info = await flowFactService.publishImagesToFlowFact(
+  //       Object.assign(data, { phone }),
+  //       imgMultiStepForm,
+  //       planMultiStepForm,
+  //       openSnackbar,
+  //       t,
+  //       setLoadingTitle,
+  //       setCurrentImgIdx,
+  //       setCurrentImgForm,
+  //       setProgressValue
+  //     );
+  //   }
+
+  //   data.entityId = info.entityId;
+  //   data.schema_name = info.schema_name;
+  //   data.flowfactContactId = info.contactId;
+  //   data.listingPrice = data.listingPrice.replace(/\./g, '');
+  //   data.rentPrice = data.rentPrice.replace(/\./g, '');
+  //   await buildFormData(
+  //     Object.assign(sendData, { phone }),
+  //     Object.assign(data, { phone })
+  //   );
+
+  //   axios
+  //     .post(`${apiUrl}/v1/userList/create`, Object.assign(sendData, { phone }))
+  //     .then((response) => {
+  //       console.log('response', response);
+  //       setListData(response.data);
+  //       // openSnackbar(t('List Is Created'), 'success', 3000);
+  //       setLoading(false);
+  //       // setEnabled(true);
+
+  //       setIsSnackbarOpen(false)
+  //       my_swiper.slideNext();
+  //       go('submit');
+  //       return;
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       openSnackbar(
+  //         t(error.message || 'Something Went Very Wrong!'),
+  //         'danger',
+  //         2000
+  //       );
+  //     })
+  //     .finally(() => {
+  //       window.localStorage.removeItem('formData');
+  //       window.localStorage.removeItem('entityId');
+  //       window.localStorage.removeItem('imgMultiStepForm');
+  //       window.localStorage.removeItem('planMultiStepForm');
+  //     });
+  // };
+
+
+  // Antareeps  edited
   const handleSubmit = async () => {
     openSnackbar(t('Creating UserList'));
     setIsSnackbarOpen(true);
@@ -178,64 +281,72 @@ export const Review = (props) => {
       setMaxCharacters(true);
       return;
     }
-    // setEnabled(false);
-    setLoading(true);
-    const sendData = new FormData();
-    //request uniqId
-    let reqUniqId = await axios.post(
-      `${apiUrl}/v1/userList/create?uniqId=ture`,
-      {
-        email,
-      }
-    );
-    let uniqId = reqUniqId.data.uniqId;
-    let listNumber = reqUniqId.data.listNumber;
-    const data = { ...formData, email, uniqId, listNumber };
-    if (formData.energy === 'true') {
-      data.energy = true;
-    } else {
-      data.energy = false;
-    }
-    // let oldDate = Date.now();
 
-    let info = flowFactData?.flowFactInfo;
-    if (!info) {
-      info = await flowFactService.publishImagesToFlowFact(
-        Object.assign(data, { phone }),
-        imgMultiStepForm,
-        planMultiStepForm,
-        openSnackbar,
-        t,
-        setLoadingTitle,
-        setCurrentImgIdx,
-        setCurrentImgForm,
-        setProgressValue
-      );
+    setLoading(true);
+    // setEnabled(true);
+
+    //Custom code for cloudinary image upload
+    const uploadedAdImageUrls = [];
+    const uploadedFloorPlanUrls = [];
+
+
+
+    for (let i = 0; i < imgMultiStepForm.selectedType.length; i++) {
+      const file = imgMultiStepForm.selectedType[i];
+      try {
+        const url = await UploadImageToCloudinary(file);
+        uploadedAdImageUrls.push(url); // Save the uploaded image URL
+
+        setCurrentImgIdx(i + 1); // Update progress
+      } catch (error) {
+        console.error('Image upload failed', error);
+        // Handle the error (e.g., show a notification)
+      }
     }
-    console.log('info', info);
-    data.entityId = info.entityId;
-    data.schema_name = info.schema_name;
-    data.flowfactContactId = info.contactId;
+
+    for (let i = 0; i < imgMultiStepForm.selectedType.length; i++) {
+      const file = planMultiStepForm.selectedType[i];
+      try {
+        const url = await UploadImageToCloudinary(file);
+        uploadedFloorPlanUrls.push(url); // Save the uploaded image URL
+
+        setCurrentImgIdx(i + 1); // Update progress
+      } catch (error) {
+        console.error('Image upload failed', error);
+        // Handle the error (e.g., show a notification)
+      }
+    }
+
+
+    const data = { ...formData, phone };
+
+    data.energy = formData.energy === 'true';
+    data.newBuilding = formData.newBuilding === 'true';
+    data.monumentProtection = formData.monumentProtection === 'true';
+    data.imgCollection = uploadedAdImageUrls;
+    data.planCollection = uploadedFloorPlanUrls;
     data.listingPrice = data.listingPrice.replace(/\./g, '');
     data.rentPrice = data.rentPrice.replace(/\./g, '');
-    await buildFormData(
-      Object.assign(sendData, { phone }),
-      Object.assign(data, { phone })
-    );
 
     axios
-      .post(`${apiUrl}/v1/userList/create`, Object.assign(sendData, { phone }))
+      .post(`${apiUrl}/userList/create`, data)
       .then((response) => {
         console.log('response', response);
         setListData(response.data);
         // openSnackbar(t('List Is Created'), 'success', 3000);
         setLoading(false);
-        // setEnabled(true);
+
+        localStorage.removeItem('formData');
+        localStorage.removeItem('entityId');
+        localStorage.removeItem('imgMultiStepForm');
+        localStorage.removeItem('planMultiStepForm');
+        // setEnabled(false);
 
         setIsSnackbarOpen(false)
         my_swiper.slideNext();
-        go('submit');
-        return;
+        navigation.next();
+        // go('submit');
+        // return;
       })
       .catch((error) => {
         console.log(error);
@@ -244,12 +355,6 @@ export const Review = (props) => {
           'danger',
           2000
         );
-      })
-      .finally(() => {
-        window.localStorage.removeItem('formData');
-        window.localStorage.removeItem('entityId');
-        window.localStorage.removeItem('imgMultiStepForm');
-        window.localStorage.removeItem('planMultiStepForm');
       });
   };
 
@@ -271,15 +376,15 @@ export const Review = (props) => {
               { 'Building Type': buildingType ? t(buildingType) : '' },
               `${listingType}` === 'For Sale'
                 ? {
-                    listingPrice: listingPrice
-                      ? numberWithCommas(listingPrice) + ' €'
-                      : '',
-                  }
+                  listingPrice: listingPrice
+                    ? numberWithCommas(listingPrice) + ' €'
+                    : '',
+                }
                 : {
-                    rentPrice: rentPrice
-                      ? numberWithCommas(rentPrice) + ' €'
-                      : '',
-                  },
+                  rentPrice: rentPrice
+                    ? numberWithCommas(rentPrice) + ' €'
+                    : '',
+                },
               { 'Contact Type': contactType ? t(contactType) : '' },
             ]}
           />

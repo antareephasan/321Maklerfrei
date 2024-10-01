@@ -85,7 +85,7 @@ function Header() {
               aria-label="Account"
               aria-haspopup="true"
             >
-              {user.name.slice(0, 1)}
+              {user?.name?.slice(0, 1)}
             </button>
             <Dropdown
               align="right"
@@ -94,7 +94,7 @@ function Header() {
             >
               <div className="mb-2">
                 <span className="text-gray-400 text-xs font-medium items-center ml-2">
-                  {t("Customer ID")}: {user.customerId}
+                  Customer name: {user?.name}
                 </span>
               </div>
               <Link to="/app/profile">

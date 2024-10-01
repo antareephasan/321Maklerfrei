@@ -27,7 +27,7 @@ if (error) {
 
 export const config = {
   api: {
-    url: envVars.NODE_ENV === "production" ? '' : "http://localhost:5000",
+    url:  "http://localhost:5000",
   },
   stripe: {
     publicKey: envVars.REACT_APP_STRIPE_PUBLIC_KEY,
