@@ -44,13 +44,13 @@ const deleteMyAccount = catchAsync(async (req, res) => {
     message: "Account deleted!",
   });
 });
- 
+
 
 const UserController = { 
   deleteMyAccount, 
   getAllUsers,
   getProfile, 
-  updateProfile
+  updateProfile,
 };
 
 module.exports = { UserController };

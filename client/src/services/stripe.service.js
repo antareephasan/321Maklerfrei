@@ -5,7 +5,7 @@ const apiUrl = config.api.url;
 
 const updatePaymentMethod = (paymentMethodId, address, uniqId, sepa) => {
   return axios
-    .post(`${apiUrl}/v1/stripe/updatePaymentMethod`, {
+    .post(`${apiUrl}/payment/updatePaymentMethod`, {
       paymentMethodId,
       address,
       uniqId,
@@ -19,7 +19,7 @@ const updatePaymentMethod = (paymentMethodId, address, uniqId, sepa) => {
 
 const createSubscription = (subscriptionType, uniqId, stripeId) => {
   return axios
-    .post(`${apiUrl}/v1/stripe/create-subscription`, {
+    .post(`${apiUrl}/payment/create-subscription`, {
       subscriptionType: subscriptionType,
       uniqId: uniqId,
       // subscriptionID: subscriptionID,
@@ -31,7 +31,7 @@ const createSubscription = (subscriptionType, uniqId, stripeId) => {
 };
 const getSepaClientSecret = (email) => {
   return axios
-    .post(`${apiUrl}/v1/stripe/fresh-sepa-client-secret`, {
+    .post(`${apiUrl}/payment/fresh-sepa-client-secret`, {
       email
     })
     .then((response) => {
@@ -41,7 +41,7 @@ const getSepaClientSecret = (email) => {
 
 const createPaypalSubscription = (subscriptionType, uniqId, subscriptionID) => {
   return axios
-    .post(`${apiUrl}/v1/stripe/create-paypal-subscription`, {
+    .post(`${apiUrl}/payment/create-paypal-subscription`, {
       subscriptionType,
       uniqId,
       subscriptionID
@@ -53,7 +53,7 @@ const createPaypalSubscription = (subscriptionType, uniqId, subscriptionID) => {
 
 const completeSubscription = (subscriptionId, productId, uniqId) => {
   return axios
-    .post(`${apiUrl}/v1/stripe/complete-subscription`, {
+    .post(`${apiUrl}/payment/complete-subscription`, {
       subscriptionId: subscriptionId,
       productId: productId,
       uniqId: uniqId,
@@ -66,7 +66,7 @@ const completeSubscription = (subscriptionId, productId, uniqId) => {
 //pause subs
 const pauseSubscription = (uniqId) => {
   return axios
-    .post(`${apiUrl}/v1/stripe/pause-subscription`, {
+    .post(`${apiUrl}/payment/pause-subscription`, {
       uniqId: uniqId,
     })
     .then((response) => {
@@ -76,7 +76,7 @@ const pauseSubscription = (uniqId) => {
 //cancel auto renew
 const cancelAutoRenew = (uniqId) => {
   return axios
-    .post(`${apiUrl}/v1/stripe/cancel-auto-renew`, {
+    .post(`${apiUrl}/payment/cancel-auto-renew`, {
       uniqId: uniqId,
     })
     .then((response) => {
@@ -85,7 +85,7 @@ const cancelAutoRenew = (uniqId) => {
 };
 const unpauseSubscription = (uniqId) => {
   return axios
-    .post(`${apiUrl}/v1/stripe/unpause-subscription`, {
+    .post(`${apiUrl}/payment/unpause-subscription`, {
       uniqId: uniqId,
     })
     .then((response) => {
@@ -95,7 +95,7 @@ const unpauseSubscription = (uniqId) => {
 
 const deleteSubscription = (subscriptionId) => {
   return axios
-    .post(`${apiUrl}/v1/stripe/delete-subscription`, {
+    .post(`${apiUrl}/payment/delete-subscription`, {
       subscriptionId: subscriptionId,
     })
     .catch((err) => {});
@@ -103,7 +103,7 @@ const deleteSubscription = (subscriptionId) => {
 // Create a Payment Intent (returns the client with a temporary secret)
 const createPaymentIntent = async (id) => {
   return axios
-    .post(`${apiUrl}/v1/stripe/create-payment-intent`, {
+    .post(`${apiUrl}/payment/create-payment-intent`, {
       id
     })
     .catch((err) => {
@@ -112,7 +112,7 @@ const createPaymentIntent = async (id) => {
 };
 const sendEmailToDom = async (uniqId, type) => {
   return axios
-    .post(`${apiUrl}/v1/stripe/send-email-to-dom`, {
+    .post(`${apiUrl}/payment/send-email-to-dom`, {
       uniqId, type
     })
     .catch((err) => {

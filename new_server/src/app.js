@@ -14,7 +14,9 @@ app.use(
       'http://192.168.10.16:3000',
       'http://192.168.30.250:3000',
       'http://192.168.10.102:3000',
-      "http://localhost:5173"
+      "http://localhost:5173",
+      "http://localhost:3000",
+      "http://locahost*"
     ],
     credentials: true,
   }),
@@ -35,7 +37,7 @@ app.use('/', routes);
 
 // app.use('/api/uploads', express.static(path.join(__dirname, 'uploads')));
 app.get('/', async (req, res) => {
-  res.json('Welcome to Dental dash');
+  res.json('Welcome to 321maklerfrei server');
 });
 
 // Global Error Handler

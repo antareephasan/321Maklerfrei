@@ -4,15 +4,16 @@ import logo from "../assets/img/logo.svg";
 import ImageLight from "../assets/img/login-office.jpeg";
 import ImageDark from "../assets/img/login-office-dark.jpeg";
 import LoginForm from "../components/Forms/LoginForm";
-import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet";
+import { dictionary } from "../resources/multiLanguages";
 
 function Login() {
-  const { t } = useTranslation();
+  const languageReducer = "de";
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 mb-16">
       <Helmet>
-        <title>Login - 321maklerfrei</title>
+        <title>{dictionary["loginPage"][languageReducer]["title"]} - 321maklerfrei</title>
       </Helmet>
       <Link
         to="/"
@@ -40,7 +41,7 @@ function Login() {
             <main className="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
               <div className="w-full">
                 <h1 className="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">
-                  Login
+                  {dictionary["loginPage"][languageReducer]["title"]}
                 </h1>
 
                 <LoginForm />
@@ -52,7 +53,7 @@ function Login() {
                     className="text-sm font-medium text-blue-700 dark:text-gray-100 hover:underline"
                     to="/auth/forgot-password"
                   >
-                    {t("forgot your password")}
+                    {dictionary["loginPage"][languageReducer]["forgotYourPassword"]}
                   </Link>
                 </p>
                 <p className="mt-1">
@@ -60,7 +61,7 @@ function Login() {
                     className="text-sm font-medium text-blue-700 dark:text-gray-100 hover:underline"
                     to="/auth/create-account"
                   >
-                    {t("create account")}
+                    {dictionary["loginPage"][languageReducer]["createAcount"]}
                   </Link>
                 </p>
                 <div className="mt-16 flex">
@@ -69,7 +70,7 @@ function Login() {
                       className="text-xs font-medium text-gray-700 dark:text-gray-100 hover:underline"
                       to="/impressum"
                     >
-                      {t("Impressum")}
+                      {dictionary["loginPage"][languageReducer]["imprint"]}
                     </Link>
                   </p>
                   <p className="ml-2">
@@ -77,7 +78,7 @@ function Login() {
                       className="text-xs font-medium text-gray-700 dark:text-gray-100 hover:underline"
                       to="/datenschutz"
                     >
-                      {t("Datenschutz")}
+                      {dictionary["loginPage"][languageReducer]["dataProtection"]}
                     </Link>
                   </p>
                   <p className="ml-2">
@@ -85,7 +86,7 @@ function Login() {
                       className="text-xs font-medium text-gray-700 dark:text-gray-100 hover:underline"
                       to="/agb"
                     >
-                      {t("AGB")}
+                      {dictionary["loginPage"][languageReducer]["termsAndCondition"]}
                     </Link>
                   </p>
                 </div>

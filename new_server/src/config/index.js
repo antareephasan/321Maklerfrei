@@ -50,6 +50,7 @@ const config = {
   },
   stripe: {
     stripe_secret_key: process.env.STRIPE_SECRET_KEY,
+    endpoint_secret: process.env.ENDPOINT_SECRET, 
   },
 };
 

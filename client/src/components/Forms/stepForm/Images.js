@@ -10,6 +10,9 @@ import axios from 'axios';
 import { config } from '../../../assets/config/config';
 import { AuthContext } from '../../../context/AuthContext';
 import { LinearProgress, Typography } from '@mui/material';
+import { dictionary } from '../../../resources/multiLanguages';
+// import UploadWidget from '../../UploadWidget/UploadWidget';
+// import CloudinaryImageInput from '../../CloudinaryUpload/ImageUpload';
 
 const apiUrl = config.api.url;
 
@@ -59,91 +62,109 @@ export const Images = (props) => {
 
   const { t } = useTranslation();
 
+  const languageReducer = "de";
   useEffect(() => {
     if (enabled) {
       closeSnackbar();
     } else {
-      openSnackbar(t('Saving please wait...'));
+      openSnackbar(dictionary["createAds"][languageReducer]["images"]["Saving_please_wait"]);
     }
   }, [enabled, openSnackbar, closeSnackbar]);
 
+  // const handleNext = async () => {
+
+  //   if (
+  //     !imgMultiStepForm.selectedType.length &&
+  //     !planMultiStepForm.selectedType.length
+  //   ) {
+  //     my_swiper.slideNext();
+  //     navigation.next();
+  //     return;
+  //   }
+
+  //   const isBelowMax = (f) => String(f).length < 3800;
+  //   const isBelowMaxF = (f) => f.size < 200000000;
+  //   let fields = Object.values(formData);
+
+  //   if (
+  //     imgMultiStepForm.selectedType.length > 50
+  //     // || !imgMultiStepForm.selectedType.every(isBelowMaxF)
+  //   ) {
+  //     setMaxFiles(true);
+  //     return;
+  //   }
+  //   if (
+  //     planMultiStepForm.selectedType.length > 10
+  //     // || !planMultiStepForm.selectedType.every(isBelowMaxF)
+  //   ) {
+  //     setMaxFiles(true);
+  //     return;
+  //   }
+  //   if (!fields.every(isBelowMax)) {
+  //     setMaxCharacters(true);
+  //     return;
+  //   }
+
+  //   // setEnabled(false);
+
+  //   setLoading(true);
+  //   const sendData = new FormData();
+  //   //request uniqId
+  //   let reqUniqId = await axios.post(
+  //     `${apiUrl}/userList/create?uniqId=true`,
+  //     {
+  //       email,
+  //     }
+  //   );
+
+  //   let uniqId = reqUniqId.data.uniqId;
+  //   let listNumber = reqUniqId.data.listNumber;
+  //   const data = { ...formData, email, uniqId, listNumber };
+  //   if (formData.energy === 'true') {
+  //     data.energy = true;
+  //   } else {
+  //     data.energy = false;
+  //   }
+
+
+  //   // let oldDate = Date.now();
+
+  //   let flowFactInfo = await flowFactService.publishImagesToFlowFact(
+  //     Object.assign(data, { phone }),
+  //     imgMultiStepForm,
+  //     planMultiStepForm,
+  //     openSnackbar,
+  //     t,
+  //     setLoadingTitle,
+  //     setCurrentImgIdx,
+  //     setCurrentImgForm,
+  //     setProgressValue
+  //   );
+
+
+  //   setFlowFactData({
+  //     data,
+  //     sendData,
+  //     flowFactInfo,
+  //     uniqId,
+  //     listNumber,
+  //   });
+
+  //   setTimeout(() => {
+  //     my_swiper.slideNext();
+
+  //     setLoading(false);
+
+  //     return navigation.next();
+  //   }, 500);
+  // };
+
+  // Custom handle next
+
+
   const handleNext = async () => {
-    if (
-      !imgMultiStepForm.selectedType.length &&
-      !planMultiStepForm.selectedType.length
-    ) {
-      my_swiper.slideNext();
-      navigation.next();
-      return;
-    }
-
-    const isBelowMax = (f) => String(f).length < 3800;
-    const isBelowMaxF = (f) => f.size < 200000000;
-    let fields = Object.values(formData);
-    if (
-      imgMultiStepForm.selectedType.length > 50
-      // || !imgMultiStepForm.selectedType.every(isBelowMaxF)
-    ) {
-      setMaxFiles(true);
-      return;
-    }
-    if (
-      planMultiStepForm.selectedType.length > 10
-      // || !planMultiStepForm.selectedType.every(isBelowMaxF)
-    ) {
-      setMaxFiles(true);
-      return;
-    }
-    if (!fields.every(isBelowMax)) {
-      setMaxCharacters(true);
-      return;
-    }
-    // setEnabled(false);
-    setLoading(true);
-    const sendData = new FormData();
-    //request uniqId
-    let reqUniqId = await axios.post(
-      `${apiUrl}/v1/userList/create?uniqId=ture`,
-      {
-        email,
-      }
-    );
-    let uniqId = reqUniqId.data.uniqId;
-    let listNumber = reqUniqId.data.listNumber;
-    const data = { ...formData, email, uniqId, listNumber };
-    if (formData.energy === 'true') {
-      data.energy = true;
-    } else {
-      data.energy = false;
-    }
-    // let oldDate = Date.now();
-    let flowFactInfo = await flowFactService.publishImagesToFlowFact(
-      Object.assign(data, { phone }),
-      imgMultiStepForm,
-      planMultiStepForm,
-      openSnackbar,
-      t,
-      setLoadingTitle,
-      setCurrentImgIdx,
-      setCurrentImgForm,
-      setProgressValue
-    );
-
-    setFlowFactData({
-      data,
-      sendData,
-      flowFactInfo,
-      uniqId,
-      listNumber,
-    });
-
-    setTimeout(() => {
-      my_swiper.slideNext();
-
-      setLoading(false);
-
-      return navigation.next();
-    }, 500);
+    my_swiper.slideNext();
+    navigation.next();
   };
 
   return (
@@ -168,8 +189,14 @@ export const Images = (props) => {
             alt={`Image ${currentImgIdx}`}
           />
           <Typography variant='h6'>
-            Hochladen{' '}
-            {currentImgForm === 'imgMultiStepForm' ? 'Bild ' : 'Grundriss '}
+
+            {dictionary["createAds"][languageReducer]["images"]["uploading_image"]}{' '}
+
+            {currentImgForm === 'imgMultiStepForm'
+
+              ? dictionary["createAds"][languageReducer]["images"]["uploading_image"]
+
+              : dictionary["createAds"][languageReducer]["images"]["uploading_floorplan"]}{' '}
             {currentImgIdx + 1} / {props[currentImgForm].selectedType.length}
           </Typography>
           <LinearProgress variant='determinate' value={progressValue} />
@@ -180,14 +207,16 @@ export const Images = (props) => {
             className='flex-wrap'
             MultiStepForm={imgMultiStepForm}
             renderPhotos={() => renderType(imgMultiStepForm, t)}
-            title={t('Images')}
+            title={dictionary["createAds"][languageReducer]["images"]["images"]}
           />
           <ImageType
             className='flex-wrap'
             MultiStepForm={planMultiStepForm}
             renderPhotos={() => renderType(planMultiStepForm, t)}
-            title={t('Floorplans')}
+            title={dictionary["createAds"][languageReducer]["images"]["Floorplans"]}
           />
+          {/* <UploadWidget /> */}
+
         </div>
       )}
       {!loading && (
@@ -199,12 +228,12 @@ export const Images = (props) => {
             <>
               {maxCharacters && (
                 <div style={{ color: 'red' }}>
-                  Max 3800 characters on every field
+                  {dictionary["createAds"][languageReducer]["images"]["Max_characters_on_every_field"]}
                 </div>
               )}
               {maxFiles && (
                 <div style={{ color: 'red' }}>
-                  Max 50 pictures / 10 floorplans / 20MB
+                  {dictionary["createAds"][languageReducer]["images"]["Max_files"]}
                 </div>
               )}
               <Button
@@ -217,7 +246,7 @@ export const Images = (props) => {
                   return navigation.previous();
                 }}
               >
-                {t('back')}
+                {dictionary["createAds"][languageReducer]["images"]["back"]}
               </Button>
               <Button
                 variant='contained'
@@ -226,7 +255,7 @@ export const Images = (props) => {
                 style={{ marginTop: '1rem' }}
                 onClick={handleNext}
               >
-                {t('next')}
+                {dictionary["createAds"][languageReducer]["images"]["next"]}
               </Button>
             </>
           </div>

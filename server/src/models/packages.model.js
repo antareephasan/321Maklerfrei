@@ -11,13 +11,13 @@ const packagesSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    stripeId: {
-      type: String,
-      required: true,
-    },
-    paypalId: {
-      type: String,
-    },
+    // stripeId: {
+    //   type: String,
+    //   required: true,
+    // },
+    // paypalId: {
+    //   type: String,
+    // },
     price: {
       type: String,
       required: true,

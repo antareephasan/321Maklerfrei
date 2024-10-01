@@ -1,5 +1,5 @@
 import React, { useContext, Suspense, useEffect, lazy } from 'react'
-import { Switch, Route, Redirect, useLocation } from 'react-router-dom'
+import { Switch, Route, Redirect, useLocation, useHistory } from 'react-router-dom'
 import AdminRoutes from '../routes/adminIndex';
 import userRoutes from '../routes/userInex';
 import Sidebar from '../components/Sidebar'
@@ -12,9 +12,16 @@ import { AuthContext } from '../context/AuthContext';
 const Page404 = lazy(() => import('../pages/404'))
 
 function Layout() {
-  // const { user } = useContext(AuthContext);
-  
-  
+  const history = useHistory();
+  const { user } = useContext(AuthContext);
+
+
+  if (!user ) {
+    history.push("/auth/login");
+  }
+
+  // console.log("LAYOUT: USER> ",user);
+
   const { isSidebarOpen, closeSidebar } = useContext(SidebarContext)
   let location = useLocation()
 
@@ -24,10 +31,7 @@ function Layout() {
   }, [location])
 
 
-  const user = {
-    role: "user"
-  }
-  
+
   return (
     <div
       className={`flex min-h-screen bg-gray-50 dark:bg-gray-900 ${isSidebarOpen && 'overflow-hidden'}`}
@@ -40,37 +44,39 @@ function Layout() {
           <Suspense fallback={<ThemedSuspense />}>
             <Switch>
               {
-              user.role === 'admin' &&
-              AdminRoutes.map((route, i) => {
-                return route.component ? (
-                  <Route
-                    key={i}
-                    exact={true}
-                    path={`/app${route.path}`}
-                    render={(props) => <route.component {...props} />}
-                  />
-                ) : null
-              })
+                user?.authId?.role === 'ADMIN' &&
+                AdminRoutes.map((route, i) => {
+                  return route.component ? (
+                    <Route
+                      key={i}
+                      exact={true}
+                      path={`/app${route.path}`}
+                      render={(props) => <route.component {...props} />}
+                    />
+                  ) : null
+                })
               }
               {
-              user.role === 'user' &&
-              userRoutes.map((route, i) => {
-                return route.component ? (
-                  <Route
-                    key={i}
-                    exact={true}
-                    path={`/app${route.path}`}
-                    render={(props) => <route.component {...props} />}
-                  />
-                ) : null
-              })
+                user?.authId?.role === 'USER' &&
+                userRoutes.map((route, i) => {
+
+                  console.log("Route > ", route)
+                  return route.component ? (
+                    <Route
+                      key={i}
+                      exact={true}
+                      path={`/app${route.path}`}
+                      render={(props) => <route.component {...props} />}
+                    />
+                  ) : null
+                })
               }
               {
-                user.role === 'admin' && 
+                user?.authId?.role === 'ADMIN' &&
                 <Redirect exact from="/app" to="/app/adminDashboard" />
               }
               {
-                user.role === 'user' && 
+                user?.authId?.role === 'USER' &&
                 <Redirect exact from="/app" to="/app/create_ads" />
               }
               <Route component={Page404} />

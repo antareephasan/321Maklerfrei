@@ -154,6 +154,7 @@ export const MultiStepForm = () => {
   const { user } = useContext(AuthContext);
   const [flowFactData, setFlowFactData] = useState();
 
+
   const defaultData = {
     listingTitle: '',
     listingType: 'For Sale',

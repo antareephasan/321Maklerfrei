@@ -3,16 +3,18 @@ const PaymentController = require("../payment/payment.controller");
 
 const router = Router();
 
-router.post("/create-payment-intent", PaymentController.createPaymentIntent);
+router.post("/stripe/create_session", PaymentController.createCheckoutSession);
 
-router.post(
-  "/user/save-payment-update-spending",
-  PaymentController.savePaymentUpdateSpending
-);
+router.post("/webhook", PaymentController.checkAndUpdateStatusByPaypal);
 
-router.patch(
-  "/driver/update-total-earning",
-  PaymentController.updateTotalEarning
-);
+// router.post(
+//   "/user/save-payment-update-spending",
+//   PaymentController.savePaymentUpdateSpending
+// );
+
+// router.patch(
+//   "/driver/update-total-earning",
+//   PaymentController.updateTotalEarning
+// );
 
 module.exports = router;

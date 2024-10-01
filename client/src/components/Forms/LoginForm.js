@@ -5,11 +5,14 @@ import { AuthContext } from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
 
 import { Label, Input, HelperText, Button } from "@windmill/react-ui";
+import { dictionary } from "../../resources/multiLanguages";
+import { useHistory } from "react-router-dom";
 
 function LoginForm() {
   const { login } = useContext(AuthContext);
   const { t } = useTranslation();
-
+  const languageReducer = "de";
+  const history = useHistory();
   return (
     <Formik
       initialValues={{
@@ -17,21 +20,30 @@ function LoginForm() {
         password: "",
       }}
       validationSchema={Yup.object().shape({
-        email: Yup.string().email().required(t("Email is required")),
-        password: Yup.string().required(t("Password is required")),
+        email: Yup.string().email().required(dictionary["loginForm"][languageReducer]["emailIsRequired"]),
+        password: Yup.string().required(dictionary["loginForm"][languageReducer]["passwordIsRequired"]),
       })}
+
       onSubmit={({ email, password }, { setStatus, setSubmitting }) => {
         setSubmitting(true);
         setStatus();
         login(email, password).catch((error) => {
+
           if (error.response) {
-            setStatus(error.response.data.message);
+            if (error.response.data.message === "Please activate your account then try to login") {
+              localStorage.setItem("active_email", email);
+              history.push("/auth/active-account");
+            } else {
+              setStatus(error.response.data.message);
+            }
           } else {
-            setStatus("Some error occured. Please try again.");
+            setStatus(dictionary["loginForm"][languageReducer]["errorMessage"]);
           }
           setSubmitting(false);
         });
       }}
+
+
     >
       {({ errors, status, touched, isSubmitting }) => (
         <Form>
@@ -41,7 +53,7 @@ function LoginForm() {
               as={Input}
               name="email"
               type="email"
-              placeholder="E-Mail Adresse"
+              placeholder={dictionary["loginForm"][languageReducer]["emailPlaceholder"]}
             />
             {errors.email && touched.email ? (
               <div>
@@ -51,13 +63,13 @@ function LoginForm() {
           </Label>
 
           <Label className="mt-4">
-           
+
             <Field
               className="mt-1"
               as={Input}
               name="password"
               type="password"
-              placeholder="Passwort"
+              placeholder={dictionary["loginForm"][languageReducer]["passwordPlaceholder"]}
             />
             {errors.password && touched.password ? (
               <div>
@@ -73,7 +85,7 @@ function LoginForm() {
             value="submit"
             disabled={isSubmitting}
           >
-            {t("login")}
+            {dictionary["loginForm"][languageReducer]["loginButton"]}
           </Button>
           {status && <HelperText valid={false}>{status}</HelperText>}
         </Form>

@@ -5,84 +5,98 @@ import { userService } from '../../services'
 import { AuthContext } from '../../context/AuthContext'
 import { Input, Label, HelperText, Button } from '@windmill/react-ui'
 import { useTranslation } from 'react-i18next'
+import { dictionary } from '../../resources/multiLanguages';
 
-function UpdateUserForm({formRef, callback, m_user}) {
-  const { user, lastname, setUser } = useContext(AuthContext)
+function UpdateUserForm({ formRef, callback, m_user }) {
+  const { user, setUser } = useContext(AuthContext)
   const [saved, setSaved] = useState(false)
   const { t } = useTranslation()
+  const languageReducer = "de";
 
   return (
     <Formik
       innerRef={formRef}
       initialValues={{
-        username: m_user ? m_user.name : '',
-        lastname: m_user ? m_user.lastname : '',
-        email: m_user ? m_user.email : '',
+        name: m_user ? m_user.name : '',
+        phone_number: m_user ? m_user.phone_number : '',
+        address: m_user ? m_user.address : '',
       }}
       validationSchema={Yup.object().shape({
-        username: Yup.string().required(t('First Name is required')),
-        lastname: Yup.string().required(t('Last Name is required')),
-        email: Yup.string().email().required(t('Email is required')),
+        name: Yup.string().required(dictionary["profile"][languageReducer]["userform"]["firstNameReq"]),
+        phone_number: Yup.string().required(dictionary["profile"][languageReducer]["userform"]["lastNameReq"]),
+        address: Yup.string(),
       })}
-      onSubmit={({ username, lastname, email }, { setStatus, setSubmitting }) => {
+      onSubmit={({ name, phone_number, address }, { setStatus, setSubmitting }) => {
         setSaved(false)
         setStatus()
-        userService.updateUserDetails(m_user.id, username, email, lastname)
-        .then(
-          response => {
-            setSaved(true)
-            setSubmitting(false)
-            if(user.id === m_user.id) setUser(response.data)
-            if(callback) callback(response.data)
-          },
-          error => {
-            setSubmitting(false);
-            if(error.response) {
-              setStatus(t(error.response.data));
-            } else {
-              setStatus(t('Some error occured.'));
+        userService.updateUserDetails({
+          name,
+          phone_number,
+          address,
+        })
+          .then(
+            response => {
+              setSaved(true)
+              setSubmitting(false)
+
+              console.log("Updatform response.data", response.data);
+
+              if (user._id === m_user._id) {
+                setUser(response.data.data)
+                localStorage.setItem("user", JSON.stringify(response.data.data));
+              } if (callback) callback(response.data)
+            },
+            error => {
+              setSubmitting(false);
+              if (error.response) {
+                setStatus(t(error.response.data));
+              } else {
+                setStatus(t('Some error occured.'));
+              }
+              if (callback) callback(null)
             }
-            if(callback) callback(null)
-          }
-        );
+          );
       }}
-    >  
+    >
       {({ errors, status, touched, isSubmitting }) => (
         <Form>
-          <div className='flex gap-4'>
+          <div className='flex flex-col gap-4'>
             <Label className='flex-1'>
-              <span>{t("First Name")}:</span>
-              <Field className="mt-1" as={Input} name="username" type="text" placeholder={t("enter first name")} />
-              {errors.username && touched.username ? (
-                <div>   
-                  <HelperText valid={false}>{t(errors.username)}</HelperText>
+              <span>{t("Name")}:</span>
+              <Field className="mt-1" as={Input} name="name" type="text" placeholder={dictionary["profile"][languageReducer]["userform"]["enterFirstName"]} />
+              {errors.name && touched.name ? (
+                <div>
+                  <HelperText valid={false}>{t(errors.name)}</HelperText>
                 </div>
               ) : null}
             </Label>
             <Label className='flex-1'>
-              <span>{t("Last Name")}:</span>
-              <Field className="mt-1" as={Input} name="lastname" type="text" placeholder={t("enter last name")} />
-              {errors.lastname && touched.lastname ? (
-                <div>   
-                  <HelperText valid={false}>{t(errors.lastname)}</HelperText>
+              <span>{t("Phone")}:</span>
+              <Field className="mt-1" as={Input} name="phone_number" type="text" placeholder={dictionary["profile"][languageReducer]["userform"]["enterLastName"]} />
+              {errors.phone_number && touched.phone_number ? (
+                <div>
+                  <HelperText valid={false}>{t(errors.phone_number)}</HelperText>
+                </div>
+              ) : null}
+            </Label>
+
+
+            <Label className='flex-1'>
+              <span>{t("Address")}:</span>
+              <Field className="mt-1" as={Input} name="address" type="text" placeholder={dictionary["profile"][languageReducer]["userform"]["enterFirstName"]} />
+              {errors.address && touched.address ? (
+                <div>
+                  <HelperText valid={false}>{t(errors.address)}</HelperText>
                 </div>
               ) : null}
             </Label>
           </div>
-          <Label className="mt-4">
-            <span>E-Mail:</span>
-            <Field className="mt-1" as={Input} name="email" type="email" placeholder={t("enter email")} />
-            {errors.email && touched.email ? (
-              <div>   
-                <HelperText valid={false}>{t(errors.email)}</HelperText>
-              </div>
-            ) : null}
-          </Label>
 
-          {!formRef && 
+
+          {!formRef &&
             <Button className="mt-6" block type="submit" value="submit" disabled={isSubmitting}>
               {t("Save Details")}
-            </Button> 
+            </Button>
           }
 
           {status && (
@@ -92,7 +106,7 @@ function UpdateUserForm({formRef, callback, m_user}) {
           {saved && (
             <HelperText valid={true}>Saved!</HelperText>
           )}
-          
+
         </Form>
       )}
     </Formik>

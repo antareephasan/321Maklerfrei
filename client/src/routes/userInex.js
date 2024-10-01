@@ -13,7 +13,7 @@ const Page404 = lazy(() => import('../pages/404'))
 const Buttons = lazy(() => import('../pages/Buttons'))
 const UsersList = lazy(() => import('../pages/UsersList'))
 const Unsubscribe = lazy(() => import('../pages/Unsubscribe'))
-const Ads = lazy(() => import('../pages/Ads'));
+// const Ads = lazy(() => import('../pages/Ads'));
 /**
  * ⚠ These are internal routes!
  * They will be rendered inside the app, using the default `containers/Layout`.
@@ -25,10 +25,10 @@ const Ads = lazy(() => import('../pages/Ads'));
  * `routes/sidebar.js`
  */
 const routes = [
-  {
-    path: '/ads',
-    component: Ads,
-  },
+  // {
+  //   path: '/ads',
+  //   component: Ads,
+  // },
   {
     path: '/profile',
     component: Profile,

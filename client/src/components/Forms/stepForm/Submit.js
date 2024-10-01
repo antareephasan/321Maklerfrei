@@ -19,6 +19,9 @@ function Products({ listData, uniqId, enabled, PricingCardCallback, pages }) {
   } else {
     description = 'Rent';
   }
+
+  console.log("--------------------------------------");
+  console.log("Submit>Products> products: ",products);
   return (
     <div className={`${pages ? 'block' : 'grid'} gap-6 mb-4 md:grid-cols-3`}>
       {products &&
@@ -115,33 +118,33 @@ export const Submit = ({ listData, setListData, pages }) => {
   };
 
   const [errorMessage, setErrorMessage] = useState(false);
-  const handleSubscription = async (type, uniqId, stripeId) => {
-    setErrorMessage(false);
-    setEnabled(false);
-    setError(null);
-    await stripeService
-      .createSubscription(type, uniqId, stripeId)
-      .then(handlePaymentThatRequiresCustomerAction)
-      .then((subscription) => onSubscriptionComplete(subscription, uniqId))
-      .then(() => {
-        if (!listData) {
-          throw new Error();
-        } else {
-          openSnackbar(t('Your Listing will publish soon!'), 'success', 2000);
-          setTimeout(function () {
-            history.push('/app');
-            history.replace('/app/userLists');
-          }, 3000);
-        }
-      })
-      .catch(() => {
-        openSnackbar(t('Payment Failed!'), 'danger', 2000);
-      });
-  };
+  // const handleSubscription = async (type, uniqId, stripeId) => {
+  //   setErrorMessage(false);
+  //   setEnabled(false);
+  //   setError(null);
+  //   await stripeService
+  //     .createSubscription(type, uniqId, stripeId)
+  //     .then(handlePaymentThatRequiresCustomerAction)
+  //     .then((subscription) => onSubscriptionComplete(subscription, uniqId))
+  //     .then(() => {
+  //       if (!listData) {
+  //         throw new Error();
+  //       } else {
+  //         openSnackbar(t('Your Listing will publish soon!'), 'success', 2000);
+  //         setTimeout(function () {
+  //           history.push('/app');
+  //           history.replace('/app/userLists');
+  //         }, 3000);
+  //       }
+  //     })
+  //     .catch(() => {
+  //       openSnackbar(t('Payment Failed!'), 'danger', 2000);
+  //     });
+  // };
 
   const billingFormCallback = (userList) => {
     setListData(userList);
-    handleSubscription(type, listData.uniqId, stripeId);
+    // handleSubscription(type, listData.uniqId, stripeId);
   };
   const PricingCardCallback = (type, uniqId, value, paypalId, stripeId) => {
     setType(type);
@@ -150,6 +153,9 @@ export const Submit = ({ listData, setListData, pages }) => {
     setPaypalId(paypalId);
     setEnabled(true);
   };
+
+  console.log("Submit > listData",listData);
+  console.log("Submit > pages",pages);
 
   return (
     <>
@@ -178,13 +184,21 @@ export const Submit = ({ listData, setListData, pages }) => {
         <div className='px-5 mt-4'>
           <SectionTitle>{t('Billing')}</SectionTitle>
           <BillingForm
-            uniqId={listData.uniqId}
+            uniqId={listData._id}
             callback={billingFormCallback}
             value={value}
             type={type}
             paypalId={paypalId}
             stripeId={stripeId}
           />
+          {/* <BillingForm
+            uniqId={listData.uniqId}
+            callback={billingFormCallback}
+            value={value}
+            type={type}
+            paypalId={paypalId}
+            stripeId={stripeId}
+          /> */}
         </div>
       )}
     </>
