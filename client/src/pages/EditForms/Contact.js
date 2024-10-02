@@ -12,7 +12,7 @@ import 'react-phone-number-input/style.css';
 import PhoneInput, { isValidPhoneNumber }  from 'react-phone-number-input';
 export const Contact = ({ data, fRequired, setFRequired }) => {
   const history = useHistory();
-  const { uniqId } = data;
+  const { _id: uniqId } = data;
   const [phoneNumber, setPhone] = useState(data.phone);
   const { t } = useTranslation();
   Object.assign(defaultData, data);
@@ -28,13 +28,14 @@ export const Contact = ({ data, fRequired, setFRequired }) => {
   }, [enabled, openSnackbar, closeSnackbar]);
   const handleUpdateList = async (uniqId) => {
     setEnabled(false)
-    await flowFactService.updateFlowFactContact(Object.assign(formData, { phoneNumber }));
+    // await flowFactService.updateFlowFactContact(Object.assign(formData, { phoneNumber }));
     await userListService
       .updateUserListDetails(uniqId, Object.assign(formData, { phone: phoneNumber?.length > 8 ? phoneNumber : "" }) )
       .then(async (res) => {
         setEnabled(true)
-        history.push("/app");
-        history.replace("/app/userLists");
+        // history.push("/app");
+        // history.replace("/app/userLists");
+        window.location.reload();
       })
       .catch((err) => console.log(err));
   };

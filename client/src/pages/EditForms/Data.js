@@ -11,7 +11,7 @@ import { flowFactService } from "../../services/flowfact.service";
 import { SnackbarContext } from "../../context/SnackbarContext";
 export const Data = ({ data, fRequired, setFRequired }) => {
   const history = useHistory();
-  const { uniqId } = data;
+  const { _id: uniqId } = data;
   const { t } = useTranslation();
   Object.assign(defaultData, data);
   const [formData, setForm] = useForm(defaultData);
@@ -28,21 +28,22 @@ export const Data = ({ data, fRequired, setFRequired }) => {
     x = String(x).replace(/\./g, "");
     x = String(x).replace(/\./g, "");
     var parts = x.toString().split(".");
-    parts[0]=parts[0].replace(/\B(?=(\d{3})+(?!\d))/g,".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     return parts.join(",");
-    }
+  }
   const handleUpdateList = async (uniqId) => {
     setEnabled(false)
-    await flowFactService.updateFlowFactListDetails(formData);
+    // await flowFactService.updateFlowFactListDetails(formData);
     let data = formData;
-    data.listingPrice = data.listingPrice?.replace(/\./g, "");
-    data.rentPrice = data.rentPrice?.replace(/\./g, "");
+
+    data.listingPrice = typeof data.listingPrice === 'string' ? data.listingPrice.replace(/\./g, "") : data.listingPrice;
+    data.rentPrice = typeof data.rentPrice === 'string' ? data.rentPrice.replace(/\./g, "") : data.rentPrice;
     await userListService
       .updateUserListDetails(uniqId, data)
       .then(async (res) => {
         setEnabled(true)
-        history.push("/app");
-        history.replace("/app/userLists");
+        // history.push("/app");
+        window.location.reload();
       })
       .catch((err) => console.log(err));
   };
@@ -50,13 +51,13 @@ export const Data = ({ data, fRequired, setFRequired }) => {
     <div className="container mx-auto px-4">
       <Label className="mt-4">
         <span>{t("listing title")}:</span>
-        <span style={{color: "red"}}>*</span>
+        <span style={{ color: "red" }}>*</span>
         <LimitedInput
-        limit={100}
-        setForm={setForm}
-        value={formData.listingTitle}
-        name="listingTitle"
-        t={t}
+          limit={100}
+          setForm={setForm}
+          value={formData.listingTitle}
+          name="listingTitle"
+          t={t}
         />
       </Label>
       <Label className="lg:flex">
@@ -106,7 +107,7 @@ export const Data = ({ data, fRequired, setFRequired }) => {
       {formData.listingType === "For Sale" && (
         <Label className="mt-4">
           <span>{t("listing price")}:</span>
-          <span style={{color: "red"}}>*</span>
+          <span style={{ color: "red" }}>*</span>
           <div className="relative w-full focus-within:text-blue-400">
             <div className="absolute inset-y-0 right-0 flex items-center pr-3">
               <EuroIcon className="w-4 h-4" aria-hidden="true" />
@@ -119,7 +120,7 @@ export const Data = ({ data, fRequired, setFRequired }) => {
               name="listingPrice"
               value={numberWithCommas(formData.listingPrice)}
               onChange={setForm}
-              onKeyDown={(e)=> !/^\d+$/.test(e.key) && e.key !== 'Backspace' ? e.preventDefault() : true }
+              onKeyDown={(e) => !/^\d+$/.test(e.key) && e.key !== 'Backspace' ? e.preventDefault() : true}
               margin="normal"
               type="text"
               variant="outlined"
@@ -132,7 +133,7 @@ export const Data = ({ data, fRequired, setFRequired }) => {
       {formData.listingType === "For Rent" && (
         <Label className="mt-4">
           <span>{t("rent price")}</span>
-          <span style={{color: "red"}}>*</span>
+          <span style={{ color: "red" }}>*</span>
           <div className="relative w-full focus-within:text-blue-400">
             <div className="absolute inset-y-0 right-0 flex items-center pr-3">
               <EuroIcon className="w-4 h-4" aria-hidden="true" />
@@ -145,7 +146,7 @@ export const Data = ({ data, fRequired, setFRequired }) => {
               inputMode="numeric"
               value={numberWithCommas(formData.rentPrice)}
               onChange={setForm}
-              onKeyDown={(e)=> !/^\d+$/.test(e.key) && e.key !== 'Backspace' ? e.preventDefault() : true }
+              onKeyDown={(e) => !/^\d+$/.test(e.key) && e.key !== 'Backspace' ? e.preventDefault() : true}
               margin="normal"
               type="text"
               variant="outlined"
@@ -179,22 +180,22 @@ export const Data = ({ data, fRequired, setFRequired }) => {
           <span className="ml-2">{t("business")}</span>
         </div>
       </Label>
-      {fRequired && <div style={{color: "red"}}>{t("Please fill in the required fields *")}</div>}
+      {fRequired && <div style={{ color: "red" }}>{t("Please fill in the required fields *")}</div>}
       <Button
         variant="contained"
         fullwidth='true'
         color="primary"
         style={{ marginTop: "1rem" }}
         onClick={() => {
-          if(formData.listingType === "For Sale" && formData.listingPrice.length === 0){
+          if (formData.listingType === "For Sale" && formData.listingPrice.length === 0) {
             setFRequired(true);
             return;
           }
-          if(formData.listingType === "For Rent" && formData.rentPrice.length === 0){
+          if (formData.listingType === "For Rent" && formData.rentPrice.length === 0) {
             setFRequired(true);
             return;
           }
-          if(formData.listingTitle.length === 0){
+          if (formData.listingTitle.length === 0) {
             setFRequired(true);
             return;
           }

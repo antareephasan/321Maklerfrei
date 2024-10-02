@@ -70,6 +70,92 @@ const getMyList = async (req) => {
 
     return myUserList;
 };
+const updateList = async (req) => {
+    const { userId, authId } = req.user;
+    const {listId} = req.params;
+
+    const data = req.body;
+
+    const checkUser = await User.findById(userId);
+
+    if (!checkUser) {
+        throw new ApiError(404, "User not found!");
+    }
+
+    const checkAuth = await Auth.findById(authId);
+    if (!checkAuth) {
+        throw new ApiError(404, "You are not authorized");
+    }
+
+    const listToUpdate = await UserList.findById(listId);
+
+
+    if(!listToUpdate) {
+        throw new ApiError(404, "List not found");
+    }
+
+    // console.log("listToUpdate", listToUpdate);
+    // console.log("userId", userId);
+
+    if(listToUpdate.userId.toString() !== userId) {
+        throw new ApiError(403, "Unauthorized");
+    }
+
+
+    console.log("--------------------------");
+    console.log(data);
+    //lets create unique id for the new list
+    const updatedList = await UserList.findByIdAndUpdate(listId,data, {
+        new: true
+    });
+
+    return updatedList;
+};
+
+const removeImage = async (req) => { 
+    const { userId, authId } = req.user;
+    const { listId } = req.params;
+    const { imageToRemove } = req.body; // Assuming req.body contains a single image to remove
+
+    // Validate user and authorization
+    const checkUser = await User.findById(userId);
+    if (!checkUser) {
+        throw new ApiError(404, "User not found!");
+    }
+
+    const checkAuth = await Auth.findById(authId);
+    if (!checkAuth) {
+        throw new ApiError(404, "You are not authorized");
+    }
+
+    const listToUpdate = await UserList.findById(listId);
+    if (!listToUpdate) {
+        throw new ApiError(404, "List not found");
+    }
+
+    // Ensure the user is authorized to modify this list
+    if (listToUpdate.userId.toString() !== userId) {
+        throw new ApiError(403, "Unauthorized");
+    }
+
+    // Filter out the single image to remove from both collections
+    const updatedImgCollection = listToUpdate.imgCollection.filter(image => image !== imageToRemove);
+    const updatedPlanCollection = listToUpdate.planCollection.filter(image => image !== imageToRemove);
+
+    // Update the UserList with the new image collections
+    const updatedList = await UserList.findByIdAndUpdate(
+        listId,
+        {
+            imgCollection: updatedImgCollection,
+            planCollection: updatedPlanCollection,
+        },
+        { new: true } // Return the updated document
+    );
+
+    return updatedList;
+};
+
+
 
 const deleteList = async (req) => {
     const { userId, authId } = req.user;
@@ -94,7 +180,7 @@ const deleteList = async (req) => {
         throw new ApiError(404, "List not found");
     }
 
-    if(listToDelete.userId !== userId) {
+    if(listToDelete.userId.toString() !== userId) {
         throw new ApiError(403, "Unauthorized");
     }
 
@@ -108,7 +194,9 @@ const deleteList = async (req) => {
 const UserListService = {
     createList,
     getMyList,
-    deleteList
+    deleteList,
+    updateList,
+    removeImage
 };
 
 module.exports = { UserListService };

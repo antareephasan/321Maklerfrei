@@ -36,7 +36,7 @@ function Products({ listData, uniqId, enabled, PricingCardCallback }) {
           if (
             !product.product.active &&
             listData.subscription.subscriptionType !==
-              product.product.metadata.type
+            product.product.metadata.type
           ) {
             return null;
           }
@@ -67,65 +67,91 @@ function Products({ listData, uniqId, enabled, PricingCardCallback }) {
 }
 
 
+// const renderPhotos = (imagesList) => {
+//     return imagesList.map((photo, key) => {
+//         return (
+//             <div className="flex mx-1 m-1"
+//                 key={
+//                     photo.id
+//             }>
+//                 <div className="mx-2 h-14 object-cover w-14">
+//                     <a href={
+//                             photo.fileReference
+//                         }
+//                         rel="noreferrer"
+//                         target="_blank">
+//                         <img src={
+//                                 photo.fileReference
+//                             }
+//                             alt={
+//                                 photo.title
+//                             }
+//                             title={
+//                                 photo.title
+//                             }
+//                             className="h-full"/>
+//                     </a>
+//                 </div>
+//                 <p>{
+//                     photo.title
+//                 }</p>
+//             </div>
+//         );
+//     });
+// };
+
+// antareep custom
 const renderPhotos = (imagesList) => {
-    return imagesList.map((photo, key) => {
-        return (
-            <div className="flex mx-1 m-1"
-                key={
-                    photo.id
-            }>
-                <div className="mx-2 h-14 object-cover w-14">
-                    <a href={
-                            photo.fileReference
-                        }
-                        rel="noreferrer"
-                        target="_blank">
-                        <img src={
-                                photo.fileReference
-                            }
-                            alt={
-                                photo.title
-                            }
-                            title={
-                                photo.title
-                            }
-                            className="h-full"/>
-                    </a>
-                </div>
-                <p>{
+  return imagesList.map((photo, index) => {
+    return (
+      <div className="flex mx-1 m-1"
+        key={index}>
+        <div className="mx-2 h-14 object-cover w-14">
+          <a href={photo}
+            rel="noreferrer"
+            target="_blank">
+            <img src={
+              photo
+            }
+              alt={"image"}
+              title={"image"}
+              className="h-full" />
+          </a>
+        </div>
+        {/* <p>{
                     photo.title
-                }</p>
-            </div>
-        );
-    });
+                }</p> */}
+      </div>
+    );
+  });
 };
 
 // const renderPhotos = (imagesList) => {
-  // return imagesList.map((photo, key) => {
-  //   return (
-  //     <Backdrop
-  //       sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-  //       open={false}
-  //       // onClick={handleClose}
-  //     >
-  //       <CircularProgress color='inherit' />
-  //       <div className='flex mx-1 m-1' key={photo.id}>
-  //         <div className='mx-2 h-14 object-cover w-14'>
-  //           <a href={photo.fileReference} rel='noreferrer' target='_blank'>
-  //             <img
-  //               src={photo.fileReference}
-  //               alt={photo.title}
-  //               title={photo.title}
-  //               className='h-full'
-  //             />
-  //           </a>
-  //         </div>
-  //         <p>{photo.title}</p>
-  //       </div>
-  //     </Backdrop>
-  //   );
-  // });
-  
+// return imagesList.map((photo, key) => {
+//   return (
+//     <Backdrop
+//       sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+//       open={false}
+//       // onClick={handleClose}
+//     >
+//       <CircularProgress color='inherit' />
+//       <div className='flex mx-1 m-1' key={photo.id}>
+//         <div className='mx-2 h-14 object-cover w-14'>
+//           <a href={photo.fileReference} rel='noreferrer' target='_blank'>
+//             <img
+//               src={photo.fileReference}
+//               alt={photo.title}
+//               title={photo.title}
+//               className='h-full'
+//             />
+//           </a>
+//         </div>
+//         <p>{photo.title}</p>
+//       </div>
+//     </Backdrop>
+//   );
+// });
+
 // };
 const testMounth = (mounth) => {
   let value = 31;
@@ -237,9 +263,8 @@ export default function UserListDetails({ data, handledeleteList }) {
   new_date.setDate(new_date.getDate() + days);
   var expire_date = new_date.toISOString();
   let format_expire_date = expire_date.split('T')[0];
-  format_expire_date = `${format_expire_date.split('-')[2]}.${
-    format_expire_date.split('-')[1]
-  }.${format_expire_date.split('-')[0]}`;
+  format_expire_date = `${format_expire_date.split('-')[2]}.${format_expire_date.split('-')[1]
+    }.${format_expire_date.split('-')[0]}`;
   if (new_date.getTime() <= Date.now()) {
     subscription.subscriptionType = 'free';
   }
@@ -286,6 +311,14 @@ export default function UserListDetails({ data, handledeleteList }) {
   //       });
   //   });
   // }, [entityId]);
+
+  //ANtareep custom
+  useEffect(() => {
+    const combinedImages = [...listData.imgCollection, ...listData.planCollection];
+    setImagesList(combinedImages);
+  }, []);
+
+  
   useEffect(() => {
     if (enabled) {
       closeSnackbar();
@@ -509,9 +542,9 @@ export default function UserListDetails({ data, handledeleteList }) {
                       false
                     )}
                     {subscription.subscriptionType != 'free' &&
-                    subscriptionExpire === true &&
-                    subscriptionPause === false &&
-                    new_date.getTime() >= Date.now() ? (
+                      subscriptionExpire === true &&
+                      subscriptionPause === false &&
+                      new_date.getTime() >= Date.now() ? (
                       <Badge key='Active-until' className='mt-2' type='success'>
                         <span className='font-semibold pr-1'>
                           {
@@ -529,7 +562,7 @@ export default function UserListDetails({ data, handledeleteList }) {
                       false
                     )}
                     {subscription.subscriptionType != 'free' &&
-                    subscriptionPause === true ? (
+                      subscriptionPause === true ? (
                       <Badge key='Active-until' className='mt-2' type='neutral'>
                         {t(`Paused`)}{' '}
                       </Badge>
@@ -537,7 +570,7 @@ export default function UserListDetails({ data, handledeleteList }) {
                       false
                     )}
                     {subscriptionExpire === false &&
-                    subscription.subscriptionType != 'free' ? (
+                      subscription.subscriptionType != 'free' ? (
                       <Badge
                         className='activelisting'
                         key='active'
@@ -583,15 +616,15 @@ export default function UserListDetails({ data, handledeleteList }) {
                         },
                         `${listingType}` === 'For Sale'
                           ? {
-                              listingPrice: listingPrice
-                                ? numberWithCommas(listingPrice) + ' €'
-                                : '',
-                            }
+                            listingPrice: listingPrice
+                              ? numberWithCommas(listingPrice) + ' €'
+                              : '',
+                          }
                           : {
-                              rentPrice: rentPrice
-                                ? numberWithCommas(rentPrice) + ' €'
-                                : '',
-                            },
+                            rentPrice: rentPrice
+                              ? numberWithCommas(rentPrice) + ' €'
+                              : '',
+                          },
                         {
                           'Contact Type': contactType ? contactType : '',
                         },

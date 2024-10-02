@@ -11,7 +11,7 @@ import { LimitedTextarea } from "../../components/Forms/stepForm/LimitedText";
 import { SnackbarContext } from "../../context/SnackbarContext";
 export const Description = ({ data }) => {
   const history = useHistory();
-  const { uniqId } = data;
+  const { _id: uniqId } = data;
   const { t } = useTranslation();
   Object.assign(defaultData, data);
   const [formData, setForm] = useForm(defaultData);
@@ -25,26 +25,27 @@ export const Description = ({ data }) => {
     }
   }, [enabled, openSnackbar, closeSnackbar]);
   const allDescription = [
-    {value: formData.description, text: 'description'},
-    {value: formData.features, text: 'features'},
-    {value: formData.location, text: 'location'},
-    {value: formData.additionalDescription, text: 'additionalDescription'} ];
+    { value: formData.description, text: 'description' },
+    { value: formData.features, text: 'features' },
+    { value: formData.location, text: 'location' },
+    { value: formData.additionalDescription, text: 'additionalDescription' }];
 
   const handleUpdateList = async (uniqId) => {
     setEnabled(false)
-    await flowFactService.updateFlowFactListDetails(formData);
+    // await flowFactService.updateFlowFactListDetails(formData);
     await userListService
       .updateUserListDetails(uniqId, formData)
       .then(async (res) => {
         setEnabled(true)
-        history.push("/app");
-        history.replace("/app/userLists");
+        // history.push("/app");
+        // history.replace("/app/userLists");
+        window.location.reload();
       })
       .catch((err) => console.log(err));
   };
   return (
     <div className="container mx-auto px-4">
-      {allDescription.map((a,i) => (
+      {allDescription.map((a, i) => (
         <Label className="mt-4" key={i}>
           <span>{t(a.text)}</span>
           <LimitedTextarea
@@ -54,7 +55,7 @@ export const Description = ({ data }) => {
             value={a.value}
             name={a.text}
             t={t}
-            />
+          />
         </Label>
       ))}
 

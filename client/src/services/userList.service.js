@@ -12,14 +12,14 @@ function buildFormData(formData, data, parentKey) {
     formData.append(parentKey, value);
   }
 }
-const updateUserListDetails = async(uniqId, formData) => {
+const updateUserListDetails = async(listId, formData) => {
   const sendData = new FormData()
   await buildFormData(sendData, formData);
-	return axios.patch(`${apiUrl}/userList/update/${uniqId}`, sendData)
+	return axios.patch(`${apiUrl}/userList/update/${listId}`, sendData)
 }
 
 const deleteUserList = (listId) => {
-	return axios.delete(`${apiUrl}/userList/deleteList/${listId}`, {})
+	return axios.delete(`${apiUrl}/userList/deleteList/${listId}`)
 }
 export const userListService = {
     updateUserListDetails,

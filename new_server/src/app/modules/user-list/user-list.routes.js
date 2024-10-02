@@ -17,6 +17,19 @@ router.post(
   auth(ENUM_USER_ROLE.USER),
   UserListController.createList
 );
+// User routes
+router.patch(
+  "/update/:listId",
+  uploadFile(),
+  auth(ENUM_USER_ROLE.USER),
+  UserListController.updateList
+);
+ 
+router.patch(
+  "/removeImage/:listId/",
+  auth(ENUM_USER_ROLE.USER),
+  UserListController.removeImage
+);
  
 router.get(
   "/my-properties",
@@ -26,7 +39,7 @@ router.get(
 router.delete(
   "/deleteList/:listId",
   auth(ENUM_USER_ROLE.USER),
-  UserListController.getMyList
+  UserListController.deleteList
 );
  
 
