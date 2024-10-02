@@ -1,7 +1,7 @@
 const httpStatus = require("http-status");
 const ApiError = require("../../../errors/ApiError");
 const User = require("../auth/auth.model");
-const QueryBuilder = require("../../../builder/QueryBuilder"); 
+const QueryBuilder = require("../../../builder/queryBuilder"); 
 
 // --- user ---
 
