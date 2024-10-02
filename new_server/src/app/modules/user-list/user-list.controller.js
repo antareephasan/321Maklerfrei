@@ -1,6 +1,6 @@
 const { UserListService } = require("./user-list.service");
 const sendResponse = require("../../../shared/sendResponse");
-const catchAsync = require("../../../shared/catchasync"); 
+const catchAsync = require("../../../shared/catchasync");
 const { generateCognitoToken } = require("../flowfact/flowfact.service");
 
 
@@ -13,20 +13,41 @@ const createList = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const getMyList = catchAsync(async (req, res) => {
+  const result = await UserListService.getMyList(req);
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Userlist fetched successfully",
+    data: result,
+  });
+});
+
+const deleteList = catchAsync(async (req, res) => {
+  const result = await UserListService.deleteList(req);
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Userlist deleted successfully",
+    data: result,
+  });
+});
 
 
 const cognitoToken = catchAsync(async (req, res) => {
   console.log("I was in user lis const")
   const cognitoToken = await generateCognitoToken();
-  
+
   return res.status(200).json({ cognitoToken });
 });
 
-  
 
-const UserListController = { 
-  createList, 
-  cognitoToken
+
+const UserListController = {
+  createList,
+  cognitoToken,
+  getMyList,
+  deleteList
 };
 
 module.exports = { UserListController };

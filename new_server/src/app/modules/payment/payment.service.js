@@ -1,9 +1,9 @@
 const httpStatus = require("http-status");
 const config = require("../../../config");
 const ApiError = require("../../../errors/ApiError");
-const User = require("../auth/auth.model");
+const User = require("../user/user.model");
 // const Driver = require("../driver/driver.model");
-const Payment = require("./payment.model"); 
+const Payment = require("./payment.model");
 const Packages = require("../packages/packages.model");
 const UserList = require("../user-list/user-list.model");
 const stripe = require("stripe")(config.stripe.stripe_secret_key);
@@ -11,78 +11,86 @@ const stripe = require("stripe")(config.stripe.stripe_secret_key);
 const YOUR_DOMAIN = "http://localhost:3000";
 
 
-const createCheckoutSession = async (req, res) => {
+const createCheckoutSession = async (req) => {
   try {
-      const { price, packageId, useListId } = req.body
-      const {userId} = req.user
+    const { packageId, listingId } = req.body
+    const { userId } = req.user
 
-      const user = await User.findById(userId)
-      const package = await Packages.findById(packageId)
-      if(!package){
-        throw new ApiError(httpStatus.NOT_FOUND, 'invalid package ID.');
-      }
+    console.log("listingId(client_reference_id)", listingId);
 
-      let session = await stripe.checkout.sessions.create({
-              payment_method_types: ['card'],
-              mode: 'payment',
-              success_url: `${YOUR_DOMAIN}?success=true`,
-              cancel_url: `${YOUR_DOMAIN}?canceled=true`,
-              customer_email: `${user.email}`, 
-              client_reference_id: useListId,
-              line_items: [
-                  {
-                      price_data: {
-                          currency: 'usd',
-                          unit_amount: price * 100,
-                          product_data: {
-                              name: package.packageName,
-                              description: package.packageDescription
-                          }
-                      },
-                      quantity: 1
-                  }
-              ]
-          })
+    const user = await User.findById(userId)
 
-      return session
+    console.log("UserId: ", userId);
+    console.log("User: ", user);
+    const package = await Packages.findById(packageId)
+    if (!package) {
+      throw new ApiError(httpStatus.NOT_FOUND, 'invalid package ID.');
+    }
+
+    const packagePrice = Number(package.price); // Convert package.price to a number
+    const unitAmount = packagePrice * 100; // Convert to cents
+
+    let session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      mode: 'payment',
+      success_url: `${YOUR_DOMAIN}?success=true`,
+      cancel_url: `${YOUR_DOMAIN}?canceled=true`,
+      customer_email: `${user.email}`,
+      client_reference_id: listingId,
+      line_items: [
+        {
+          price_data: {
+            currency: 'usd',
+            unit_amount: unitAmount,
+            product_data: {
+              name: package.packageName,
+              description: package.packageDescription
+            }
+          },
+          quantity: 1
+        }
+      ]
+    })
+
+    return session;
 
   } catch (error) {
-      return res.json({ status: "error", message: error });
+    throw new ApiError(400, error);
   }
 };
 
 
-
-
-
-const checkAndUpdateStatusByPaypal = async (request) => {
-  const sig = request.headers['stripe-signature'];  
-  const payload = request.body;  
-
+const checkAndUpdateStatusByWebhook = async (req) => {
+  const sig = req.headers['stripe-signature'];
   let event;
-  try { 
-    event = stripe.webhooks.constructEvent(payload, sig, config.stripe.endpoint_secret);
+  try {
+    const webhook_sign_in_secret ='whsec_9d3f294e767ee851892730c440f5bc9936aee58afb59ef536aaf6de952698b7e';
+    event = stripe.webhooks.constructEvent(req.body, sig, webhook_sign_in_secret);
+    // event = stripe.webhooks.constructEvent(req.body, sig, config.stripe.endpoint_secret);
   } catch (err) {
     console.error(`Webhook signature verification failed: ${err.message}`);
     throw new ApiError(400, `Webhook Error: ${err.message}`);
   }
 
-  // Handle the event
   if (event.type === 'checkout.session.completed') {
-    const session = event.data.object; 
-    const useListId = session.client_reference_id;
-    const transactionId = session.payment_intent;  
- 
+    const session = event.data.object;
+    const listingId = session.client_reference_id;
+    const transactionId = session.payment_intent;
+    
+    console.log("session: ", session);
+    console.log("listingId: ", listingId);
+    console.log("transactionId: ", transactionId);
+
     try {
       const updateOrder = await UserList.findByIdAndUpdate(
-        useListId, 
+        listingId,
         {
           $set: {
-            transitionId: transactionId,  
-            status: 'Paid',  
+            transitionId: transactionId,
+            status: 'Paid',
           },
         },
-        { new: true } 
+        { new: true }
       );
 
       if (!updateOrder) {
@@ -99,10 +107,32 @@ const checkAndUpdateStatusByPaypal = async (request) => {
   }
 }
 
+// router.post("/stripe/webhook", bodyParser.raw({ type: 'application/json' }), async (req, res) => {
+//   const sig = req.headers['stripe-signature'];
+//   let event;
+//   const webhook_signin_secret = 'whsec_9d3f294e767ee851892730c440f5bc9936aee58afb59ef536aaf6de952698b7e';
+//   try {
+//       event = stripe.webhooks.constructEvent(req.body, sig, webhook_signin_secret);
+//   } catch (error) {
+//       console.error(`Webhook signature verification failed: ${error.message}`);
+//       res.status(400).json({ success: false });
+//       return
+//   }
+
+//   console.log(event.type);
+//   console.log(event.data.object);
+//   console.log(event.data.object.id);
+
+//   res.json({
+//       success: true
+//   })
+
+// });
+
 
 const PaymentService = {
   createCheckoutSession,
-  checkAndUpdateStatusByPaypal,
+  checkAndUpdateStatusByWebhook,
   // savePaymentUpdateSpending,
   // updateTotalEarning,
 };

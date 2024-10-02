@@ -3,9 +3,12 @@ const auth = require("../../middlewares/auth");
 const { ENUM_USER_ROLE } = require("../../../utils/enums");
 const { uploadFile } = require("../../middlewares/fileUploader");
 const { AuthController } = require("../auth/auth.controller");
+const bodyParser = require("body-parser");
 
 const router = express.Router();
 
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: true }));
 // User routes
 router.post("/register", AuthController.registrationAccount);
 router.post("/activate-user", AuthController.activateAccount);

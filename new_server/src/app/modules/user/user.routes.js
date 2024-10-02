@@ -3,8 +3,13 @@ const auth = require("../../middlewares/auth");
 const { ENUM_USER_ROLE } = require("../../../utils/enums");
 const { uploadFile } = require("../../middlewares/fileUploader"); 
 const { UserController } = require("./user.controller");
+const bodyParser = require("body-parser");
 
 const router = express.Router();
+
+
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: true }));
 
 // User routes
 router.patch(

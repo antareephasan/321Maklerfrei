@@ -6,7 +6,6 @@ const Auth = require("../auth/auth.model");
 const UserList = require("./user-list.model");
 
 
-// Update profile
 const createList = async (req) => {
     const { userId, authId } = req.user;
     const data = req.body;
@@ -14,7 +13,7 @@ const createList = async (req) => {
         throw new Error("Data is missing in the request body!");
     }
 
-    console.log("Server data: ---------", data);
+    // console.log("Server data: ---------", data);
 
     const checkUser = await User.findById(userId);
 
@@ -51,9 +50,65 @@ const createList = async (req) => {
     return userList;
 };
 
+const getMyList = async (req) => {
+    const { userId, authId } = req.user;
+
+    const checkUser = await User.findById(userId);
+
+    if (!checkUser) {
+        throw new ApiError(404, "User not found!");
+    }
+
+    const checkAuth = await Auth.findById(authId);
+    if (!checkAuth) {
+        throw new ApiError(404, "You are not authorized");
+    }
+
+
+    //lets create unique id for the new list
+    const myUserList = await UserList.find({ userId })
+
+    return myUserList;
+};
+
+const deleteList = async (req) => {
+    const { userId, authId } = req.user;
+    const { listId } = req.params;
+
+    const checkUser = await User.findById(userId);
+
+    if (!checkUser) {
+        throw new ApiError(404, "User not found!");
+    }
+
+    const checkAuth = await Auth.findById(authId);
+    if (!checkAuth) {
+        throw new ApiError(404, "You are not authorized");
+    }
+
+
+    const listToDelete = await UserList.findById(listId);
+
+
+    if(!listToDelete) {
+        throw new ApiError(404, "List not found");
+    }
+
+    if(listToDelete.userId !== userId) {
+        throw new ApiError(403, "Unauthorized");
+    }
+
+    //lets create unique id for the new list
+    const deletedList = await UserList.findByIdAndDelete(listId);
+
+    return deletedList;
+};
+
 
 const UserListService = {
-    createList
+    createList,
+    getMyList,
+    deleteList
 };
 
 module.exports = { UserListService };

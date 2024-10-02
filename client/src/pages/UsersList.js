@@ -21,37 +21,45 @@ const apiUrl = config.api.url;
 
 export default function UserList() {
   const history = useHistory();
+
   const handlePush = () => {
     history.push("/app/create_ads");
   };
+
   const { t } = useTranslation();
   const { user } = useContext(AuthContext);
   // const email = user.email;
 
-  // const handledeleteList = (uniqId) => {
-  //   userListService
-  //     .deleteUserList(uniqId)
-  //     .then((res) => {
-  //       history.push("/app");
-  //       history.replace("/app/userLists");
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
+  const handledeleteList = (listId) => {
+    userListService
+      .deleteUserList(listId)
+      .then((res) => {
+        history.push("/app");
+        history.replace("/app/userLists");
+      })
+      .catch((err) => console.log(err));
+  };
+
+
   const [userLists, setUserLists] = useState([]);
   const [noData, setNoData] = useState(false);
-  // useEffect(() => {
-  //   axios
-  //     .post(`${apiUrl}/v1/userList/get`, { email })
-  //     .then((response) => {
-  //       if(response.data.message === 'success'){
-  //         setNoData(true);
-  //         setUserLists([]);
-  //         return
-  //       }
-  //       setUserLists(response.data.sort((a,b) => b.listNumber - a.listNumber));
-  //     })
-  //     .catch((error) => console.log(error));
-  // }, [email]);
+
+  useEffect(() => {
+    axios
+      .get(`${apiUrl}/userList/my-properties`)
+      .then((response) => {
+
+        console.log("MyList", response.data.data);
+
+        if(response.data.data.length === 0){
+          setNoData(true);
+          setUserLists([]);
+          return
+        }
+        setUserLists(response.data.data.sort((a,b) => b.listNumber - a.listNumber));
+      })
+      .catch((error) => console.log(error));
+  }, [user]);
 
   // response.data.sort((a,b) => b.listNumber - a.listNumber)
 
@@ -66,8 +74,9 @@ export default function UserList() {
             size="small"
             component="span"
             onClick={handlePush}
+            className="text-gray-900"
           >
-            {t("create listing")}
+           Create Ad
           </Button>
         </div>
       </div>
@@ -87,14 +96,14 @@ export default function UserList() {
         </div>
         <div className="grid overflow-hidden grid-cols-1 md:grid-cols-2 auto-rows-auto gap-6">
 
-          {/* {userLists.length > 0 &&
+          {userLists.length > 0 &&
             userLists?.map((data) => (
               <UserListDetails
                 key={data._id}
                 data={data}
                 handledeleteList={handledeleteList}
               />
-            ))} */}
+            ))}
         </div>
       </div>
       </div>

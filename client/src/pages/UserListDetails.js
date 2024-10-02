@@ -150,6 +150,7 @@ const testMounth = (mounth) => {
 };
 export default function UserListDetails({ data, handledeleteList }) {
   const {
+    _id: uniqId,
     entityId,
     listingTitle,
     listingType,
@@ -201,7 +202,6 @@ export default function UserListDetails({ data, handledeleteList }) {
     typeOfHeating,
     typeOfEnergyPass,
     yearOfBuilding,
-    uniqId,
     subscription,
     subscriptionId,
     imgCollection,
@@ -269,23 +269,23 @@ export default function UserListDetails({ data, handledeleteList }) {
   const [error, setError] = useState(null);
 
   const [imagesList, setImagesList] = useState([]);
-  useEffect(() => {
-    flowFactService.generateCognitoToken().then((cognitoToken) => {
-      console.log(`cognitoToken for userList ${entityId}`, cognitoToken);
-      axios
-        .get(
-          `https://api.production.cloudios.flowfact-prod.cloud/multimedia-service/items/entities/${entityId}`,
-          {
-            headers: {
-              cognitoToken,
-            },
-          }
-        )
-        .then((reqData) => {
-          setImagesList(reqData.data);
-        });
-    });
-  }, [entityId]);
+  // useEffect(() => {
+  //   flowFactService.generateCognitoToken().then((cognitoToken) => {
+  //     console.log(`cognitoToken for userList ${entityId}`, cognitoToken);
+  //     axios
+  //       .get(
+  //         `https://api.production.cloudios.flowfact-prod.cloud/multimedia-service/items/entities/${entityId}`,
+  //         {
+  //           headers: {
+  //             cognitoToken,
+  //           },
+  //         }
+  //       )
+  //       .then((reqData) => {
+  //         setImagesList(reqData.data);
+  //       });
+  //   });
+  // }, [entityId]);
   useEffect(() => {
     if (enabled) {
       closeSnackbar();

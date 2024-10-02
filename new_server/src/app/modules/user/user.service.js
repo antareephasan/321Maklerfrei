@@ -15,7 +15,7 @@ const updateProfile = async (req) => {
     throw new Error("Data is missing in the request body!");
   }
 
-  console.log("Server data: ---------",data);
+  // console.log("Server data: ---------",data);
 
   const checkUser = await User.findById(userId); 
  

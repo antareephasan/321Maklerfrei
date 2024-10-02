@@ -332,14 +332,9 @@ export const Review = (props) => {
       .post(`${apiUrl}/userList/create`, data)
       .then((response) => {
         console.log('response', response);
-        setListData(response.data);
+        setListData(response.data.data);
         // openSnackbar(t('List Is Created'), 'success', 3000);
-        setLoading(false);
 
-        localStorage.removeItem('formData');
-        localStorage.removeItem('entityId');
-        localStorage.removeItem('imgMultiStepForm');
-        localStorage.removeItem('planMultiStepForm');
         // setEnabled(false);
 
         setIsSnackbarOpen(false)
@@ -355,7 +350,14 @@ export const Review = (props) => {
           'danger',
           2000
         );
-      });
+      }).finally(() => {
+        setLoading(false);
+
+        localStorage.removeItem('formData');
+        localStorage.removeItem('entityId');
+        localStorage.removeItem('imgMultiStepForm');
+        localStorage.removeItem('planMultiStepForm');
+      })
   };
 
   return (

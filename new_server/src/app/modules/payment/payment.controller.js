@@ -12,8 +12,8 @@ const createCheckoutSession = catchAsync(async (req, res) => {
     data: result,
   });
 });
-const checkAndUpdateStatusByPaypal = catchAsync(async (req, res) => {
-  const result = await PaymentService.checkAndUpdateStatusByPaypal(req.body);
+const checkAndUpdateStatusByWebhook = catchAsync(async (req, res) => {
+  const result = await PaymentService.checkAndUpdateStatusByWebhook(req);
 
   sendResponse(res, {
     statusCode: 200,
@@ -47,7 +47,7 @@ const checkAndUpdateStatusByPaypal = catchAsync(async (req, res) => {
 
 const PaymentController = {
   createCheckoutSession,
-  checkAndUpdateStatusByPaypal,
+  checkAndUpdateStatusByWebhook,
   // savePaymentUpdateSpending,
   // updateTotalEarning,
 };

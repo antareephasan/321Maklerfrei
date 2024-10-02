@@ -4,12 +4,11 @@ import { CheckIcon, DeleteIcon } from "../../icons";
 import { useTranslation } from "react-i18next";
 
 function PricingCardSale({
+  packageId,
   title,
-  uniqId,
   type,
+  listData,
   value,
-  paypalId,
-  stripeId,
   active,
   enabled,
   callback,
@@ -22,6 +21,16 @@ function PricingCardSale({
     { title: "Immonet", allowedIn: ["Medium", "Premium"] },
     { title: "Premium Platzierung", allowedIn: ["Premium"] },
   ];
+
+
+  const handlePaymentClick = (e) => {
+      e.preventDefault();
+
+      console.log("fdfsdfsdf")
+      callback(packageId, listData._id);
+  }
+
+  
   return (
     <>
       <div>
@@ -125,10 +134,7 @@ function PricingCardSale({
                 block
                 className="md:mt-0 mt-5"
                 disabled={active || !enabled}
-                onClick={(e) => {
-                  e.preventDefault();
-                  callback(type, uniqId, value, paypalId, stripeId);
-                }}
+                onClick={handlePaymentClick}
               >
                 {active && <span>{t("Active plan")}</span>}
                 {!active && <span>{t("Choose")}</span>}
