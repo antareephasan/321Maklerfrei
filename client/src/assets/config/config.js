@@ -27,7 +27,7 @@ if (error) {
 
 export const config = {
   api: {
-    url:  "http://localhost:5000",
+    url:  envVars.REACT_APP_API_URL | "http://locahost:5000",
   },
   stripe: {
     publicKey: envVars.REACT_APP_STRIPE_PUBLIC_KEY,
