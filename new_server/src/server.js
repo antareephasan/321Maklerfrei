@@ -14,8 +14,7 @@ async function main() {
     await connectDB();
     logger.info(`DB Connected Successfully at ${new Date().toLocaleString()}`);
 
-    const port =
-      typeof config.port === "number" ? config.port : Number(config.port);
+    const port = process.env.PORT || 5000;
  
 
     // Start the server------------------
