@@ -4,10 +4,13 @@ const { Schema, model } = mongoose;
 
 const UserListSchema = new Schema(
     {
-        // uniqId: {
-        //     type: String,
-        //     required: true
-        // },
+        uniqId: {
+            type: String,
+            unique: true,
+        },
+        email: {
+            type: String,
+        },
         userId: {
             type: mongoose.Schema.ObjectId,
             required: true,
@@ -269,12 +272,12 @@ const UserListSchema = new Schema(
             type: String
         },
         transitionId: {
-            type: String,  
+            type: String,
         },
-         payment:{
+        payment: {
             type: String,
             enum: ['paddings', 'success ']
-         },
+        },
     },
     {
         timestamps: true,

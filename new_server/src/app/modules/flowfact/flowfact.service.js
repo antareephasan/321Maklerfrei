@@ -1,27 +1,17 @@
 const axios = require('axios');
 const FormData = require('form-data');
-// const UserList = require('../models/userList.model');
-
-// const bucketName = '321maklerfrei-bucket';
-
-// const AWS = require('aws-sdk');
 const ApiError = require('../../../errors/ApiError');
-// const s3 = new AWS.S3();
+
 const generateCognitoToken = async () => {
     try{
-      console.log("Flow fact token: ",process.env.FLOWFACT_TOKEN);
       let req = await axios.get(`https://api.production.cloudios.flowfact-prod.cloud/admin-token-service/public/adminUser/authenticate` , {
         headers: {
           token: process.env.FLOWFACT_TOKEN
         }
       });
-
-      console.log("----------------------");
-      console.log("Req data",req);
       return req.data;
     }catch(er){
-      // throw new ApiError(404, er.message);
-      console.log(er.message);
+      throw new ApiError(404, er.message);
     }
 };
 const flowfactMultiMedia= async (pic, schema_name, entityId, title, cognitoToken) => {

@@ -5,6 +5,10 @@ const httpStatus = require("http-status");
 const Auth = require("../auth/auth.model");
 
 
+const getUserByEmail = async (email) => {
+  return User.findOne({ email });
+};
+
 // Update profile
 const updateProfile = async (req) => {
   const { files } = req;
@@ -90,7 +94,8 @@ const deleteMyAccount = async (payload) => {
 const UserService = { 
   getProfile, 
   deleteMyAccount, 
-  updateProfile
+  updateProfile,
+  getUserByEmail
 };
 
 module.exports = { UserService };
