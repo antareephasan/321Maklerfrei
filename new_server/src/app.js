@@ -10,6 +10,7 @@ const app = express();
 app.use(
   cors({
     origin: [
+      'https://321-maklerfrei.vercel.app',
       'http://192.168.10.16:3000',
       'http://192.168.30.250:3000',
       'http://192.168.10.102:3000',
