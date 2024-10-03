@@ -165,7 +165,7 @@ export const Review = ({
     const sendData = new FormData();
     //request uniqId
     let reqUniqId = await axios.post(
-      `${apiUrl}/v1/userList/create?uniqId=ture`,
+      `${apiUrl}/userList/create?uniqId=true`,
       {
         email,
       }
@@ -216,7 +216,7 @@ export const Review = ({
     //   sendData.append("planDetails", JSON.stringify(details));
     // }
     axios
-      .post(`${apiUrl}/v1/userList/create`, sendData)
+      .post(`${apiUrl}/userList/create`, sendData)
       .then((response) => {
         setListData(response.data);
         // localStorage.setItem(

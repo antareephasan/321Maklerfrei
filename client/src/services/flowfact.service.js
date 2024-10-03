@@ -342,9 +342,6 @@ const publishImagesToFlowFact = async (
   try {
     console.log('data', data);
     const cognitoToken = await generateCognitoToken();
-
-    console.log("client flowfact.services.js> cognitoToken:",cognitoToken);
-    return ;
     // test if we have contact
     let contact = await axios.get(
       `https://api.production.cloudios.flowfact-prod.cloud/contact-service/contact?email=${data.formEmail}`,
@@ -393,8 +390,8 @@ const publishImagesToFlowFact = async (
         firstName: data.nameHide ? 'Privater' : data.contactName,
         lastName: data.nameHide ? 'Anbieter' : data.lastName,
         emails: [data.formEmail],
-        company: '321maklerfrei',
-        homepage: ['https://321maklerfrei.de'],
+        company: '123provisionsfrei',
+        homepage: ['https://123provisionsfrei.de'],
       };
       let phone = data.phoneNumber || data.phone;
       if (phone?.length > 5) {
@@ -997,8 +994,8 @@ const publishToFlowFact = async (
         firstName: data.nameHide ? 'Privater' : data.contactName,
         lastName: data.nameHide ? 'Anbieter' : data.lastName,
         emails: [data.formEmail],
-        company: '321maklerfrei',
-        homepage: ['https://321maklerfrei.de'],
+        company: '123provisionsfrei',
+        homepage: ['https://123provisionsfrei.de'],
       };
       let phone = data.phoneNumber || data.phone;
       if (phone?.length > 5) {
@@ -1641,8 +1638,8 @@ const updateFlowFactContact = async (data) => {
       firstName: data.nameHide ? 'Privater' : data.contactName,
       lastName: data.nameHide ? 'Anbieter' : data.lastName,
       emails: [data.formEmail],
-      company: '321maklerfrei',
-      homepage: ['https://321maklerfrei.de'],
+      company: '123provisionsfrei',
+      homepage: ['https://123provisionsfrei.de'],
     };
     if (data.phoneNumber?.length > 5) {
       Object.assign(newData, {

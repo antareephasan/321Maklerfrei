@@ -9,15 +9,9 @@ import { stripeService } from '../../../services';
 import { HelperText } from '@windmill/react-ui';
 import { useTranslation } from 'react-i18next';
 import { useStripe } from '@stripe/react-stripe-js';
-import { useHistory, useLocation } from 'react-router-dom';
-import axios from 'axios';
-import { config } from '../../../assets/config/config';
-import { loadStripe } from '@stripe/stripe-js';
-import toast from 'react-hot-toast';
+import { useHistory } from 'react-router-dom';
 
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
-
-function Products({ listData, enabled, PricingCardCallback, pages }) {
+function Products({ listData, uniqId, enabled, PricingCardCallback, pages }) {
   const { products } = useContext(StripeContext);
   let description;
   if (listData.listingType === 'For Rent') {
@@ -25,9 +19,6 @@ function Products({ listData, enabled, PricingCardCallback, pages }) {
   } else {
     description = 'Rent';
   }
-
-  console.log("--------------------------------------");
-  console.log("Submit>Products> products: ", products);
   return (
     <div className={`${pages ? 'block' : 'grid'} gap-6 mb-4 md:grid-cols-3`}>
       {products &&
@@ -38,7 +29,6 @@ function Products({ listData, enabled, PricingCardCallback, pages }) {
           return (
             ////Paypal card/////
             <PricingCardSale
-              packageId={product._id}
               key={i}
               title={product.packageName}
               type={product.subscriptionType}
@@ -47,7 +37,7 @@ function Products({ listData, enabled, PricingCardCallback, pages }) {
               value={product.price + ' ' + '€'}
               enabled={enabled}
               listData={listData}
-              // uniqId={uniqId}
+              uniqId={uniqId}
               callback={PricingCardCallback}
             />
           );
@@ -68,7 +58,6 @@ export const Submit = ({ listData, setListData, pages }) => {
   const history = useHistory();
   const { t } = useTranslation();
 
-
   useEffect(() => {
     if (enabled) {
       closeSnackbar();
@@ -77,63 +66,127 @@ export const Submit = ({ listData, setListData, pages }) => {
     }
   }, [enabled, openSnackbar, closeSnackbar]);
 
-
-
-
-
-  const [errorMessage, setErrorMessage] = useState(false);
-
-
-
-
-  const PricingCardCallback = async (packageId, listingId) => {
-    try {
-      const { data } = await axios.post(`${config.api.url}/payment/stripe/create-checkout-session`, {
-        packageId,
-        listingId,
-      });
-
-
-      const stripe = await stripePromise;
-
-
-      const { error } = await stripe.redirectToCheckout({
-        sessionId: data.data.id,
-      });
-  
-      if (error) {
-        console.error('Error redirecting to checkout:', error);
-      }
-    } catch (error) {
-      console.log("Error: ", error);
+  const handlePaymentThatRequiresCustomerAction = (subscription) => {
+    if (!subscription) {
+      return;
+    }
+    if (subscription && subscription.status === 'active') {
+      return subscription;
+    }
+    const paymentIntent = subscription.latest_invoice.payment_intent;
+    if (paymentIntent.status === 'requires_action') {
+      return stripe
+        .confirmCardPayment(paymentIntent.client_secret, {
+          payment_method: listData.stripePaymentMethod.id,
+        })
+        .then((result) => {
+          if (result.error) {
+            throw Object.assign(new Error(result.error.message), {
+              response: { data: { message: result.error.message } },
+            });
+          } else {
+            if (result.paymentIntent.status === 'succeeded') {
+              return subscription;
+            } else {
+              throw Object.assign(new Error('Some error occured'));
+            }
+          }
+        })
+        .catch((error) => {
+          stripeService.deleteSubscription(subscription.id);
+          throw error;
+        });
+    } else {
+      return subscription;
     }
   };
 
-  console.log("Submit > listData", listData);
-  console.log("Submit > pages", pages);
+  const onSubscriptionComplete = (subscription, uniqId) => {
+    if (!subscription) return;
+    if (subscription.status === 'active') {
+      return stripeService.completeSubscription(
+        subscription.id,
+        subscription.items.data[0].price.product,
+        uniqId
+      );
+    } else {
+      throw Object.assign(new Error('Some error occured'));
+    }
+  };
+
+  const [errorMessage, setErrorMessage] = useState(false);
+  const handleSubscription = async (type, uniqId, stripeId) => {
+    setErrorMessage(false);
+    setEnabled(false);
+    setError(null);
+    await stripeService
+      .createSubscription(type, uniqId, stripeId)
+      .then(handlePaymentThatRequiresCustomerAction)
+      .then((subscription) => onSubscriptionComplete(subscription, uniqId))
+      .then(() => {
+        if (!listData) {
+          throw new Error();
+        } else {
+          openSnackbar(t('Your Listing will publish soon!'), 'success', 2000);
+          setTimeout(function () {
+            history.push('/app');
+            history.replace('/app/userLists');
+          }, 3000);
+        }
+      })
+      .catch(() => {
+        openSnackbar(t('Payment Failed!'), 'danger', 2000);
+      });
+  };
+
+  const billingFormCallback = (userList) => {
+    setListData(userList);
+    handleSubscription(type, listData.uniqId, stripeId);
+  };
+  const PricingCardCallback = (type, uniqId, value, paypalId, stripeId) => {
+    setType(type);
+    setValue(value);
+    setStripeId(stripeId);
+    setPaypalId(paypalId);
+    setEnabled(true);
+  };
 
   return (
     <>
-      <div className='px-0 md:px-5 mt-4'>
-        <SectionTitle>{t('Choose your plan')}</SectionTitle>
-        <Products
-          pages={pages}
-          listData={listData}
-          uniqId={listData.uniqId}
-          enabled={enabled}
-          PricingCardCallback={PricingCardCallback}
-        />
-        {error && (
-          <HelperText valid={false} className='mb-8 text-sm'>
-            {error}
-          </HelperText>
-        )}
-        {errorMessage && (
-          <HelperText valid={false} className='mb-8 text-sm'>
-            provide Billing details
-          </HelperText>
-        )}
-      </div>
+      {!type ? (
+        <div className='px-0 md:px-5 mt-4'>
+          <SectionTitle>{t('Choose your plan')}</SectionTitle>
+          <Products
+            pages={pages}
+            listData={listData}
+            uniqId={listData.uniqId}
+            enabled={enabled}
+            PricingCardCallback={PricingCardCallback}
+          />
+          {error && (
+            <HelperText valid={false} className='mb-8 text-sm'>
+              {error}
+            </HelperText>
+          )}
+          {errorMessage && (
+            <HelperText valid={false} className='mb-8 text-sm'>
+              provide Billing details
+            </HelperText>
+          )}
+        </div>
+      ) : (
+        <div className='px-5 mt-4'>
+          <SectionTitle>{t('Billing')}</SectionTitle>
+          <BillingForm
+            uniqId={listData.uniqId}
+            callback={billingFormCallback}
+            value={value}
+            type={type}
+            paypalId={paypalId}
+            stripeId={stripeId}
+          />
+        </div>
+      )}
     </>
   );
 };

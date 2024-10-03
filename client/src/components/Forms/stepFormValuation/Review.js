@@ -164,7 +164,7 @@ export const Review = ({
     const sendData = new FormData();
     //request uniqId
     let reqUniqId = await axios.post(
-      `${apiUrl}/v1/userList/create_valuation?uniqId=ture`,
+      `${apiUrl}/v1/userList/create_valuation?uniqId=true`,
       {
         email,
       }
