@@ -3,12 +3,13 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { config } from "../assets/config/config";
 import PageTitle from "../components/Typography/PageTitle";
 import { AuthContext } from "../context/AuthContext";
 import { userListService } from "../services";
 import UserListDetails from "./UserListDetails";
+import toast from "react-hot-toast";
 
 function SetTitleTag () {
   return (
@@ -21,6 +22,22 @@ const apiUrl = config.api.url;
 
 export default function UserList() {
   const history = useHistory();
+
+  const location = useLocation();
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const success = queryParams.get("success");
+    const canceled = queryParams.get("canceled");
+
+    if (success) {
+      toast.success("Payment was successful!");
+    }
+
+    if (canceled) {
+      toast.error("Payment was canceled.");
+    }
+  }, [location.search]);
 
   const handlePush = () => {
     history.push("/app/create_ads");
@@ -74,7 +91,7 @@ export default function UserList() {
             size="small"
             component="span"
             onClick={handlePush}
-            className="text-gray-900"
+            // className="text-gray-900"
           >
            Create Ad
           </Button>

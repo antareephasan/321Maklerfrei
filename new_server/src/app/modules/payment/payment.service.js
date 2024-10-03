@@ -8,7 +8,7 @@ const Packages = require("../packages/packages.model");
 const UserList = require("../user-list/user-list.model");
 const stripe = require("stripe")(config.stripe.stripe_secret_key);
 
-const YOUR_DOMAIN = "http://localhost:3000";
+const YOUR_DOMAIN = process.env.RESET_PASS_UI_LINK;
 
 
 const createCheckoutSession = async (req) => {
@@ -33,8 +33,8 @@ const createCheckoutSession = async (req) => {
     let session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'payment',
-      success_url: `${YOUR_DOMAIN}?success=true`,
-      cancel_url: `${YOUR_DOMAIN}?canceled=true`,
+      success_url: `${YOUR_DOMAIN}app/userLists?success=true`,
+      cancel_url: `${YOUR_DOMAIN}app/userLists?canceled=true`,
       customer_email: `${user.email}`,
       client_reference_id: listingId,
       line_items: [
@@ -64,8 +64,7 @@ const checkAndUpdateStatusByWebhook = async (req) => {
   const sig = req.headers['stripe-signature'];
   let event;
   try {
-    const webhook_sign_in_secret ='whsec_9d3f294e767ee851892730c440f5bc9936aee58afb59ef536aaf6de952698b7e';
-    event = stripe.webhooks.constructEvent(req.body, sig, webhook_sign_in_secret);
+    event = stripe.webhooks.constructEvent(req.body, sig, config.stripe.endpoint_secret);
     // event = stripe.webhooks.constructEvent(req.body, sig, config.stripe.endpoint_secret);
   } catch (err) {
     console.error(`Webhook signature verification failed: ${err.message}`);

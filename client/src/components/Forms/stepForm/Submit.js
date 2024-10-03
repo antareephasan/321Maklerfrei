@@ -9,10 +9,11 @@ import { stripeService } from '../../../services';
 import { HelperText } from '@windmill/react-ui';
 import { useTranslation } from 'react-i18next';
 import { useStripe } from '@stripe/react-stripe-js';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { config } from '../../../assets/config/config';
 import { loadStripe } from '@stripe/stripe-js';
+import toast from 'react-hot-toast';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
@@ -68,9 +69,6 @@ export const Submit = ({ listData, setListData, pages }) => {
   const { t } = useTranslation();
 
 
-  console.log("------------------------------");
-  console.log("Listdata:", listData);
-  console.log("------------------------------");
   useEffect(() => {
     if (enabled) {
       closeSnackbar();
@@ -80,22 +78,19 @@ export const Submit = ({ listData, setListData, pages }) => {
   }, [enabled, openSnackbar, closeSnackbar]);
 
 
+
+
+
   const [errorMessage, setErrorMessage] = useState(false);
 
 
 
 
   const PricingCardCallback = async (packageId, listingId) => {
-    // setType(type);
-    // setValue(value);
-    // setEnabled(true);
-
-
-    console.log("ff")
     try {
       const { data } = await axios.post(`${config.api.url}/payment/stripe/create-checkout-session`, {
         packageId,
-        listingId
+        listingId,
       });
 
 

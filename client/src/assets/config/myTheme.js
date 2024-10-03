@@ -198,7 +198,7 @@ const myTheme = {
       disabled: 'opacity-50 cursor-not-allowed',
     },
     outline: {
-      base: 'text-white border-gray-300 border dark:text-gray-400 focus:outline-none',
+      base: 'text-gray-600 border-gray-300 border dark:text-gray-400 focus:outline-none',
       active:
         'active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:ring focus:ring-gray-300',
       disabled: 'opacity-50 cursor-not-allowed bg-gray-300',
