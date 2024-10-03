@@ -93,6 +93,8 @@ const registrationAccount = async (req) => {
     }
   });
 
+  
+
   // Role-based user creation
   let result;
   switch (role) {

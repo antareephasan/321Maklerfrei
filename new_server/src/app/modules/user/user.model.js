@@ -15,10 +15,18 @@ const UserSchema = new Schema(
     name: {
       type: String,
       required: true,
-    }, 
+    },
+    lastname: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     email: {
       type: String,
       required: true,
+    },
+    customerId: {
+      type: String,
     },
     profile_image: {
       type: String,
@@ -30,7 +38,7 @@ const UserSchema = new Schema(
       default:
         "https://res.cloudinary.com/arafatleo/image/upload/v1720600946/images_1_dz5srb.png",
     },
-    phone_number: {
+    phone: {
       type: String,
       unique: true,
     }, 
