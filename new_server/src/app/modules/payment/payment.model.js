@@ -28,7 +28,12 @@ const paymentSchema = new Schema(
       unique: true,
       required: true,
     },
-    note: String,
+    status: {
+      type: String,
+    },
+    note: {
+      type: String
+    }
   },
   {
     timestamps: true,

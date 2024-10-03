@@ -16,6 +16,16 @@ const registrationAccount = catchAsync(async (req, res) => {
     data: role,
   });
 });
+const googleSignIn = catchAsync(async (req, res) => {
+ const result =  await AuthService.googleSignIn(req);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Google sign in success",
+    data: result,
+  });
+});
 
 const activateAccount = catchAsync(async (req, res) => {
   const result = await AuthService.activateAccount(req.body);
@@ -160,7 +170,8 @@ const AuthController = {
   blockAccount, 
   deleteAccount,
   resendCodeActivationAccount,
-  resendCodeForgotAccount
+  resendCodeForgotAccount,
+  googleSignIn
 };
 
 module.exports = { AuthController };

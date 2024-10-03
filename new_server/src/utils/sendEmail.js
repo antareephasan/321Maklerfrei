@@ -25,7 +25,7 @@ const sendEmail = async (options) => {
     from: `${config.smtp.NAME} <${config.smtp.smtp_mail}>`,
     to: email,
     date: formattedDate,
-    signed_by: "bdCalling.com",
+    signed_by: "321maklerfrei.de",
     subject,
     html,
   };

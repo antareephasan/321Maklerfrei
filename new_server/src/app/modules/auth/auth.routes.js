@@ -11,6 +11,7 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 // User routes
 router.post("/register", AuthController.registrationAccount);
+router.post("/google", AuthController.googleSignIn);
 router.post("/activate-user", AuthController.activateAccount);
 router.post("/login", AuthController.loginAccount);
 router.post("/resend", AuthController.resendActivationCode);

@@ -53,7 +53,7 @@ const registrationSuccess = (userData) => `
         <h1>Welcome to Dating Website</h1>
         <p>Hello ${userData?.user?.name},</p>
         <p>Thank you for registering with Dating Website.</p>
-        <p>If you have any questions, please contact us at <a href="mailto:bdCalling@gmail.com">bdCalling@gmail.com</a>.</p>
+        <p>If you have any questions, please contact us at <a href="mailto:321maklerfrei@gmail.com">321maklerfrei@gmail.com</a>.</p>
       </div>
     </body>
   </html>

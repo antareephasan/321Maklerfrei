@@ -7,12 +7,16 @@ import { useTranslation } from "react-i18next";
 import { Label, Input, HelperText, Button } from "@windmill/react-ui";
 import { dictionary } from "../../resources/multiLanguages";
 import { useHistory } from "react-router-dom";
+import GoogleIcon from '@mui/icons-material/Google';
+import { OAuthContext } from "../../Firebase/FirebaseProvider";
 
 function LoginForm() {
   const { login } = useContext(AuthContext);
   const { t } = useTranslation();
   const languageReducer = "de";
   const history = useHistory();
+
+  const { signImWithGoogle } = useContext(OAuthContext);
   return (
     <Formik
       initialValues={{
@@ -86,6 +90,14 @@ function LoginForm() {
             disabled={isSubmitting}
           >
             {dictionary["loginForm"][languageReducer]["loginButton"]}
+          </Button>
+          <Button
+            className="mt-4"
+            block
+            disabled={isSubmitting}
+            onClick={signImWithGoogle}
+          >
+           <GoogleIcon  className="mr-2 " />  Google Login
           </Button>
           {status && <HelperText valid={false}>{status}</HelperText>}
         </Form>

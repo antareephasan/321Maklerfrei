@@ -18,6 +18,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import HttpApi from 'i18next-http-backend';
 import { Toaster } from 'react-hot-toast';
 import App from './App'
+import FirebaseProvider from './Firebase/FirebaseProvider.js'
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
@@ -27,33 +28,35 @@ i18n
     supportedLngs: ['en', 'de'],
     fallbackLng: "en",
     detection: {
-      order: [ 'htmlTag', 'cookie', 'localStorage', 'path', 'subdomain'],
-      caches: [ 'cookie' ]
+      order: ['htmlTag', 'cookie', 'localStorage', 'path', 'subdomain'],
+      caches: ['cookie']
     },
     backend: {
       loadPath: '/assets/locales/{{lng}}/translation.json',
     },
-    react: { useSuspense: false}
+    react: { useSuspense: false }
   });
 
 ReactDOM.render(
   <Windmill theme={myTheme}>
-  <SidebarProvider>
-    <SnackbarProvider>
-      <StripeProvider>
-        <AuthProvider>
-          <FlowFactProvider>
-            <Suspense fallback={<ThemedSuspense />}>
-              <Windmill>
-                <App />
-                <Toaster />
-              </Windmill>
-            </Suspense>
-          </FlowFactProvider>
-        </AuthProvider>
-      </StripeProvider>
-    </SnackbarProvider>
-  </SidebarProvider>
+    <SidebarProvider>
+      <SnackbarProvider>
+        <StripeProvider>
+          <AuthProvider>
+            <FirebaseProvider>
+              <FlowFactProvider>
+                <Suspense fallback={<ThemedSuspense />}>
+                  <Windmill>
+                    <App />
+                    <Toaster />
+                  </Windmill>
+                </Suspense>
+              </FlowFactProvider>
+            </FirebaseProvider>
+          </AuthProvider>
+        </StripeProvider>
+      </SnackbarProvider>
+    </SidebarProvider>
   </Windmill>,
   document.getElementById('root')
 )

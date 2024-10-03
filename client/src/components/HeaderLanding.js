@@ -43,7 +43,7 @@ function NavbarContent() {
       </div>
       {!user && (
         <Link to="/auth/login">
-          <Button layout="outline" className="text-sm px-10 py-3">
+          <Button layout="outline" className="text-sm px-10 py-3 text-white" style={{ color: 'white' }}>
             Login
           </Button>
         </Link>

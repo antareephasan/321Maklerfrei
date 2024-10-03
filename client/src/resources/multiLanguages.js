@@ -589,6 +589,7 @@ export const dictionary = {
   userDashboard: {
     en: {
       activeAds: "Active ads",
+      inactiveAds: "Inactive ads",
       welcomeGreeting: "Welcome to 321maklerfrei",
       noListingMessage: "You have not created any listings yet. Click on the blue button and create your first listing.",
       createAdBtn: "Create Ad",
@@ -596,6 +597,7 @@ export const dictionary = {
     },
     de: {
       activeAds: "Aktive Anzeigen",
+      inactiveAds: "Inaktive Anzeigen",
       welcomeGreeting: "herzlich Willkommen bei 321maklerfrei.",
       noListingMessage: "Sie haben noch keine Einträge erstellt. Klicken Sie auf den blauen Button und erstellen Sie Ihren ersten Eintrag.",
       createAdBtn: "Anzeige erstellen",

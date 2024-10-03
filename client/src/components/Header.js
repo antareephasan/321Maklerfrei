@@ -13,6 +13,7 @@ import {
 } from "../icons";
 import { useTranslation } from "react-i18next";
 import {
+  Avatar,
   Badge,
   Dropdown,
   DropdownItem,
@@ -79,14 +80,18 @@ function Header() {
 
           {/* <!-- Profile menu --> */}
           <li className="relative">
-            <button
-              className="rounded-full capitalize h-6 w-6 p-5 flex items-center justify-center font-bold bg-gray-300 dark:text-blue-600 focus:shadow-outline-purple focus:outline-none"
-              onClick={handleProfileClick}
-              aria-label="Account"
-              aria-haspopup="true"
-            >
-              {user?.name?.slice(0, 1)}
-            </button>
+            {user?.profile_image ? (
+              <Avatar className="cursor-pointer" onClick={handleProfileClick} size="large" src={user?.profile_image} alt={user?.name?.slice(0, 1)} />
+            ) : (
+              <button
+                className="rounded-full capitalize h-6 w-6 p-5 flex items-center justify-center font-bold bg-gray-300 dark:text-blue-600 focus:shadow-outline-purple focus:outline-none"
+                onClick={handleProfileClick}
+                aria-label="Account"
+                aria-haspopup="true"
+              >
+                {user?.name?.slice(0, 1)}
+              </button>
+            )}
             <Dropdown
               align="right"
               isOpen={isProfileMenuOpen}

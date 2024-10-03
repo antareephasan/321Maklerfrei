@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom";
 // import  LineLeftIcon from "../icons/line-angle-left.svg";
 import { HomeIcon } from "../../icons";
 import { Button, Badge, Card, CardBody } from "@windmill/react-ui";
-// import axios from "axios";
+import axios from "axios";
 import { config } from "../../assets/config/config";
 import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet";
@@ -31,21 +31,7 @@ const apiUrl = config.api.url;
 function Dashboard() {
   const { t } = useTranslation();
   const { user } = useContext(AuthContext);
-  // const user = {
-  //   name: "Fullname",
-  //   username: "username",
-  //   email: "rayhan@example.com",
-  //   phone: "+88 123 456 789",
-  //   avatar: "https://i.ibb.co.com/xS5TKHj/378-v9-be.jpg",
-  //   address: {
-  //     street: "123 Main St",
-  //     city: "New York",
-  //     state: "NY",
-  //     zip: "10001",
-  //   },
-  //   roles: "user",
-  // }
-  const email = user.email;
+
   const history = useHistory();
   const [userLists, setUserLists] = useState([]);
 
@@ -61,29 +47,31 @@ function Dashboard() {
   };
 
   const [activeListLength, setActiveListLength] = useState(0);
-  // useEffect(() => {
-  //   let isMounted = true;
-  //   if (isMounted) {
-  //     axios
-  //       .post(`${apiUrl}/v1/userList/get`, { email })
-  //       .then((response) => {
-  //         setUserLists(response.data);
-  //         const activeList = response.data.filter(
-  //           (list) =>
-  //             list.subscription.subscriptionType === "basic" ||
-  //             list.subscription.subscriptionType === "medium" ||
-  //             list.subscription.subscriptionType === "premium"
-  //         );
-  //         setActiveListLength(activeList.length);
-  //       })
-  //       .catch((error) => console.log(error));
-  //   }
-  //   return () => {
-  //     isMounted = false;
-  //   };
-  // }, [email]);
+  const [inactiveListLength, setInactiveListLength] = useState(0);
 
-  console.log("user=========", user)
+  useEffect(() => {
+    let isMounted = true;
+    if (isMounted) {
+      axios
+        .get(`${apiUrl}/userList/my-properties`)
+        .then((response) => {
+          setUserLists(response.data.data);
+          const activeList = response.data.data.filter(
+            (list) =>
+              list.subscription.subscriptionType === "basic" ||
+              list.subscription.subscriptionType === "medium" ||
+              list.subscription.subscriptionType === "premium"
+          );
+          setActiveListLength(activeList.length);
+
+          setInactiveListLength(response.data.data.length)
+        })
+        .catch((error) => console.log(error));
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [user]);
   const languageReducer = "de";
 
   return (
@@ -111,7 +99,7 @@ function Dashboard() {
             </div>
             <div className="md:w-5/12 sm:w-12">
               <div className="whitespace h-4"></div>
-              <InfoCard title={dictionary["userDashboard"][languageReducer]["activeAds"]} value={activeListLength}>
+              <InfoCard title={dictionary["userDashboard"][languageReducer]["inactiveAds"]} value={inactiveListLength}>
                 <RoundIcon
                   icon={HomeIcon}
                   iconColorClass="text-blue-500 dark:text-blue-100"

@@ -10,7 +10,7 @@ function ReviewCard({ customer, review }) {
   const initials = nameParts.map(part => part[0].toUpperCase()).join('');
 
   return (
-    <CardBody className="m-5 p-2 shadow-md rounded-xl h-full bg-white">
+    <CardBody className="m-5 p-2 shadow-md rounded-xl h-full bg-white flex justify-center items-center">
       <div className="flex flex-col justify-center items-center gap-5">
         <div className="flex gap-1">
           <StarIcon className="fill-current text-yellow-300 w-5 h-5" />

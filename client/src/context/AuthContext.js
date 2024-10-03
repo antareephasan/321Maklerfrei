@@ -101,6 +101,26 @@ export const AuthProvider = ({ children }) => {
     };
 
 
+    const googleLogin = (useData) => {
+      axios
+        .post(`${apiUrl}/auth/google`,
+          useData
+        )
+        .then((response) => {
+          console.log("-----------------response", response)
+          setAccessToken(response.data.data.accessToken);
+          setUser(response.data.data.user);
+          localStorage.setItem("user", JSON.stringify(response.data.data.user));
+          localStorage.setItem("accessToken", response.data.data.accessToken);
+          // history.push('/app`')
+        }).catch((error) => {
+          console.log(error);
+          throw error;
+        });
+    };
+
+
+
     const logout = () => {
       // return axios
       //   .post(`${apiUrl}/v1/auth/logout`, {})
@@ -186,9 +206,11 @@ export const AuthProvider = ({ children }) => {
       resendForgetOtp,
       accountActive,
       resendActiveOtp,
-      resetPassword
+      resetPassword,
+      googleLogin
     };
   }, [user]);
+
 
   if (!isLoaded) {
     return <ThemedSuspense />;

@@ -248,6 +248,7 @@ export default function UserListDetails({ data, handledeleteList }) {
     leasablearea,
     totalarea,
     pending,
+    status
   } = data;
   const [loading, setLoading] = useState(false);
 
@@ -318,7 +319,7 @@ export default function UserListDetails({ data, handledeleteList }) {
     setImagesList(combinedImages);
   }, []);
 
-  
+
   useEffect(() => {
     if (enabled) {
       closeSnackbar();
@@ -1960,18 +1961,23 @@ export default function UserListDetails({ data, handledeleteList }) {
                             )}{' '}
                           </div>
                         </div>
-                        {!deleteListen && (
-                          <Button
-                            layout=''
-                            className='float-right bg-blue-200 hover:bg-blue-600 text-blue-600 hover:text-white'
-                            size='small'
-                            onClick={() =>
-                              setProceedToPayment(!proceedToPayment)
-                            }
-                          >
-                            {t('Proceed to payment')}{' '}
-                          </Button>
-                        )}{' '}
+                        {!deleteListen &&
+
+
+                          status !== "Paid" && (
+                            <Button
+                              layout=''
+                              className='float-right bg-blue-200 hover:bg-blue-600 text-blue-600 hover:text-white'
+                              size='small'
+                              onClick={() =>
+                                setProceedToPayment(!proceedToPayment)
+                              }
+                            >
+                              {t('Proceed to payment')}{' '}
+                            </Button>
+                          )
+
+                        }{' '}
                       </div>
                     )}
                     {!stopAutorenew &&

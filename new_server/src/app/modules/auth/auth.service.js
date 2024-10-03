@@ -110,7 +110,86 @@ const registrationAccount = async (req) => {
   console.log("User created successfully:", result);
   return { result, role };
 };
+// Google - done
+const googleSignIn = async (req) => {
+  const { name, email, phone, img } = req.body;
 
+  console.log("req.body", req.body);
+
+  const existingAuth = await Auth.findOne({ email }).lean();
+
+  const updateData = {
+    role: "USER",
+    isActive: true,
+    name: name,
+    phone_number: phone,
+    profile_image: img,
+  };
+
+  try {
+    let authUser;
+
+    if (existingAuth) {
+      authUser = await Auth.updateOne(
+        { email },
+        { $set: updateData },
+      );
+
+      if (!authUser.matchedCount) {
+        throw new ApiError(402, "User Auth update failed");
+      }
+    } else {
+      authUser = await Auth.create({ email, ...updateData, password: "123password-refer-google-authentication@43_2_" });
+
+      if (!authUser) {
+        throw new ApiError(402, "User Auth creation failed");
+      }
+    }
+    
+
+    if(authUser._id){
+      updateData.authId = authUser._id;
+    }
+
+    const isUserUpdated = existingAuth
+      ? await User.updateOne(
+          { email },
+          { $set: updateData },
+        )
+      : await User.create({ email, ...updateData });
+
+    if (!isUserUpdated) {
+      throw new ApiError(402, "User creation/update failed");
+    }
+
+
+    const user = await User.findOne({
+      email
+    }).populate("authId");
+
+    const accessToken = jwtHelpers.createToken(
+      { authId: user.authId._id, role: "USER", userId: user._id },
+      config.jwt.secret,
+      config.jwt.expires_in
+    );
+
+    const refreshToken = jwtHelpers.createToken(
+      { authId: user.authId._id, role: "USER", userId: user._id },
+      config.jwt.refresh_secret,
+      config.jwt.refresh_expires_in
+    );
+
+    return {
+      accessToken,
+      refreshToken,
+      user,
+    };
+
+  } catch (error) {
+    console.error(error);
+    throw new ApiError(500, "Internal Server Error");
+  }
+};
 // Activate user - done
 const activateAccount = async (payload) => {
   const { activation_code, userEmail } = payload;
@@ -173,8 +252,8 @@ const loginAccount = async (payload) => {
     throw new ApiError(404, "User does not exist");
   }
   const userDetailsWithPassword = await User.findOne({ authId: checkUser._id }).populate("authId");
-// Exclude the password field
-const { password:pass, ...userDetails } = userDetailsWithPassword._doc;
+  // Exclude the password field
+  const { password: pass, ...userDetails } = userDetailsWithPassword._doc;
   if (
     isUserExist.password &&
     !(await Auth.isPasswordMatched(password, isUserExist.password))
@@ -313,7 +392,7 @@ const forgotPass = async (payload) => {
               </div>
               <div class="footer">
                 <p>Thank you,</p>
-                <p>bdCalling.IT</p>
+                <p>321maklerfrei.de</p>
                 <p><a href="https://yourwebsite.com">Visit our website</a></p>
               </div>
             </div>
@@ -483,7 +562,7 @@ const resendCodeActivationAccount = async (payload) => {
             <p>Please use this code to activate your account. If you did not request this, please ignore this email.</p>
             <p>Thank you!</p>
             <div class="footer">
-                <p>&copy; ${new Date().getFullYear()} bdCalling</p>
+                <p>&copy; ${new Date().getFullYear()} 321maklerfrei</p>
             </div>
         </div>
     </body>
@@ -552,7 +631,7 @@ const resendCodeForgotAccount = async (payload) => {
             <p>Please use this code to activate your account. If you did not request this, please ignore this email.</p>
             <p>Thank you!</p>
             <div class="footer">
-                <p>&copy; ${new Date().getFullYear()} bdCalling</p>
+                <p>&copy; ${new Date().getFullYear()} 321maklerfrei</p>
             </div>
         </div>
     </body>
@@ -585,7 +664,8 @@ const AuthService = {
   checkIsValidForgetActivationCode,
   resendCodeActivationAccount,
   blockAccount,
-  resendCodeForgotAccount
+  resendCodeForgotAccount,
+  googleSignIn
 };
 
 module.exports = { AuthService };
