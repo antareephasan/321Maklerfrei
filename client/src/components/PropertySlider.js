@@ -25,12 +25,17 @@ const PropertySlider = () => {
         Ad6,
     ]
     return (
-        <div className='flex justify-center items-center bg-transparent left-0 right-0 mb-10 '>
-            <div className='w-full md:w-11/12 lg:w-3/4 p-5 bg-white rounded-lg shadow-md'>
+        <div className='flex justify-center items-center bg-transparent left-0 right-0 mb-10'>
+            <div className='w-full md:w-11/12 lg:w-3/4 py-8 px-5 bg-white md:rounded-lg md:shadow-md'>
 
-                <div className='w-full text-right pb-2'>
+                <div className='w-full flex flex-row justify-between text-center items-center pb-6'>
+                    <h2 className='text-base md:text-base lg:text-xl xl:text-2xl font-semibold'>
+                        Aktuelle Immobilienangebote
+                    </h2>
                     <Link to={"/ads"}>
-                        <Button layout='link'  >Immobilien ansehen <EastIcon fontSize='small' className='ml-2' /></Button>
+                        <Button layout='link'>
+                            <span className='mr-2 hidden sm:flex text-blue-600'>Immobilien ansehen</span> <EastIcon className="text-blue-600" fontSize='inherit' />
+                        </Button>
                     </Link>
                 </div>
                 <Swiper
@@ -43,7 +48,7 @@ const PropertySlider = () => {
                         disableOnInteraction: false,
                     }}
                     breakpoints={{
-                        1030: {
+                        1530: {
                             slidesPerView: 4
                         },
                         780: {
@@ -63,7 +68,7 @@ const PropertySlider = () => {
                 >
                     {ads.map((ad, i) => (
                         <SwiperSlide key={i}>
-                            <div className='flex flex-col p-5 justify-between gap-2 shadow-lg bg-gray-50 rounded-lg'>
+                            <div className='flex flex-col p-5 justify-between gap-2 shadow-lg bg-gray-50 rounded-md'>
                                 <img src={ad} />
                                 <h6 className='text-lg text-gray-900 font-bold'>23 apartments for sale ...</h6>
                                 <p>44866 Bochum</p>

@@ -50,7 +50,7 @@ const PricingCards = ({
         available: true
       },
       {
-        label: "Ebay Kleinanzeigen",
+        label: "Kleinanzeigen",
         available: true
       },
       {
@@ -72,7 +72,7 @@ const PricingCards = ({
         available: true
       },
       {
-        label: "Ebay Kleinanzeigen",
+        label: "Kleinanzeigen",
         available: true
       },
       {
@@ -94,7 +94,7 @@ const PricingCards = ({
         available: true
       },
       {
-        label: "Ebay Kleinanzeigen",
+        label: "Kleinanzeigen",
         available: true
       },
       {

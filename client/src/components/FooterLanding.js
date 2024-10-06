@@ -133,16 +133,13 @@ function FooterLanding() {
           ></img>
         </div>
       </SectionTwoBlocks>
-      <div className="flex">
-        <div className="flex w-2/12"></div>
-        <div className="md:flex block items-end justify-center gap-20 py-8">
-          <div className="flex text-xs text-gray-700">
+      <div className="flex justify-center items-center">
+        <div className="flex w-2/12 justify-center items-center"></div>
+        <div className="md:flex block items-center justify-center gap-20 py-8">
+          <div className="flex text-xs text-gray-700 text-center">
             Wir gehören nicht zu ImmoScout24, Immowelt oder Ebay Kleinanzeigen.
             Wir veröffentlichen die Immobilienanzeigen lediglich auf diesen
             Plattformen.{" "}
-          </div>
-          <div className="flex-none text-xs md:pt-0 pt-4">
-            <a href="https://automationforever.com/">Entwickelt von Mustapha</a>
           </div>
         </div>
         <div className="flex w-2/12"></div>

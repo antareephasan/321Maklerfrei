@@ -19,6 +19,7 @@ import {
   DropdownItem,
   WindmillContext,
 } from "@windmill/react-ui";
+import { dictionary } from "../resources/multiLanguages";
 
 function Header() {
   const { mode, toggleMode } = useContext(WindmillContext);
@@ -37,7 +38,7 @@ function Header() {
   const { user, logout } = useContext(AuthContext);
   const history = useHistory();
 
-
+  const languageReducer = "de";
 
   // const user = { 
   //   name: "Fullname",
@@ -99,25 +100,25 @@ function Header() {
             >
               <div className="mb-2">
                 <span className="text-gray-400 text-xs font-medium items-center ml-2">
-                  Customer name: {user?.name}
+                  {dictionary["navbarDropDown"][languageReducer]["customerName"]}: {user?.name}
                 </span>
               </div>
               <Link to="/app/profile">
                 <DropdownItem className="mb-1" tag="a">
                   <OutlineCogIcon className="w-4 h-4 mr-3" aria-hidden="true" />
-                  {t("settings")}
+                  {dictionary["navbarDropDown"][languageReducer]["settings"]}
                 </DropdownItem>
               </Link>
               <Link to="/app/faq">
                 <DropdownItem className="" tag="a">
                   <QuestionMark className="w-4 h-4 mr-3" aria-hidden="true" />
-                  {t("FAQ")}
+                  {dictionary["navbarDropDown"][languageReducer]["faq"]}
                 </DropdownItem>
               </Link>
               <div className="border-b my-2"></div>
               <HashLink target="_blank" rel="noopener noreferrer" smooth to="/impressum/#top">
                 <DropdownItem className="mb-1" tag="a">
-                  {t("Impressum")}
+                  {dictionary["navbarDropDown"][languageReducer]["imprint"]}
                   <NewTabIcon
                     className="w-4 h-4 ml-2"
                     aria-hidden="true"
@@ -126,7 +127,7 @@ function Header() {
               </HashLink>
               <HashLink target="_blank" rel="noopener noreferrer" smooth to="/datenschutz/#top">
                 <DropdownItem className="" tag="a">
-                  {t("Datenschutz")}
+                  {dictionary["navbarDropDown"][languageReducer]["dataProtection"]}
                   <NewTabIcon
                     className="w-4 h-4 ml-2"
                     aria-hidden="true"
@@ -140,7 +141,8 @@ function Header() {
                     className="w-4 h-4 mr-3"
                     aria-hidden="true"
                   />
-                  {t("logout")}
+                  {dictionary["navbarDropDown"][languageReducer]["logoutBtn"]}
+
                 </DropdownItem>
               </Link>
             </Dropdown>

@@ -20,7 +20,7 @@ const AddProduct = async (req, res) => {
 const GetAllProducts = async (req, res) => {
     try {
         // const { listingType } = req.query;
-        const pkg = await Packages.find().select('-__v -createdAt -updatedAt').sort({ _id: -1 });
+        const pkg = await Packages.find().sort({ price: -1 });
         //   await pkg.save();
         return res.status(200).send({
             status: '200',

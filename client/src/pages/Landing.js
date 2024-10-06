@@ -260,7 +260,7 @@ function FeatureCard({ title, description, img }) {
 
 function StepCard({ header, title, description }) {
   return (
-    <div className="flex flex-col gap-2 justify-between bg-white  border rounded-3xl p-10 shadow-sm">
+    <div className="flex flex-col gap-2 justify-between bg-white  border rounded-3xl p-10 shadow-sm w-full">
       <h1 className="w-full text-left text-2xl text-gray-600 font-bold mb-2">
         {header}
       </h1>
@@ -286,29 +286,29 @@ function Landing() {
       <main>
         <SetTitleTag />
 
-        <div className=" pt-0 bg-gray-50 hero-bg">
+        <div className="pt-0 bg-gray-50 hero-bg">
           <div className="flex justify-center items-center">
             <div className="w-full md:w-11/12 lg:w-3/4">
-              <div className="md:mt-10 grid grid-cols-1 md:grid-cols-2 gap-12">
+              <div className="md:mt-10 grid grid-cols-1 lg:grid-cols-2 gap-12">
 
                 <div className="flex flex-col justify-center px-4 lg:px-0">
-                  <p className="mb-4 mt-10 leading-36 text-3xl md:text-5xl font-bold text-white">
+                  <p className="mb-4 mt-10 leading-36 text-3xl md:text-5xl font-bold text-white text-center md:text-left">
                     {dictionary["hero"][languageReducer]["title"]}
                   </p>
-                  <p className="md:mt-2 mb-8 lg:w-5/6 text-md text-white">
-                    {dictionary["prices"][languageReducer]["description"]}
+                  <p className="md:mt-2 mb-8 lg:w-5/6 text-xs md:text-md text-white text-center md:text-left">
+                    {dictionary["hero"][languageReducer]["description"]}
                   </p>
-                  <div className="flex flex-wrap md:flex-nowrap gap-4 justify-start items-end">
+                  <div className="flex flex-wrap md:flex-nowrap gap-4 justify-center md:justify-start md:items-end">
                     {!user && (
                       <Link to="/auth/create-account">
-                        <Button size="larger" className="rounded-2xl">
+                        <Button size="larger" className="rounded-xl">
                           {dictionary["hero"][languageReducer]["startedButton"]}
                         </Button>
                       </Link>
                     )}
                     {user && (
                       <Link to="/app">
-                        <Button size="larger" className="rounded-2xl">
+                        <Button size="larger" className="rounded-xl">
                           {dictionary["hero"][languageReducer]["dashboardButton"]}
                         </Button>
                       </Link>
@@ -342,7 +342,7 @@ function Landing() {
 
                 /> */}
                     <video
-                      className="h-80 w-[100%] h-[100%] rounded-[16.974px] lg:rounded-[18px] xl:rounded-[20px] 2xl:rounded-[24.974px] object-cover"
+                      className="lg:h-80 w-[100%] h-[100%] rounded-[16.974px] lg:rounded-[18px] xl:rounded-[20px] 2xl:rounded-[24.974px] object-cover"
                       controls
                       poster={hero1}
                     >
@@ -363,7 +363,7 @@ function Landing() {
 
 
           {/* Work flow  or Process or Ablauf or steps */}
-          <div className="md:pt-96 pb-20 relative bg-transparent steps-bg">
+          <div className="pb-20 relative bg-transparent steps-bg mt-20">
             <PropertySlider />
             <h2
               id="Ablauf"
@@ -391,7 +391,7 @@ function Landing() {
                 />
                 <NextStepIcon className="fill-current text-blue-400 w-20 h-20 xl:w-40 xl:h-40 transform rotate-90 xl:rotate-0" />
                 <StepCard
-                  header={dictionary["working"][languageReducer]["tile2"]["title"]}
+                  header={dictionary["working"][languageReducer]["tile3"]["title"]}
                   title={dictionary["working"][languageReducer]["tile3"]["subtitle"]}
                   description={dictionary["working"][languageReducer]["tile3"]["description"]}
                 />
@@ -467,7 +467,7 @@ function Landing() {
             }
             description={
               dictionary["offerings"][languageReducer]["tile6"][
-                "description"
+              "description"
               ]
             }
           />
@@ -509,15 +509,12 @@ function Landing() {
         </SectionFeaturesGrid>
 
         {/* Reviews  or Rezensionen*/}
-        <section id="Rezensionen" className="py-8 md:py-16 bg-gray-50">
-          <h2 className="text-3xl text-center md:text-4xl font-bold text-gray-700">
-            {dictionary["testimonials"][languageReducer]["title"]}
-          </h2>
-          <p className="my-4 text-xl text-center text-gray-600">
-            {dictionary["testimonials"][languageReducer]["description"]}
-          </p>
+        <section id="Rezensionen" className="py-8 flex justify-center items-center  bg-gray-50">
+          <div className="w-full md:w-11/12 lg:w-3/4 flex flex-col gap-10 px-5 md:px-0">
+            <h2 className="text-3xl text-center md:text-4xl font-bold text-gray-700">
+              {dictionary["testimonials"][languageReducer]["title"]}
+            </h2>
 
-          <div className="w-full md:w-2/3 mx-auto">
             <Testimonials />
           </div>
         </section>

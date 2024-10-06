@@ -10,7 +10,7 @@ function ReviewCard({ customer, review }) {
   const initials = nameParts.map(part => part[0].toUpperCase()).join('');
 
   return (
-    <CardBody className="m-5 p-2 shadow-md rounded-xl h-full bg-white flex justify-center items-center">
+    <CardBody className=" p-2 shadow-md rounded-xl h-full bg-white flex justify-center items-center">
       <div className="flex flex-col justify-center items-center gap-5">
         <div className="flex gap-1">
           <StarIcon className="fill-current text-yellow-300 w-5 h-5" />
@@ -19,11 +19,11 @@ function ReviewCard({ customer, review }) {
           <StarIcon className="fill-current text-yellow-300 w-5 h-5" />
           <StarIcon className="fill-current text-yellow-300 w-5 h-5" />
         </div>
-        <p className="mt-2 font-medium text-xl text-center">
+        <p className="mt-2 font-medium text-lg text-center">
           {review}
         </p>
 
-        <p className="font-light text-lg text-gray-400 text-center">
+        <p className="font-light text-sm text-gray-400 text-center">
           {customer}
           </p>
       </div>
@@ -82,14 +82,14 @@ function Testimonials() {
         customer={ dictionary["testimonials"][languageReducer]["tile2"]["name"]}
         review={ dictionary["testimonials"][languageReducer]["tile2"]["message"]}
     />
-      <ReviewCard
+      {/* <ReviewCard
         customer={ dictionary["testimonials"][languageReducer]["tile3"]["name"]}
         review={ dictionary["testimonials"][languageReducer]["tile3"]["message"]}
     />
       <ReviewCard
         customer={ dictionary["testimonials"][languageReducer]["tile4"]["name"]}
         review={ dictionary["testimonials"][languageReducer]["tile4"]["message"]}
-    />
+    /> */}
       <ReviewCard
         customer={ dictionary["testimonials"][languageReducer]["tile5"]["name"]}
         review={ dictionary["testimonials"][languageReducer]["tile5"]["message"]}
@@ -97,6 +97,10 @@ function Testimonials() {
       <ReviewCard
         customer={ dictionary["testimonials"][languageReducer]["tile6"]["name"]}
         review={ dictionary["testimonials"][languageReducer]["tile6"]["message"]}
+    />
+      <ReviewCard
+        customer={ dictionary["testimonials"][languageReducer]["tile7"]["name"]}
+        review={ dictionary["testimonials"][languageReducer]["tile7"]["message"]}
     />
       <ReviewCard
         customer={ dictionary["testimonials"][languageReducer]["tile9"]["name"]}

@@ -14,29 +14,34 @@ import axios from 'axios';
 import { config } from '../../../assets/config/config';
 import { loadStripe } from '@stripe/stripe-js';
 import toast from 'react-hot-toast';
+import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
+import { dictionary } from '../../../resources/multiLanguages';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
-function Products({ listData, enabled, PricingCardCallback, pages }) {
-  const { products } = useContext(StripeContext);
+function Products({ products, listData, enabled, PricingCardCallback, pages, subscriptionPeriod }) {
+
   let description;
   if (listData.listingType === 'For Rent') {
-    description = 'Sale';
+    description = 'sale';
   } else {
-    description = 'Rent';
+    description = 'rent';
   }
+
 
   console.log("--------------------------------------");
   console.log("Submit>Products> products: ", products);
   return (
-    <div className={`${pages ? 'block' : 'grid'} gap-6 mb-4 md:grid-cols-3`}>
+    <div className={`grid gap-6 mb-4 md:grid-cols-3`}>
       {products &&
         products.map(function (product, i) {
-          if (product.packageDescription.indexOf(description) > -1) {
+          if ( description !== product.listingType) {
             return null;
           }
+
+          if (product.subscriptionType !== subscriptionPeriod) return null;
+
           return (
-            ////Paypal card/////
             <PricingCardSale
               packageId={product._id}
               key={i}
@@ -54,6 +59,69 @@ function Products({ listData, enabled, PricingCardCallback, pages }) {
         })}
     </div>
   );
+}
+
+
+const ProductsSection = ({
+  pages,
+  listData,
+  uniqId,
+  enabled,
+  PricingCardCallback,
+}) => {
+  const { products } = useContext(StripeContext);
+  const languageReducer = "de";
+  return (
+    <Tabs className="w-full mb-12">
+
+      <TabList className="flex justify-center gap-0 mb-16">
+        <Tab className="cursor-pointer bg-gray-100 text-gray-700 px-5 py-2 rounded-l-lg text-sm font-normal">
+          {dictionary["prices"][languageReducer]["month1"]}
+        </Tab>
+        <Tab className="cursor-pointer bg-gray-100 text-gray-700 px-5 py-2 rounded-l-lg text-sm font-normal">
+          {dictionary["prices"][languageReducer]["month2"]}
+        </Tab>
+        <Tab className="cursor-pointer bg-gray-100 text-gray-700 px-4 py-2 rounded-r-lg text-sm font-normal">
+          {dictionary["prices"][languageReducer]["month3"]}
+        </Tab>
+      </TabList>
+
+      <TabPanel>
+        <Products
+          products={products}
+          subscriptionPeriod="one-month"
+          pages={pages}
+          listData={listData}
+          uniqId={listData.uniqId}
+          enabled={enabled}
+          PricingCardCallback={PricingCardCallback}
+        />
+      </TabPanel>
+      <TabPanel>
+        <Products
+          products={products}
+          subscriptionPeriod="two-months"
+          pages={pages}
+          listData={listData}
+          uniqId={listData.uniqId}
+          enabled={enabled}
+          PricingCardCallback={PricingCardCallback}
+        />
+      </TabPanel>
+      <TabPanel>
+        <Products
+          products={products}
+          subscriptionPeriod="three-months"
+          pages={pages}
+          listData={listData}
+          uniqId={listData.uniqId}
+          enabled={enabled}
+          PricingCardCallback={PricingCardCallback}
+        />
+      </TabPanel>
+    </Tabs>
+
+  )
 }
 
 export const Submit = ({ listData, setListData, pages }) => {
@@ -100,7 +168,7 @@ export const Submit = ({ listData, setListData, pages }) => {
       const { error } = await stripe.redirectToCheckout({
         sessionId: data.data.id,
       });
-  
+
       if (error) {
         console.error('Error redirecting to checkout:', error);
       }
@@ -116,13 +184,16 @@ export const Submit = ({ listData, setListData, pages }) => {
     <>
       <div className='px-0 md:px-5 mt-4'>
         <SectionTitle>{t('Choose your plan')}</SectionTitle>
-        <Products
+
+        <ProductsSection
           pages={pages}
           listData={listData}
           uniqId={listData.uniqId}
           enabled={enabled}
           PricingCardCallback={PricingCardCallback}
         />
+
+
         {error && (
           <HelperText valid={false} className='mb-8 text-sm'>
             {error}

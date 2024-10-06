@@ -17,7 +17,7 @@ function SectionFeaturesGrid({ children }) {
         <p className="my-4 text-md text-gray-600">
           321maklerfrei.de
           <br />
-          Dominik Wagenmann
+          Mohamed Louati
           <br />
           Porschestr. 2c
           <br />
@@ -31,9 +31,9 @@ function SectionFeaturesGrid({ children }) {
           <br />
           Kontakt:
           <br />
-          Tel.: +49 (0) 1522 – 1453300
+          Tel.: 05361 8344731
           <br />
-          E-Mail: hallo@321maklerfrei.de
+          E-Mail: info@321maklerfrei.de
           <br />
           <br />
           Zuständige Aufsichtsbehörde für die Tätigkeit nach § 34c GewO:

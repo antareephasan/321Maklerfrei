@@ -23,6 +23,26 @@ export const dictionary = {
       dashboardButton: "DASHBOARD",
     },
   },
+
+  navbarDropDown: {
+    en: {
+      customerName: "Customer name",
+      settings: "Settings",
+      faq: "FAQ",
+      imprint: "Imprint",
+      dataProtection: "Data protections",
+      logoutBtn: "Log out"
+
+    },
+    de: {
+      customerName: "Kundenname",
+      settings: "Einstellungen",
+      faq: "Hilfe",
+      imprint: "Impressum",
+      dataProtection: "Datenschutz",
+      logoutBtn: "Ausloggen"
+    }
+  },
   hero: {
     en: {
       title: "Property broker-free sell and rent",
@@ -30,15 +50,14 @@ export const dictionary = {
         "With just one ad we publish your property automatically on all leading ones portals, and you save up to half.",
       startedButton: "LET’S GET STARTED",
       pricesButton: "See Prices",
-      dashboardButton: "Go to Dashboard"
+      dashboardButton: "Go to Dashboard",
     },
     de: {
       title: "Immobilie maklerfrei verkaufen und vermieten",
-      description:
-        "Mit nur einer Anzeige veröffentlichen wir Ihre Immobilie automatisch auf allen führenden Portalen und Sie sparen dabei bis zur Hälfte.",
+      description: "Mit nur einer Anzeige veröffentlichen wir Ihre Immobilie automatisch auf allen führenden Portalen, und Sie sparen bis zu die Hälfte!",
       startedButton: "Jetzt kostenlos registrieren",
       pricesButton: "Preise ansehen",
-      dashboardButton: "Zum Dashboard"
+      dashboardButton: "Zum Dashboard",
     },
   },
   working: {
@@ -68,7 +87,7 @@ export const dictionary = {
     de: {
       title: "So funktioniert 321maklerfrei.de",
       description:
-        "In drei einfachen Schritten können Sie unsere Dienste in Anspruch nehmen. Wir geben immer unser Bestes, um unseren Benutzern ein gutes Erlebnis zu bieten.",
+        "In drei einfachen Schritten können Sie Ihre Immobilie maklerfrei verkaufen oder vermieten.",
       tile1: {
         title: "Schritt 1",
         subTitle: "Registrieren",
@@ -85,7 +104,7 @@ export const dictionary = {
         title: "Schritt 3",
         subTitle: "Laufzeit und Portale wählen",
         description:
-          "Wählen Sie die Laufzeit und die Portale Ihrer Wahl aus, auf denen Ihre Immobilie veröffentlicht werden soll. Kein Abo, keine automatische Verlängerung!",
+          "In drei einfachen Schritten können Sie Ihre Immobilie maklerfrei verkaufen oder vermieten.",
       },
     },
   },
@@ -203,15 +222,13 @@ export const dictionary = {
         name: "Laura F. aus München",
         info: "VERIFIED REVIEW | 02/16/2023",
         title: "I used the service",
-        message:
-          "Uncomplicated, good price-performance ratio, quick processing and helpful contacts.",
+        message: "Uncomplicated, good price-performance ratio, quick processing and helpful contacts.",
       },
       tile7: {
         name: "Thomas K. aus Wolfsburg",
         info: "VERIFIED REVIEW | 02/16/2023",
         title: "I used the service",
-        message:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pronon libero erat. Etiam eu feugiat diam. Nulla tortor metus, maximu1s.",
+        message: "Uncomplicated, good value for money, quick processing, and helpful contacts.",
       },
       tile8: {
         name: "Melanie T. aus Lübeck",
@@ -270,8 +287,7 @@ export const dictionary = {
         name: "Laura F. aus München",
         info: "VERIFIZIERTE BEWERTUNG | 08/10/2022",
         title: "Ich habe diesen Service genutzt",
-        message:
-          "TOP Service, es ist super einfach und selbsterklärend. Bei Fragen wird telefonisch einem weitergeholfen. Gruß aus München",
+        message: "TOP Service, es ist super einfach und selbsterklärend. Bei Fragen wird telefonisch einem weitergeholfen. Gruß aus München",
       },
       tile7: {
         name: "Thomas K. aus Wolfsburg",
@@ -316,8 +332,7 @@ export const dictionary = {
     },
     de: {
       title: "Unsere Preise",
-      description:
-        "With just one ad we publish your property automatically on all leading ones portals, and you save up to half.",
+      description: "Veröffentlichen Sie Ihr maklerfreies Immobilienangebot zur Miete oder zum Kauf auf ImmoScout24, Immowelt, Immonet und Kleinanzeigen mit nur einem Klick.",
       saleBtn: "Verkaufen",
       rentalBtn: "Vermieten",
       mode1: "Basis Paket",
@@ -326,12 +341,13 @@ export const dictionary = {
       month1: "1 Monat",
       month2: "2 Monate",
       month3: "3 Monate",
-      packageTitle1: "Notwendige Sichtbarkeit",
-      packageTitle2: "Unser Bestseller",
-      packageTitle3: "Bis 2x mehr Anfragen",
+      packageTitle1: "Erhöhte Sichtbarkeit",
+      packageTitle2: "Unsere Empfehlung & Bestseller",
+      packageTitle3: "Maximale Sichtbarkeit",
       cardBtn: "Immobilie inserieren",
     },
   },
+
   faq: {
     en: {
       title: "FAQs",
@@ -416,6 +432,7 @@ export const dictionary = {
       },
     },
   },
+
   waiting: {
     en: {
       title: "What are you waiting for?",
@@ -423,9 +440,9 @@ export const dictionary = {
       advertiseBtn: "Advertise Property"
     },
     de: {
-      title: "Worauf wartest du noch?",
+      title: "Registrieren Sie sich jetzt an und verkaufen oder vermieten Sie Ihre Immobilie maklerfrei!",
       description: "Klicke auf den Button und erhalte mehr Anfragen für deine Immobilie.",
-      advertiseBtn: "Immobilie inserieren"
+      advertiseBtn: "Jetzt registrieren"
     }
   },
   footerHomepage: {
@@ -878,37 +895,41 @@ export const dictionary = {
     }
   },
 
-  // faq: {
-  //   en: {
-  //     title: "FAQ",
-  //     account: "Account",
-  //     listings: "Listings",
-  //     payment: "Payment",
-  //     others: "Others",
-  //     support: "Support",
-  //     contactHours: "Mon-Fri, 9 am to 6 pm",
-  //     directPhoneSupport: "Direct phone support",
-  //     callForFree: "Call us for free at",
-  //     questionsOrProblems: "Questions or problems?",
-  //     sendEmail: "Send us an email",
-  //     helloProblem: "Dear [Company], I am writing to you because I am having a problem with..."
-  //   },
-  //   de: {
-  //     title: "FAQ",
-  //     account: "Konto",
-  //     listings: "Angebote",
-  //     payment: "Zahlung",
-  //     others: "Sonstiges",
-  //     support: "Kundendienst",
-  //     contactHours: "Mo.-Fr. 9 bis 18 Uhr",
-  //     directPhoneSupport: "Direkter Telefonsupport",
-  //     callForFree: "Unverbindlich anrufen unter",
-  //     questionsOrProblems: "Fragen oder Probleme?",
-  //     sendEmail: "Sende uns eine Mail",
-  //     helloProblem: "Guten Tag, leider habe ich ein Problem mit..."
-  //   }
+  help: {
+    en: {
+      title: "FAQ",
+      account: "Account",
+      listings: "Listings",
+      payment: "Payment",
+      others: "Others",
+      support: "Support",
+      contactHours: "Mon-Fri, 9 am to 6 pm",
+      directPhoneSupport: "Direct phone support",
+      callForFree: "Call us for free at",
+      questionsOrProblems: "Questions or problems?",
+      sendEmail: "Send us an email",
+      helloProblem: "Dear [Company], I am writing to you because I am having a problem with...",
 
-  // },
+      alwaysActive: "Always reachable"
+    },
+    de: {
+      title: "FAQ",
+      account: "Konto",
+      listings: "Angebote",
+      payment: "Zahlung",
+      others: "Sonstiges",
+      support: "Kundendienst",
+      contactHours: "Mo.-Fr. 9 bis 18 Uhr",
+      directPhoneSupport: "Direkter Telefonsupport",
+      callForFree: "Unverbindlich anrufen unter",
+      questionsOrProblems: "Fragen oder Probleme?",
+      sendEmail: "Sende uns eine Mail",
+      helloProblem: "Guten Tag, leider habe ich ein Problem mit...",
+
+      alwaysActive: "Immer erreichbar"
+    }
+
+  },
 
   faqContent: {
     en: {
@@ -1115,14 +1136,14 @@ export const dictionary = {
       codePlaceholder: "Enter your OTP code",
       requiredMessage: "Active OTP code is required",
       errorMessage: "Some error occurred. Please try again.",
-      cofirmButton: "Confirm OTP"
+      confirmButton: "Confirm OTP"
     },
     de: {
       savedMessage: "Konto erfolgreich aktiviert",
       codePlaceholder: "Geben Sie Ihren OTP-Code ein",
       requiredMessage: "Aktivierungs-OTP-Code ist erforderlich",
       errorMessage: "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
-      cofirmButton: "OTP bestätigen"
+      confirmButton: "OTP bestätigen"
     }
   },
 
@@ -1184,6 +1205,34 @@ export const dictionary = {
       passwordRequiredMessage2: "Neues Passwort muss ein Zeichen enthalten",
       errorMessage: "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
       cofirmButton: "Bestätigen"
+    }
+  },
+
+
+  sidebar: {
+    en: {
+      dashboard: "Dashboard",
+      createAds: "Create ads",
+      myProperties: "My Properties",
+      profile: "Profile",
+      help: "Help"
+    },
+    de: {
+      dashboard: "Dashboard",
+      createAds: "Anzeige erstellen",
+      myProperties: "Meine Immobilien",
+      profile: "Profil",
+      help: "Hilfe"
+    }
+  },
+
+
+  userLists: {
+    en: {
+      createAdBtn: "Create Ad"
+    },
+    de: {
+      createAdBtn: "Anzeige erstellen"
     }
   }
 

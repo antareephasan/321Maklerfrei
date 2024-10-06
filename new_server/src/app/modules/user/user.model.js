@@ -32,7 +32,7 @@ const UserSchema = new Schema(
     },
     phone_number: {
       type: String,
-      unique: true,
+      // unique: true,
     }, 
     address: {
       type: String,

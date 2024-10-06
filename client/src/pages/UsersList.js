@@ -10,6 +10,7 @@ import { AuthContext } from "../context/AuthContext";
 import { userListService } from "../services";
 import UserListDetails from "./UserListDetails";
 import toast from "react-hot-toast";
+import { dictionary } from "../resources/multiLanguages";
 
 function SetTitleTag () {
   return (
@@ -24,6 +25,8 @@ export default function UserList() {
   const history = useHistory();
 
   const location = useLocation();
+
+  const languageReducer = "de";
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -93,7 +96,7 @@ export default function UserList() {
             onClick={handlePush}
             // className="text-gray-900"
           >
-           Create Ad
+           {dictionary["userLists"][languageReducer]["createAdBtn"]}
           </Button>
         </div>
       </div>

@@ -40,7 +40,7 @@ function Faq() {
   return (
     <>
       <SetTitleTag />
-      <PageTitle>{dictionary["faq"][languageReducer]["title"]}</PageTitle>
+      <PageTitle>{dictionary["help"][languageReducer]["title"]}</PageTitle>
       <div className="flex flex-wrap -mx-2 overflow-hidden dark:text-gray-200">
         <Tabs className="block md:flex w-full">
           <TabList className="w-full md:w-1/5">
@@ -50,22 +50,22 @@ function Faq() {
                   <TableBody>
                     <Tab className="cursor-pointer hover:bg-gray-100">
                       <TableRow>
-                        <TableCell>{dictionary["faq"][languageReducer]["account"]}</TableCell>
+                        <TableCell>{dictionary["help"][languageReducer]["account"]}</TableCell>
                       </TableRow>
                     </Tab>
                     <Tab className="cursor-pointer hover:bg-gray-100">
                       <TableRow>
-                        <TableCell>{dictionary["faq"][languageReducer]["listings"]}</TableCell>
+                        <TableCell>{dictionary["help"][languageReducer]["listings"]}</TableCell>
                       </TableRow>
                     </Tab>
                     <Tab className="cursor-pointer hover:bg-gray-100">
                       <TableRow>
-                        <TableCell>{dictionary["faq"][languageReducer]["payment"]}</TableCell>
+                        <TableCell>{dictionary["help"][languageReducer]["payment"]}</TableCell>
                       </TableRow>
                     </Tab>
                     <Tab className="cursor-pointer hover:bg-gray-100">
                       <TableRow>
-                        <TableCell>{dictionary["faq"][languageReducer]["others"]}</TableCell>
+                        <TableCell>{dictionary["help"][languageReducer]["others"]}</TableCell>
                       </TableRow>
                     </Tab>
                   </TableBody>
@@ -130,15 +130,15 @@ function Faq() {
         <div className="my-2 px-2 w-full md:w-1/2 overflow-hidden">
           <Card className="flex mb-8">
             <CardBody>
-              <Badge type="neutral">{dictionary["faq"][languageReducer]["contactHours"]}</Badge>
+              <Badge type="neutral">{dictionary["help"][languageReducer]["contactHours"]}</Badge>
               <p className="text-xl my-4 font-semibold text-gray-600 dark:text-gray-300">
-                {dictionary["faq"][languageReducer]["directPhoneSupport"]}
+                {dictionary["help"][languageReducer]["directPhoneSupport"]}
               </p>
               <p className="my-4 text-gray-600 dark:text-gray-400">
-                {dictionary["faq"][languageReducer]["callForFree"]}
+                {dictionary["help"][languageReducer]["callForFree"]}
               </p>
               <p className="mt-2 mb-4 text-sm text-gray-600 dark:text-gray-400">
-                <a href='tel:+4915221453300'>+49 (0) 1522 – 1453300</a>
+                <a href='tel:053618344731'>053618344731</a>
               </p>
             </CardBody>
           </Card>
@@ -147,20 +147,20 @@ function Faq() {
         <div className="my-2 px-2 w-full md:w-1/2 overflow-hidden">
           <Card className="flex mb-8">
             <CardBody>
-              <Badge type="neutral">Immer erreichbar</Badge>
+              <Badge type="neutral">{dictionary["help"][languageReducer]["alwaysActive"]}</Badge>
               <p className="text-xl my-4 font-semibold text-gray-600 dark:text-gray-300">
-                {dictionary["faq"][languageReducer]["questionsOrProblems"]}
+                {dictionary["help"][languageReducer]["questionsOrProblems"]}
               </p>
               <p className="my-4 text-gray-600 dark:text-gray-400">
-                {dictionary["faq"][languageReducer]["sendEmail"]}
+                {dictionary["help"][languageReducer]["sendEmail"]}
               </p>
               <p className="mt-2 mb-4 text-sm text-gray-600 dark:text-gray-400">
                 <Mailto
-                  email="support@321maklerfrei.de"
+                  email="info@321maklerfrei.de"
                   subject="Problem mit ..."
                   body={dictionary["faq"][languageReducer]["helloProblem"]}
                 >
-                  support@321maklerfrei.de
+                  info@321maklerfrei.de
                 </Mailto>
               </p>
             </CardBody>

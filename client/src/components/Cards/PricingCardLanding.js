@@ -41,7 +41,7 @@ function PricingCardSale() {
                     <i className="mr-1">
                       <CheckIcon />
                     </i>{" "}
-                    Ebay Kleinanzeigen
+                    Kleinanzeigen
                   </li>
                 </div>
 
@@ -104,7 +104,7 @@ function PricingCardSale() {
                     <i className="mr-1">
                       <CheckIcon />
                     </i>{" "}
-                    Ebay Kleinanzeigen
+                    Kleinanzeigen
                   </li>
                   <li className="flex items-center leading-tight mb-1">
                     <i className="mr-1">
@@ -166,7 +166,7 @@ function PricingCardSale() {
                     <i className="mr-1">
                       <CheckIcon />
                     </i>{" "}
-                    Ebay Kleinanzeigen
+                    Kleinanzeigen
                   </li>
                 </div>
 
@@ -238,7 +238,7 @@ function PricingCardRent() {
                     <i className="mr-1">
                       <CheckIcon />
                     </i>{" "}
-                    Ebay Kleinanzeigen
+                    Kleinanzeigen
                   </li>
                 </div>
 
@@ -301,7 +301,7 @@ function PricingCardRent() {
                     <i className="mr-1">
                       <CheckIcon />
                     </i>{" "}
-                    Ebay Kleinanzeigen
+                    Kleinanzeigen
                   </li>
                   <li className="flex items-center leading-tight mb-1">
                     <i className="mr-1">
@@ -363,7 +363,7 @@ function PricingCardRent() {
                     <i className="mr-1">
                       <CheckIcon />
                     </i>{" "}
-                    Ebay Kleinanzeigen
+                    Kleinanzeigen
                   </li>
                 </div>
 

@@ -16,7 +16,7 @@ function PricingCardSale({
   const { t } = useTranslation();
   const packages = [
     { title: "ImmoScout24", allowedIn: ["Basic", "Medium", "Premium"] },
-    { title: "Ebay Kleinanzeigen", allowedIn: ["Basic", "Medium", "Premium"] },
+    { title: "Kleinanzeigen", allowedIn: ["Basic", "Medium", "Premium"] },
     { title: "Immowelt", allowedIn: ["Medium", "Premium"] },
     { title: "Immonet", allowedIn: ["Medium", "Premium"] },
     { title: "Premium Platzierung", allowedIn: ["Premium"] },
@@ -41,7 +41,7 @@ function PricingCardSale({
               className="py-1 rounded-sm bg-gray-600 text-center text-gray-100 text-xs w-full"
               type="success"
             >
-              Notwendige Sichtbarkeit
+              Erhöhte Sichtbarkeit
             </span>
           </div>
           ) }
@@ -51,7 +51,7 @@ function PricingCardSale({
                 className="py-1 rounded-sm bg-blue-600 text-center text-gray-100 text-xs w-full"
                 type="success"
               >
-                Bestseller
+                Unsere Empfehlung & Bestseller
               </span>
             </div>
           ) }
@@ -61,7 +61,7 @@ function PricingCardSale({
               className="py-1 rounded-sm bg-gray-600 text-center text-gray-100 text-xs w-full"
               type="success"
             >
-              Bis 2x mehr Anfragen
+              Maximale Sichtbarkeit
             </span>
           </div>
           ) }

@@ -127,7 +127,7 @@ function PricingCardEnergy({
                       <i className="mr-1">
                         <CheckIcon />
                       </i>{" "}
-                      Ebay Kleinanzeigen
+                      Kleinanzeigen
                     </li>
                   </div>
                   <div className="flex md:block">
@@ -204,7 +204,7 @@ function PricingCardEnergy({
                       <i className="mr-1">
                         <CheckIcon />
                       </i>{" "}
-                      Ebay Kleinanzeigen
+                      Kleinanzeigen
                     </li>
                   </div>
                   <div className="flex md:block">
@@ -273,7 +273,7 @@ function PricingCardEnergy({
                       <i className="mr-1">
                         <CheckIcon />
                       </i>{" "}
-                      Ebay Kleinanzeigen
+                      Kleinanzeigen
                     </li>
                   </div>
                   <div className="flex md:block">
