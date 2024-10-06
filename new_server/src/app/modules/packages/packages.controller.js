@@ -20,8 +20,22 @@ const AddProduct = async (req, res) => {
 const GetAllProducts = async (req, res) => {
     try {
         // const { listingType } = req.query;
-        const pkg = await Packages.find().sort({ price: -1 });
+        // const pkg = await Packages.find().sort({ price: -1 });
         //   await pkg.save();
+
+        const pkg = await Packages.aggregate([
+            {
+                $addFields: {
+                    priceAsNumber: { $toDouble: "$price" } // Convert price from string to double
+                }
+            },
+            {
+                $sort: { priceAsNumber: 1 } // Sort by the numeric price
+            },
+            {
+                $project: { __v: 0, createdAt: 0, updatedAt: 0, priceAsNumber: 0 } // Exclude fields including temporary priceAsNumber
+            }
+        ]);
         return res.status(200).send({
             status: '200',
             message: 'Package found successfully',

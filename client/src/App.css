@@ -18,3 +18,9 @@
 .active_route {
   background-color: #d7e2f2 !important;
 }
+/* Define styles for your tab when active */
+.react-tabs__tab--selected {
+  background-color: #1f66ef !important; /* Green background for active tab */
+  color: white !important;  /* White text for active tab */
+  border: none !important; /* Adjust border if needed */
+}

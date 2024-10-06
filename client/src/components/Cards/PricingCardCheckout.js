@@ -38,7 +38,7 @@ function PricingCardSale({
         {title === "Basic" && (
             <div className="flex w-full items-center justify-end">
             <span
-              className="py-1 rounded-sm bg-gray-600 text-center text-gray-100 text-xs w-full"
+              className="py-4 px-2 rounded-sm bg-gray-600 text-center text-gray-100 text-xs w-full"
               type="success"
             >
               Erhöhte Sichtbarkeit
@@ -48,7 +48,7 @@ function PricingCardSale({
           {title === "Medium" && (
             <div className="z-50 flex w-full items-center justify-end">
               <span
-                className="py-1 rounded-sm bg-blue-600 text-center text-gray-100 text-xs w-full"
+                className="py-4 px-2  rounded-sm bg-blue-600 text-center text-gray-100 text-xs w-full"
                 type="success"
               >
                 Unsere Empfehlung & Bestseller
@@ -58,7 +58,7 @@ function PricingCardSale({
            {title === "Premium" && (
            <div className="flex w-full items-center justify-end">
             <span
-              className="py-1 rounded-sm bg-gray-600 text-center text-gray-100 text-xs w-full"
+              className="py-4 px-2  rounded-sm bg-gray-600 text-center text-gray-100 text-xs w-full"
               type="success"
             >
               Maximale Sichtbarkeit
