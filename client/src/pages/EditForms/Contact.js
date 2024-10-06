@@ -56,18 +56,20 @@ export const Contact = ({ data, fRequired, setFRequired }) => {
             autoComplete="off"
             type="text"
             fullwidth='false'
+            required
           />
            <Input
             className="w-1/2 mb-4 mt-1"
             placeholder={t("enter last name")}
             name="lastName"
-            value={formData.lastName}
+            value={formData.lastname}
             onChange={setForm}
             margin="normal"
             variant="outlined"
             autoComplete="off"
             type="text"
             fullwidth='false'
+            required
           />
         </div>
         <div>

@@ -701,6 +701,7 @@ export const dictionary = {
       },
       contact: {
         contactName: "Contact Name",
+        lastName: "Last Name",
         enterFirstName: "Enter first name",
         enterLastName: "Enter last name",
         hideName: "Hide name",
@@ -709,6 +710,7 @@ export const dictionary = {
         phoneNumber: "Phone number",
         pleaseProvideValidPhone: "Please Provide A Valid Phone Number!",
         pleaseFillRequiredFields: "Please fill in the required fields *",
+        pleaseProvideValidLastName: "Please provide lastname",
         back: "Back",
         next: "Next"
       },
@@ -816,6 +818,7 @@ export const dictionary = {
       },
       contact: {
         contactName: "Kontaktname",
+        lastName: "Nachname",
         enterFirstName: "Vorname eingeben",
         enterLastName: "Nachname eingeben",
         hideName: "Name verbergen",
@@ -824,6 +827,7 @@ export const dictionary = {
         phoneNumber: "Telefonnummer",
         pleaseProvideValidPhone: "Bitte geben Sie eine gültige Telefonnummer an!",
         pleaseFillRequiredFields: "Bitte füllen Sie die erforderlichen Felder aus *",
+        pleaseProvideValidLastName: "Bitte Nachnamen angeben",
         back: "Zurück",
         next: "Weiter"
       },
