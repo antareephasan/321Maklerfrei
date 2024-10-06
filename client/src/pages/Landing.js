@@ -684,7 +684,7 @@ function Landing() {
           </p>
           <div className="mt-8">
             <Link to="/auth/create-account">
-              <Button size="larger">Immobilie inserieren {"->"}</Button>
+              <Button size="larger">Jetzt registrieren {"->"}</Button>
             </Link>
           </div>
         </SectionCenteredHeader>

@@ -130,7 +130,7 @@ function Faq() {
         <div className="my-2 px-2 w-full md:w-1/2 overflow-hidden">
           <Card className="flex mb-8">
             <CardBody>
-              <Badge type="neutral">{dictionary["help"][languageReducer]["contactHours"]}</Badge>
+              {/* <Badge type="neutral">{dictionary["help"][languageReducer]["contactHours"]}</Badge> */}
               <p className="text-xl my-4 font-semibold text-gray-600 dark:text-gray-300">
                 {dictionary["help"][languageReducer]["directPhoneSupport"]}
               </p>
@@ -147,7 +147,7 @@ function Faq() {
         <div className="my-2 px-2 w-full md:w-1/2 overflow-hidden">
           <Card className="flex mb-8">
             <CardBody>
-              <Badge type="neutral">{dictionary["help"][languageReducer]["alwaysActive"]}</Badge>
+              {/* <Badge type="neutral">{dictionary["help"][languageReducer]["alwaysActive"]}</Badge> */}
               <p className="text-xl my-4 font-semibold text-gray-600 dark:text-gray-300">
                 {dictionary["help"][languageReducer]["questionsOrProblems"]}
               </p>
