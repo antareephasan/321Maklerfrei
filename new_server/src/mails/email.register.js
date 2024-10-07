@@ -50,13 +50,13 @@ const registrationSuccessEmailBody = (userData) => `
     </head>
     <body>
       <div class="container">
-        <h1>Welcome to Dog Website</h1>
-        <p>Hello ${userData?.user?.name},</p>
-        <p>Thank you for registering with Dog Website. To activate your account, please use the following activation code:</p>
+        <p>Hallo ${userData?.user?.name},</p>
+        <p>Vielen Dank, dass Sie sich bei 321maklerfrei.de registriert haben. Um Ihr Konto zu aktivieren, verwenden Sie bitte den folgenden Aktivierungscode:</p>
         <h1>${userData?.activationCode}</h1>
-        <p>Please enter this code on the activation page within the next 5 minutes.</p>
-        <p>If you didn't register for Dog Website, please ignore this email.</p>
-        <p>If you have any questions, please contact us at <a href="mailto:321maklerfrei@gmail.com">321maklerfrei@gmail.com</a>.</p>
+        <p>Bitte geben Sie diesen Code innerhalb der nächsten 5 Minuten auf der Aktivierungsseite ein.</p>
+        <p>Wenn Sie sich nicht bei 321maklerfrei.de registriert haben, ignorieren Sie bitte diese E-Mail.</p>
+        <p>Wenn Sie Fragen haben, kontaktieren Sie uns bitte unter<p/>
+        <a href="mailto:kontakt@321maklerfrei.de">kontakt@321maklerfrei.de</a>.
       </div>
     </body>
   </html>
