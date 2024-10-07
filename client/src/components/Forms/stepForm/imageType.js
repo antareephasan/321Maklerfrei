@@ -25,7 +25,7 @@ const acceptStyle = {
 const rejectStyle = {
   borderColor: "#ff1744",
 };
-function ImageType({ renderPhotos, title, MultiStepForm }) {
+function ImageType({ renderPhotos, title, MultiStepForm, selectMessage }) {
   const {
     getRootProps,
     getInputProps,
@@ -78,7 +78,7 @@ function ImageType({ renderPhotos, title, MultiStepForm }) {
                 fontWeight: "700",
               }}
             >
-              {t("Choose the images")}
+              {selectMessage}
             </span>{" "}
             {t("for your listing or drag them here.")}
           </p>

@@ -1238,6 +1238,28 @@ export const dictionary = {
     de: {
       createAdBtn: "Anzeige erstellen"
     }
+  },
+
+
+  imageTypes: {
+    en: {
+      selectImages: "Bilder hochladen",
+      selectFloorPlans: "Select floorplans"
+    },
+    de: {
+      selectImages: "Bilder hochladen",
+      selectFloorPlans: "Grundrisse hochladen"
+    }
+  },
+
+  submit: {
+    en: {
+      title: "Select package and duration"
+    },
+    de: {
+        title: "Paket und Laufzeit auswählen"
+    }
   }
+
 
 };

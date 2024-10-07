@@ -1,19 +1,70 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input, Label } from "@windmill/react-ui";
 import { Button } from "@windmill/react-ui";
 import { useTranslation } from "react-i18next";
 import "./style.module.css"
 import 'react-phone-number-input/style.css';
-import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
+import PhoneInput, { isValidPhoneNumber, parsePhoneNumber } from 'react-phone-number-input';
 import { dictionary } from "../../../resources/multiLanguages";
-export const Contact = ({ formData, setForm, navigation, isReviewMode, my_swiper, fRequired, setFRequired, phone, setPhone }) => {
+export const Contact = ({ formData, setForm, navigation, isReviewMode, my_swiper, fRequired, setFRequired, setPhone, phone }) => {
   const { go } = navigation;
   const { formEmail, contactName, nameHide, lastName } = formData;
   const { t } = useTranslation();
   const languageReducer = "de";
-  const [isLastNameRequired, setLastNameRequired] = useState(false);
+  const [lastNameRequired, setLastNameRequired] = useState(false);
 
-  console.log("f", formData.lastName);
+
+  function normalizePhoneNumber1(input, defaultCountry = null) {
+    const parsedPhone = parsePhoneNumber(input, defaultCountry)
+    console.log(input, 'parsed as:', parsedPhone)
+    if (parsedPhone) {
+      return parsedPhone.number
+    } else {
+      return input
+    }
+  }
+
+  useEffect(() => {
+    if (formData.phone) {
+      const normalizedPhoneNumber = normalizePhoneNumber1(formData.phone);
+      setPhone(normalizedPhoneNumber);
+    }
+  
+  }, [])
+
+  const handleContactNext = () => {
+
+    console.log("formdata.phone", formData.phone);
+    console.log("phone", phone);
+
+
+    if (lastName?.length === 0) {
+      setLastNameRequired(true);
+      return;
+    }
+    if (contactName?.length === 0 || formEmail?.length === 0 || lastName?.length === 0) {
+      setFRequired(true);
+      return;
+    }
+
+    if(!phone) {
+      setFRequired(true);
+      return;
+    }
+
+    const isValid = isValidPhoneNumber(phone);
+    if (!isValid) {
+      setFRequired(true);
+      return;
+    }
+    setFRequired(false);
+    my_swiper.slideNext();
+
+    return navigation.next()
+  }
+
+
+
   return (
     <div className="container mx-auto px-4">
       <Label className="mt-4">
@@ -34,8 +85,12 @@ export const Contact = ({ formData, setForm, navigation, isReviewMode, my_swiper
           />
 
         </div>
+      </Label>
+
+      <Label>
         <span>{dictionary["createAds"][languageReducer]["contact"]["lastName"]}:</span>
         <span style={{ color: "red" }}>*</span>
+        {lastNameRequired && <span style={{ color: "red" }}>{dictionary["createAds"][languageReducer]["contact"]["pleaseProvideValidLastName"]}</span>}
         <Input
           className="w-1/2 mb-4 mt-1"
           placeholder={dictionary["createAds"][languageReducer]["contact"]["enterLastName"]}
@@ -48,18 +103,19 @@ export const Contact = ({ formData, setForm, navigation, isReviewMode, my_swiper
           type="text"
           fullwidth='false'
         />
-
-        <div className="flex items-center">
-          <Input
-            className="mr-2"
-            type="checkbox"
-            name="nameHide"
-            value={nameHide}
-            onChange={setForm}
-          />
-          <span>{t("hide name")}</span>
-        </div>
       </Label>
+
+      <div className="flex items-center">
+        <Input
+          className="mr-2"
+          type="checkbox"
+          name="nameHide"
+          value={nameHide}
+          onChange={setForm}
+        />
+        <span>{t("hide name")}</span>
+      </div>
+
       <Label className="mt-4">
         <span>{dictionary["createAds"][languageReducer]["contact"]["email"]}:</span>
         <span style={{ color: "red" }}>*</span>
@@ -81,7 +137,7 @@ export const Contact = ({ formData, setForm, navigation, isReviewMode, my_swiper
       </Label>
       <Label className="mt-4">
         <span>{t("phone number")}:</span>
-        {fRequired && <span style={{ color: "red" }}>{dictionary["createAds"][languageReducer]["contact"]["pleaseProvideValidLastPhone"]}</span>}
+        {fRequired && <span style={{ color: "red" }}>{dictionary["createAds"][languageReducer]["contact"]["pleaseProvideValidPhone"]}</span>}
         <div>
           <PhoneInput
             className="mb-4 mt-1 "
@@ -121,24 +177,7 @@ export const Contact = ({ formData, setForm, navigation, isReviewMode, my_swiper
               fullwidth='true'
               color="primary"
               style={{ marginTop: "1rem" }}
-              onClick={() => {
-                console.log(phone);
-                if (formData?.lastname?.length === 0) {
-                  setLastNameRequired(true);
-                  return
-                }
-                if (contactName?.length === 0 || formEmail?.length === 0 || lastName?.length === 0) {
-                  setFRequired(true);
-                  return;
-                }
-                if (phone && phone?.length >= 4 && !isValidPhoneNumber(phone)) {
-                  setFRequired(true);
-                  return;
-                }
-                setFRequired(false);
-                my_swiper.slideNext();
-                return navigation.next()
-              }}
+              onClick={handleContactNext}
             >
               {t("next")}
             </Button>

@@ -12,6 +12,7 @@ function PricingCardSale({
   active,
   enabled,
   callback,
+  month
 }) {
   const { t } = useTranslation();
   const packages = [
@@ -21,6 +22,7 @@ function PricingCardSale({
     { title: "Immonet", allowedIn: ["Medium", "Premium"] },
     { title: "Premium Platzierung", allowedIn: ["Premium"] },
   ];
+
 
 
   const handlePaymentClick = (e) => {
@@ -76,7 +78,7 @@ function PricingCardSale({
                     {value}
                   </p>
                   <p className="text-left md:text-center font-regular text-xs mb-5">
-                    pro Monat
+                    {month}
                   </p>
                 </div>
                 <ul className="justify-start text-sm md:ml-0 md:mt-4 mt-0 h-12 md:h-auto md:mb-4">

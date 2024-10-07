@@ -29,7 +29,6 @@ import { Testimonials } from "../components/Testimonials/Testimonials";
 import { Helmet } from "react-helmet";
 import styled from "styled-components";
 import { NextStepIcon } from "../icons";
-import PricingSection from "../components/Pricing/PricingSection";
 
 import createIcon from "../assets/img/offering1.png";
 import transferIcon from "../assets/img/offering2.png";
@@ -41,6 +40,7 @@ import { ReactComponent as HeroBg } from "../assets/img/wave.svg";
 import PropertySlider from "../components/PropertySlider";
 import hero1 from "../assets/img/Thumbnail.png";
 import { dictionary } from '../resources/multiLanguages'
+import PricingSection from "../components/Pricing/PricingSection";
 const StyledSwiper = styled.div`
   position: relative;
   pointer-events: all;
@@ -321,38 +321,35 @@ function Landing() {
                     </HashLink>
                   </div>
                 </div>
+
                 <div className="flex justify-center md:h-auto md:px-0">
-                  <div className="px-5 lg:px-0 md:mt-10 md:block">
-                    {/* <ReactPlayer
-                  controls={true}
-                  width="500px"
-                  height="280px"
-                  // url="https://info-at-321maklerfrei.wistia.com/medias/cplog1zr82"
-                  url="https://www.youtube.com/watch?v=QFYur6WTqoY"
-                />
-              </div>
-              <div className="block md:hidden">
-                <ReactPlayer
-                  controls={true}
-                  width="360px"
-                  height="200px"
-                  // url="https://info-at-321maklerfrei.wistia.com/medias/cplog1zr82"
-                  url="https://www.youtube.com/watch?v=QFYur6WTqoY"
-                  playsinline={true}
+                  <div className="px-5 lg:px-0 hidden lg:mt-10 w-full h-full lg:block">
+                    <ReactPlayer
+                      controls={true}
+                      width="100%"
+                      height="360px"
+                      url="https://www.youtube.com/embed/J1V4wG7ZgsY?si=i3mnRKZBNOVdAcpP"
+                    />
+                  </div>
+                  <div className="px-5 lg:px-0 hidden md:mt-10 md:block w-full h-full lg:hidden">
+                    <ReactPlayer
+                      controls={true}
+                      width="100%"
+                      height="350px"
+                      url="https://www.youtube.com/embed/J1V4wG7ZgsY?si=i3mnRKZBNOVdAcpP"
+                    />
+                  </div>
 
-                /> */}
-                    <video
-                      className="lg:h-80 w-[100%] h-[100%] rounded-[16.974px] lg:rounded-[18px] xl:rounded-[20px] 2xl:rounded-[24.974px] object-cover"
-                      controls
-                      poster={hero1}
-                    >
-                      <source
-                        src="https://storage.googleapis.com/maklerferi-images/video/321maklerfrei.mp4"
-                        type="video/mp4"
+                  <div className="block md:hidden w-full h-full px-5">
+                    <ReactPlayer
+                      controls={true}
+                      width="100%"
+                      height="300px"
+                      url="https://www.youtube.com/embed/J1V4wG7ZgsY?si=i3mnRKZBNOVdAcpP"
+                      playsinline={true}
 
-                      />
-                      Your browser does not support the video tag.
-                    </video>
+                    />
+
                   </div>
                 </div>
 
@@ -399,12 +396,12 @@ function Landing() {
             </div>
 
           </div>
-        </div>
+        </div >
 
 
 
         {/* Leistungen or Our Services */}
-        <SectionFeaturesGrid>
+        < SectionFeaturesGrid >
           <FeatureCard
             img={createIcon}
             title={
@@ -506,10 +503,10 @@ function Landing() {
 
 
 
-        </SectionFeaturesGrid>
+        </SectionFeaturesGrid >
 
         {/* Reviews  or Rezensionen*/}
-        <section id="Rezensionen" className="py-8 flex justify-center items-center  bg-gray-50">
+        < section id="Rezensionen" className="py-8 flex justify-center items-center  bg-gray-50" >
           <div className="w-full md:w-11/12 lg:w-3/4 flex flex-col gap-10 px-5 md:px-0">
             <h2 className="text-3xl text-center md:text-4xl font-bold text-gray-700">
               {dictionary["testimonials"][languageReducer]["title"]}
@@ -517,10 +514,10 @@ function Landing() {
 
             <Testimonials />
           </div>
-        </section>
+        </section >
 
         {/* Price or Preise  and FAQ*/}
-        <section id="Preise" className="py-8 md:py-16 bg-gray-50">
+        < section id="Preise" className="py-8 md:py-16 bg-gray-50" >
           <div className="max-w-4xl text-center justify-content-center mx-auto">
             <h1 className="text-3xl md:text-4xl font-bold text-gray-700">
               {dictionary["prices"][languageReducer]["title"]}
@@ -672,10 +669,10 @@ function Landing() {
               <Button size="larger">Immobilie inserieren</Button>
             </Link> */}
           </div>
-        </section>
+        </section >
 
         {/* What are you waiting for? */}
-        <SectionCenteredHeader>
+        < SectionCenteredHeader >
           <h2 className="text-3xl md:text-4xl font-semibold mt-8 mb-2">
             {dictionary["waiting"][languageReducer]["title"]}
           </h2>
@@ -687,10 +684,10 @@ function Landing() {
               <Button size="larger">Jetzt registrieren {"->"}</Button>
             </Link>
           </div>
-        </SectionCenteredHeader>
-      </main>
+        </SectionCenteredHeader >
+      </main >
       <FooterLanding />
-    </div>
+    </div >
   );
 }
 

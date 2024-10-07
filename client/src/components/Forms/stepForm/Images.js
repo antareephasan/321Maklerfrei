@@ -207,13 +207,15 @@ export const Images = (props) => {
             className='flex-wrap'
             MultiStepForm={imgMultiStepForm}
             renderPhotos={() => renderType(imgMultiStepForm, t)}
-            title={dictionary["createAds"][languageReducer]["images"]["images"]}
+            title={dictionary["createAds"][languageReducer]["images"]["Images"]}
+            selectMessage={dictionary["imageTypes"][languageReducer]["selectImages"]}
           />
           <ImageType
             className='flex-wrap'
             MultiStepForm={planMultiStepForm}
             renderPhotos={() => renderType(planMultiStepForm, t)}
             title={dictionary["createAds"][languageReducer]["images"]["Floorplans"]}
+            selectMessage={dictionary["imageTypes"][languageReducer]["selectFloorPlans"]}
           />
           {/* <UploadWidget /> */}
 

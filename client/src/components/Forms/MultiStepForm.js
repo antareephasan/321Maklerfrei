@@ -193,7 +193,7 @@ export const MultiStepForm = () => {
     state: '',
     zip: '',
     contactName: user?.name,
-    phone: null,
+    phone: user?.phone_number,
     formEmail: user?.email,
     nameHide: '',
     carPlacement: '',

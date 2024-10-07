@@ -21,6 +21,7 @@ import 'react-tabs/style/react-tabs.css';
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 function Products({ products, listData, enabled, PricingCardCallback, pages, subscriptionPeriod }) {
+  const languageReducer= "de";
 
   let listingType;
   if (listData.listingType === 'For Rent') {
@@ -28,6 +29,8 @@ function Products({ products, listData, enabled, PricingCardCallback, pages, sub
   } else {
     listingType = 'sale';
   }
+
+
 
 
   console.log("--------------------------------------");
@@ -44,6 +47,14 @@ function Products({ products, listData, enabled, PricingCardCallback, pages, sub
           console.log(listingType)
           console.log(product.subscriptionType)
 
+          const month = product.subscriptionType === "one-month"
+            ? dictionary["prices"][languageReducer]["month1"]
+            : product.subscriptionType === "two-months"
+              ? dictionary["prices"][languageReducer]["month2"]
+              : dictionary["prices"][languageReducer]["month3"]
+          ;
+        
+
           return (
             <PricingCardSale
               packageId={product._id}
@@ -55,6 +66,7 @@ function Products({ products, listData, enabled, PricingCardCallback, pages, sub
               value={product.price + ' ' + '€'}
               enabled={enabled}
               listData={listData}
+              month={month}
               // uniqId={uniqId}
               callback={PricingCardCallback}
             />
@@ -145,7 +157,7 @@ export const Submit = ({ listData, setListData, pages }) => {
   const history = useHistory();
   const { t } = useTranslation();
 
-
+  const languageReducer = "de";
   useEffect(() => {
     if (enabled) {
       closeSnackbar();
@@ -192,7 +204,9 @@ export const Submit = ({ listData, setListData, pages }) => {
   return (
     <>
       <div className='px-0  mt-4'>
-        <SectionTitle>{t('Choose your plan')}</SectionTitle>
+        <h2 className="text-center mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
+          {dictionary["submit"][languageReducer]["title"]}
+        </h2>
 
         <ProductsSection
           pages={pages}

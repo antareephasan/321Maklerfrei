@@ -49,10 +49,12 @@ const registrationAccount = async (req) => {
     ]);
   }
 
+
   const { activationCode } = createActivationToken();
   const auth = {
     role,
     name: other.name,
+    lastname: other.lastname,
     email,
     activationCode,
     password,
@@ -118,10 +120,18 @@ const googleSignIn = async (req) => {
 
   const existingAuth = await Auth.findOne({ email }).lean();
 
+  // Split the name into words
+  const nameParts = name.trim().split(" ");
+
+  // Extract first name and last name
+  const firstName = nameParts.shift(); // First element
+  const lastName = nameParts.join(" "); // Remaining part, could be empty or multiple words
+
   const updateData = {
     role: "USER",
     isActive: true,
-    name: name,
+    name: firstName,
+    lastname: lastName,
     phone_number: phone,
     profile_image: img,
   };
@@ -145,17 +155,17 @@ const googleSignIn = async (req) => {
         throw new ApiError(402, "User Auth creation failed");
       }
     }
-    
 
-    if(authUser._id){
+
+    if (authUser._id) {
       updateData.authId = authUser._id;
     }
 
     const isUserUpdated = existingAuth
       ? await User.updateOne(
-          { email },
-          { $set: updateData },
-        )
+        { email },
+        { $set: updateData },
+      )
       : await User.create({ email, ...updateData });
 
     if (!isUserUpdated) {

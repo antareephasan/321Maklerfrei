@@ -36,18 +36,34 @@ const updateProfile = async (req) => {
  
 
   const updatedData = { ...data };
+
+
+   // Split the name into words
+   const nameParts = updatedData.name.trim().split(" ");
+
+   // Extract first name and last name
+   const firstName = nameParts.shift(); // First element
+   const lastName = nameParts.join(" "); // Remaining part, could be empty or multiple words
  
    await Auth.findOneAndUpdate(
     { _id: authId },
-    {name: updatedData.name },
+    {name: firstName },
+    {lastname: lastName },
     {
       new: true,
     }
   ); 
 
+
+  const userUpdateData = {
+    ...updatedData,
+    name:firstName,
+    lastname: lastName,
+  }
+
   const updateUser = await User.findOneAndUpdate(
     {_id: userId },
-    { profile_image, ...updatedData },
+    { profile_image, ...userUpdateData },
     {
       new: true,
     }

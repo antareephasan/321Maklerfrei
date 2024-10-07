@@ -398,7 +398,7 @@ export const Review = (props) => {
             size='large'
             onClick={() => setAccordion(!accordion)}
           >
-            2.{t('Details')}
+            <span>2.</span>{t('Details')}
             <DropdownIcon className='w-4' />
           </Button>
           {accordion && (
@@ -1394,7 +1394,7 @@ export const Review = (props) => {
             size='large'
             onClick={() => setAccordionTwo(!accordionTwo)}
           >
-            4. {t('Images')}
+            <span>4.</span> {t('Images')}
             <DropdownIcon className='w-4' />
           </Button>
           {accordionTwo && (
@@ -1520,8 +1520,7 @@ const RenderAccordion = ({ summary, details, go, setReviewMode, serial }) => {
         size='large'
         onClick={() => setAccordion(!accordion)}
       >
-        <span>{serial}.</span> {t(summary)}
-        <DropdownIcon className='w-4' />
+        <span>{serial}.</span> {t(summary)} <DropdownIcon className='w-4' />
       </Button>
       {accordion && (
         <div>

@@ -1,6 +1,7 @@
 import React from "react";
-import { Card, CardBody } from "@windmill/react-ui";
+import { Button, Card, CardBody } from "@windmill/react-ui";
 import { CheckIcon, DeleteIcon } from "../../icons";
+
 
 const PriceCard = ({ packageTitle, price, plan, month, options, highlight }) => {
 
@@ -40,6 +41,11 @@ const PriceCard = ({ packageTitle, price, plan, month, options, highlight }) => 
               ))
             }
           </ul>
+          <a href="/auth/login">
+            <Button>
+              Auswählen
+            </Button>
+          </a>
 
           <p className="text-xs text-gray-400 text-center mt-2">
             <small>* Inkl. 19% MwSt. + immer kündbar.</small>
