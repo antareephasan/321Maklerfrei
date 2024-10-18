@@ -128,13 +128,13 @@ const checkAndUpdateStatusByWebhook = async (req) => {
 
       switch (package.subscriptionType) {
         case 'BASIC':
-          await publishTo3Platforms(data, true, false);
+          await publishTo3Platforms(updatedUserList, true, false);
           break;
         case 'MEDIUM':
-          await publishTo3Platforms(data, true, true);
+          await publishTo3Platforms(updatedUserList, true, true);
           break;
         case 'PREMIUM':
-          await publishTo3Platforms(data, true, true);
+          await publishTo3Platforms(updatedUserList, true, true);
           //and we need to send email with {data} to manually publish to premuim portal
           // let formData = {
           //   title: data.listingTitle,
