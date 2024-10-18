@@ -154,108 +154,6 @@ export const Review = (props) => {
     }
   }
 
-  // const handleSubmit = async () => {
-  //   openSnackbar(t('Creating UserList'));
-  //   setIsSnackbarOpen(true);
-
-  //   const isBelowMax = (f) => String(f).length < 3800;
-  //   const isBelowMaxF = (f) => f.size < 200000000;
-  //   let fields = Object.values(formData);
-  //   if (
-  //     imgMultiStepForm.selectedType.length > 50
-  //     // || !imgMultiStepForm.selectedType.every(isBelowMaxF)
-  //   ) {
-  //     setMaxFiles(true);
-  //     return;
-  //   }
-  //   if (
-  //     planMultiStepForm.selectedType.length > 10
-  //     // || !planMultiStepForm.selectedType.every(isBelowMaxF)
-  //   ) {
-  //     setMaxFiles(true);
-  //     return;
-  //   }
-  //   if (!fields.every(isBelowMax)) {
-  //     setMaxCharacters(true);
-  //     return;
-  //   }
-  //   // setEnabled(false);
-  //   setLoading(true);
-  //   const sendData = new FormData();
-  //   //request uniqId
-  //   let reqUniqId = await axios.post(
-  //     `${apiUrl}/userList/create?uniqId=true`,
-  //     {
-  //       email,
-  //     }
-  //   );
-  //   let uniqId = reqUniqId.data.uniqId;
-  //   let listNumber = reqUniqId.data.listNumber;
-  //   const data = { ...formData, email, uniqId, listNumber };
-  //   if (formData.energy === 'true') {
-  //     data.energy = true;
-  //   } else {
-  //     data.energy = false;
-  //   }
-  //   // let oldDate = Date.now();
-
-  //   let info = flowFactData?.flowFactInfo;
-  //   if (!info) {
-  //     info = await flowFactService.publishImagesToFlowFact(
-  //       Object.assign(data, { phone }),
-  //       imgMultiStepForm,
-  //       planMultiStepForm,
-  //       openSnackbar,
-  //       t,
-  //       setLoadingTitle,
-  //       setCurrentImgIdx,
-  //       setCurrentImgForm,
-  //       setProgressValue
-  //     );
-  //   }
-
-  //   data.entityId = info.entityId;
-  //   data.schema_name = info.schema_name;
-  //   data.flowfactContactId = info.contactId;
-  //   data.listingPrice = data.listingPrice.replace(/\./g, '');
-  //   data.rentPrice = data.rentPrice.replace(/\./g, '');
-  //   await buildFormData(
-  //     Object.assign(sendData, { phone }),
-  //     Object.assign(data, { phone })
-  //   );
-
-  //   axios
-  //     .post(`${apiUrl}/v1/userList/create`, Object.assign(sendData, { phone }))
-  //     .then((response) => {
-  //       console.log('response', response);
-  //       setListData(response.data);
-  //       // openSnackbar(t('List Is Created'), 'success', 3000);
-  //       setLoading(false);
-  //       // setEnabled(true);
-
-  //       setIsSnackbarOpen(false)
-  //       my_swiper.slideNext();
-  //       go('submit');
-  //       return;
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       openSnackbar(
-  //         t(error.message || 'Something Went Very Wrong!'),
-  //         'danger',
-  //         2000
-  //       );
-  //     })
-  //     .finally(() => {
-  //       window.localStorage.removeItem('formData');
-  //       window.localStorage.removeItem('entityId');
-  //       window.localStorage.removeItem('imgMultiStepForm');
-  //       window.localStorage.removeItem('planMultiStepForm');
-  //     });
-  // };
-
-
-  // Antareeps  edited
   const handleSubmit = async () => {
     openSnackbar(t('Creating UserList'));
     setIsSnackbarOpen(true);
@@ -281,67 +179,76 @@ export const Review = (props) => {
       setMaxCharacters(true);
       return;
     }
-
+    // setEnabled(false);
     setLoading(true);
-    // setEnabled(true);
 
-    //Custom code for cloudinary image upload
-    const uploadedAdImageUrls = [];
-    const uploadedFloorPlanUrls = [];
-
-
-
-    for (let i = 0; i < imgMultiStepForm.selectedType.length; i++) {
-      const file = imgMultiStepForm.selectedType[i];
-      try {
-        const url = await UploadImageToCloudinary(file);
-        uploadedAdImageUrls.push(url); // Save the uploaded image URL
-
-        setCurrentImgIdx(i + 1); // Update progress
-      } catch (error) {
-        console.error('Image upload failed', error);
-        // Handle the error (e.g., show a notification)
+    //request uniqId
+    let reqUniqId = await axios.post(
+      `${apiUrl}/userList/create?uniqId=true`,
+      {
+        email,
       }
+    );
+    let uniqId = reqUniqId.data.data.uniqId;
+    let listNumber = reqUniqId.data.data.listNumber;
+    const data = { ...formData, email, uniqId, listNumber };
+
+    if (formData.energy === 'true') {
+      data.energy = true;
+    } else {
+      data.energy = false;
+    }
+    // let oldDate = Date.now();
+
+    let info = flowFactData?.flowFactInfo;
+    if (!info) {
+      info = await flowFactService.publishImagesToFlowFact(
+        Object.assign(data, { phone }),
+        imgMultiStepForm,
+        planMultiStepForm,
+        openSnackbar,
+        t,
+        setLoadingTitle,
+        setCurrentImgIdx,
+        setCurrentImgForm,
+        setProgressValue
+      );
     }
 
-    for (let i = 0; i < imgMultiStepForm.selectedType.length; i++) {
-      const file = planMultiStepForm.selectedType[i];
-      try {
-        const url = await UploadImageToCloudinary(file);
-        uploadedFloorPlanUrls.push(url); // Save the uploaded image URL
-
-        setCurrentImgIdx(i + 1); // Update progress
-      } catch (error) {
-        console.error('Image upload failed', error);
-        // Handle the error (e.g., show a notification)
-      }
-    }
-
-
-    const data = { ...formData, phone };
-
-    data.energy = formData.energy === 'true';
-    data.newBuilding = formData.newBuilding === 'true';
-    data.monumentProtection = formData.monumentProtection === 'true';
-    data.imgCollection = uploadedAdImageUrls;
-    data.planCollection = uploadedFloorPlanUrls;
+    data.entityId = info.entityId;
+    data.schema_name = info.schema_name;
+    data.flowfactContactId = info.contactId;
     data.listingPrice = data.listingPrice.replace(/\./g, '');
     data.rentPrice = data.rentPrice.replace(/\./g, '');
+    data.newBuilding = data.newBuilding === "" ? false : data.newBuilding === "true" ? true : false;
+    data.monumentProtection = data.monumentProtection === "" ? false : data.monumentProtection === "true" ? true : false;
+    
+    const sendData = new FormData();
+    buildFormData(
+      sendData,
+      Object.assign(data, { phone })
+    );
 
+    console.log("data", data)
+    console.log("Send Data", sendData)
+
+    console.log('Send Data contents:');
+    for (let pair of sendData.entries()) {
+      console.log(pair[0], pair[1]);
+    }
     axios
-      .post(`${apiUrl}/userList/create`, data)
+      .post(`${apiUrl}/userList/create`, sendData)
       .then((response) => {
         console.log('response', response);
         setListData(response.data.data);
         // openSnackbar(t('List Is Created'), 'success', 3000);
-
-        // setEnabled(false);
+        setLoading(false);
+        // setEnabled(true);
 
         setIsSnackbarOpen(false)
         my_swiper.slideNext();
-        navigation.next();
-        // go('submit');
-        // return;
+        go('submit');
+        return;
       })
       .catch((error) => {
         console.log(error);
@@ -350,14 +257,13 @@ export const Review = (props) => {
           'danger',
           2000
         );
-      }).finally(() => {
-        setLoading(false);
-
-        localStorage.removeItem('formData');
-        localStorage.removeItem('entityId');
-        localStorage.removeItem('imgMultiStepForm');
-        localStorage.removeItem('planMultiStepForm');
       })
+      .finally(() => {
+        window.localStorage.removeItem('formData');
+        window.localStorage.removeItem('entityId');
+        window.localStorage.removeItem('imgMultiStepForm');
+        window.localStorage.removeItem('planMultiStepForm');
+      });
   };
 
   return (
@@ -398,7 +304,7 @@ export const Review = (props) => {
             size='large'
             onClick={() => setAccordion(!accordion)}
           >
-            <span>2.</span>{t('Details')}
+            <span>2 .</span>{t('Details')}
             <DropdownIcon className='w-4' />
           </Button>
           {accordion && (
@@ -1394,7 +1300,7 @@ export const Review = (props) => {
             size='large'
             onClick={() => setAccordionTwo(!accordionTwo)}
           >
-            <span>4.</span> {t('Images')}
+            <span>4 .</span> {t('Images')}
             <DropdownIcon className='w-4' />
           </Button>
           {accordionTwo && (

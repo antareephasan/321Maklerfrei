@@ -11,7 +11,7 @@ import { LimitedTextarea } from "../../components/Forms/stepForm/LimitedText";
 import { SnackbarContext } from "../../context/SnackbarContext";
 export const Description = ({ data }) => {
   const history = useHistory();
-  const { _id: uniqId } = data;
+  const { uniqId } = data;
   const { t } = useTranslation();
   Object.assign(defaultData, data);
   const [formData, setForm] = useForm(defaultData);

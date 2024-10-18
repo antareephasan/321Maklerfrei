@@ -342,9 +342,6 @@ const publishImagesToFlowFact = async (
   try {
     console.log('data', data);
     const cognitoToken = await generateCognitoToken();
-
-    console.log("client flowfact.services.js> cognitoToken:",cognitoToken);
-    return ;
     // test if we have contact
     let contact = await axios.get(
       `https://api.production.cloudios.flowfact-prod.cloud/contact-service/contact?email=${data.formEmail}`,

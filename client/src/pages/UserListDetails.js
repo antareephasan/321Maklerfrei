@@ -35,7 +35,7 @@ function Products({ listData, uniqId, enabled, PricingCardCallback }) {
         products.map(function (product, i) {
           if (
             !product.product.active &&
-            listData.subscription.subscriptionType !==
+            listData.subscription.type !==
             product.product.metadata.type
           ) {
             return null;
@@ -52,7 +52,7 @@ function Products({ listData, uniqId, enabled, PricingCardCallback }) {
                 product.price.recurring.interval
               }
               active={
-                listData.subscription.subscriptionType ===
+                listData.subscription.type ===
                 product.product.metadata.type
               }
               enabled={enabled}
@@ -67,90 +67,90 @@ function Products({ listData, uniqId, enabled, PricingCardCallback }) {
 }
 
 
-// const renderPhotos = (imagesList) => {
-//     return imagesList.map((photo, key) => {
-//         return (
-//             <div className="flex mx-1 m-1"
-//                 key={
-//                     photo.id
-//             }>
-//                 <div className="mx-2 h-14 object-cover w-14">
-//                     <a href={
-//                             photo.fileReference
-//                         }
-//                         rel="noreferrer"
-//                         target="_blank">
-//                         <img src={
-//                                 photo.fileReference
-//                             }
-//                             alt={
-//                                 photo.title
-//                             }
-//                             title={
-//                                 photo.title
-//                             }
-//                             className="h-full"/>
-//                     </a>
-//                 </div>
-//                 <p>{
-//                     photo.title
-//                 }</p>
-//             </div>
-//         );
-//     });
-// };
-
-// antareep custom
 const renderPhotos = (imagesList) => {
-  return imagesList.map((photo, index) => {
-    return (
-      <div className="flex mx-1 m-1"
-        key={index}>
-        <div className="mx-2 h-14 object-cover w-14">
-          <a href={photo}
-            rel="noreferrer"
-            target="_blank">
-            <img src={
-              photo
-            }
-              alt={"image"}
-              title={"image"}
-              className="h-full" />
-          </a>
-        </div>
-        {/* <p>{
+    return imagesList.map((photo, key) => {
+        return (
+            <div className="flex mx-1 m-1"
+                key={
+                    photo.id
+            }>
+                <div className="mx-2 h-14 object-cover w-14">
+                    <a href={
+                            photo.fileReference
+                        }
+                        rel="noreferrer"
+                        target="_blank">
+                        <img src={
+                                photo.fileReference
+                            }
+                            alt={
+                                photo.title
+                            }
+                            title={
+                                photo.title
+                            }
+                            className="h-full"/>
+                    </a>
+                </div>
+                <p>{
                     photo.title
-                }</p> */}
-      </div>
-    );
-  });
+                }</p>
+            </div>
+        );
+    });
 };
 
+// antareep custom
 // const renderPhotos = (imagesList) => {
-// return imagesList.map((photo, key) => {
-//   return (
-//     <Backdrop
-//       sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-//       open={false}
-//       // onClick={handleClose}
-//     >
-//       <CircularProgress color='inherit' />
-//       <div className='flex mx-1 m-1' key={photo.id}>
-//         <div className='mx-2 h-14 object-cover w-14'>
-//           <a href={photo.fileReference} rel='noreferrer' target='_blank'>
-//             <img
-//               src={photo.fileReference}
-//               alt={photo.title}
-//               title={photo.title}
-//               className='h-full'
-//             />
+//   return imagesList.map((photo, index) => {
+//     return (
+//       <div className="flex mx-1 m-1"
+//         key={index}>
+//         <div className="mx-2 h-14 object-cover w-14">
+//           <a href={photo}
+//             rel="noreferrer"
+//             target="_blank">
+//             <img src={
+//               photo
+//             }
+//               alt={"image"}
+//               title={"image"}
+//               className="h-full" />
 //           </a>
 //         </div>
-//         <p>{photo.title}</p>
+//         {/* <p>{
+//                     photo.title
+//                 }</p> */}
 //       </div>
-//     </Backdrop>
-//   );
-// });
+//     );
+//   });
+// };
+
+// const renderPhotos = (imagesList) => {
+//   return imagesList.map((photo, key) => {
+//     return (
+//       <Backdrop
+//         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+//         open={false}
+//       // onClick={handleClose}
+//       >
+//         <CircularProgress color='inherit' />
+//         <div className='flex mx-1 m-1' key={photo.id}>
+//           <div className='mx-2 h-14 object-cover w-14'>
+//             <a href={photo.fileReference} rel='noreferrer' target='_blank'>
+//               <img
+//                 src={photo.fileReference}
+//                 alt={photo.title}
+//                 title={photo.title}
+//                 className='h-full'
+//               />
+//             </a>
+//           </div>
+//           <p>{photo.title}</p>
+//         </div>
+//       </Backdrop>
+//     );
+//   });
 
 // };
 const testMounth = (mounth) => {
@@ -176,7 +176,7 @@ const testMounth = (mounth) => {
 };
 export default function UserListDetails({ data, handledeleteList }) {
   const {
-    _id: uniqId,
+    uniqId,
     entityId,
     listingTitle,
     listingType,
@@ -248,7 +248,6 @@ export default function UserListDetails({ data, handledeleteList }) {
     leasablearea,
     totalarea,
     pending,
-    status
   } = data;
   const [loading, setLoading] = useState(false);
 
@@ -267,7 +266,7 @@ export default function UserListDetails({ data, handledeleteList }) {
   format_expire_date = `${format_expire_date.split('-')[2]}.${format_expire_date.split('-')[1]
     }.${format_expire_date.split('-')[0]}`;
   if (new_date.getTime() <= Date.now()) {
-    subscription.subscriptionType = 'free';
+    subscription.type = 'FREE';
   }
 
   const [accordion, setAccordion] = useState(false);
@@ -295,29 +294,29 @@ export default function UserListDetails({ data, handledeleteList }) {
   const [error, setError] = useState(null);
 
   const [imagesList, setImagesList] = useState([]);
-  // useEffect(() => {
-  //   flowFactService.generateCognitoToken().then((cognitoToken) => {
-  //     console.log(`cognitoToken for userList ${entityId}`, cognitoToken);
-  //     axios
-  //       .get(
-  //         `https://api.production.cloudios.flowfact-prod.cloud/multimedia-service/items/entities/${entityId}`,
-  //         {
-  //           headers: {
-  //             cognitoToken,
-  //           },
-  //         }
-  //       )
-  //       .then((reqData) => {
-  //         setImagesList(reqData.data);
-  //       });
-  //   });
-  // }, [entityId]);
-
-  //ANtareep custom
   useEffect(() => {
-    const combinedImages = [...listData.imgCollection, ...listData.planCollection];
-    setImagesList(combinedImages);
-  }, []);
+    flowFactService.generateCognitoToken().then((cognitoToken) => {
+      console.log(`cognitoToken for userList ${entityId}`, cognitoToken);
+      axios
+        .get(
+          `https://api.production.cloudios.flowfact-prod.cloud/multimedia-service/items/entities/${entityId}`,
+          {
+            headers: {
+              cognitoToken,
+            },
+          }
+        )
+        .then((reqData) => {
+          setImagesList(reqData.data);
+        });
+    });
+  }, [entityId]);
+
+  // //ANtareep custom
+  // useEffect(() => {
+  //   const combinedImages = [...listData.imgCollection, ...listData.planCollection];
+  //   setImagesList(combinedImages);
+  // }, []);
 
 
   useEffect(() => {
@@ -535,14 +534,14 @@ export default function UserListDetails({ data, handledeleteList }) {
                 {pending && <div></div>}
                 {!pending && (
                   <div className='mb-5'>
-                    {subscription.subscriptionType === 'free' ? (
+                    {subscription.type === 'FREE' ? (
                       <Badge key='inactive' type='neutral'>
                         {t('inactive')}{' '}
                       </Badge>
                     ) : (
                       false
                     )}
-                    {subscription.subscriptionType != 'free' &&
+                    {subscription.type != 'FREE' &&
                       subscriptionExpire === true &&
                       subscriptionPause === false &&
                       new_date.getTime() >= Date.now() ? (
@@ -562,7 +561,7 @@ export default function UserListDetails({ data, handledeleteList }) {
                     ) : (
                       false
                     )}
-                    {subscription.subscriptionType != 'free' &&
+                    {subscription.type != 'FREE' &&
                       subscriptionPause === true ? (
                       <Badge key='Active-until' className='mt-2' type='neutral'>
                         {t(`Paused`)}{' '}
@@ -571,7 +570,7 @@ export default function UserListDetails({ data, handledeleteList }) {
                       false
                     )}
                     {subscriptionExpire === false &&
-                      subscription.subscriptionType != 'free' ? (
+                      subscription.type != 'FREE' ? (
                       <Badge
                         className='activelisting'
                         key='active'
@@ -1919,7 +1918,7 @@ export default function UserListDetails({ data, handledeleteList }) {
               {!pending && (
                 <>
                   <div className='pt-4'>
-                    {subscription.subscriptionType === 'free' && (
+                    {subscription.type === 'FREE' && (
                       <div className=''>
                         <div className=''>
                           {!deleteListen && (
@@ -1961,10 +1960,7 @@ export default function UserListDetails({ data, handledeleteList }) {
                             )}{' '}
                           </div>
                         </div>
-                        {!deleteListen &&
-
-
-                          status !== "Paid" && (
+                        {!deleteListen &&(
                             <Button
                               layout=''
                               className='float-right bg-blue-200 hover:bg-blue-600 text-blue-600 hover:text-white'
@@ -1982,7 +1978,7 @@ export default function UserListDetails({ data, handledeleteList }) {
                     )}
                     {!stopAutorenew &&
                       subscriptionExpire === false &&
-                      subscription.subscriptionType != 'free' && (
+                      subscription.type != 'FREE' && (
                         <div className='w-full flex justify-between'>
                           <p className=''>
                             <small>{t('automatic renewal')} </small>
@@ -2041,7 +2037,7 @@ export default function UserListDetails({ data, handledeleteList }) {
                           </div>
                         </div>
                       )}
-                    {subscription.subscriptionType != 'free' &&
+                    {subscription.type != 'FREE' &&
                       subscriptionExpire === true &&
                       subscriptionPause === true && (
                         <div className=''>

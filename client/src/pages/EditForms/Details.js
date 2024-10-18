@@ -15,7 +15,7 @@ import { flowFactService } from "../../services/flowfact.service";
 import { SnackbarContext } from "../../context/SnackbarContext";
 export const Details = ({ data, fRequired, setFRequired }) => {
   const history = useHistory();
-  const { _id:uniqId } = data;
+  const { uniqId } = data;
   const { t } = useTranslation();
   Object.assign(defaultData, data);
   const [formData, setForm] = useForm(defaultData);

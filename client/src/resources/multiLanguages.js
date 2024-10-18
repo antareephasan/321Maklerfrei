@@ -864,11 +864,18 @@ export const dictionary = {
       settings: "Settings",
       editProfile: "Edit profile",
       userform: {
+        firstName: "First Name",
+        lastName: "Last Name",
+        phone: "Phone",
+        address: "Address",
         firstNameReq: 'First Name is required',
         lastNameReq: 'Last Name is required',
+        phoneNumberReq: 'Phone number is required',
         emailReq: 'Email is required',
         enterFirstName: "Enter first name",
         enterLastName: "Enter last name",
+        enterPhoneNumber: "Enter phone number",
+        enterAddress: "Enter your address",
         enterEmail: "Enter email",
         saveDetails: "Save Details",
       },
@@ -882,11 +889,18 @@ export const dictionary = {
       settings: "Einstellungen",
       editProfile: "Profil bearbeiten",
       userform: {
+        firstName: "Vorname",
+        lastName: "Nachname",
+        phone: "Telefon",
+        address: "Adresse",
         firstNameReq: "Vorname ist erforderlich",
         lastNameReq: "Nachname ist erforderlich",
+        phoneNumberReq: "Telefonnummer ist erforderlich",
         emailReq: "E-Mail ist erforderlich",
         enterFirstName: "Vornamen eingeben",
         enterLastName: "Nachnamen eingeben",
+        enterPhoneNumber: "Telefonnummer eingeben",
+        enterAddress: "Adresse eingeben",
         enterEmail: "E-Mail eingeben",
         saveDetails: "Änderungen speichern",
       },
@@ -895,9 +909,9 @@ export const dictionary = {
         typeNewPassword: "Neues Passwort eingeben",
         savePassword: "Passwort speichern",
       }
-
     }
   },
+
 
   help: {
     en: {
@@ -1257,7 +1271,7 @@ export const dictionary = {
       title: "Select package and duration"
     },
     de: {
-        title: "Paket und Laufzeit auswählen"
+      title: "Paket und Laufzeit auswählen"
     }
   }
 

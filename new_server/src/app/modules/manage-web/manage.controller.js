@@ -13,7 +13,19 @@ const addPrivacyPolicy = catchAsync(async (req, res) => {
 });
 
 const addTermsConditions = catchAsync(async (req, res) => {
+  console.log("req.body", req.body)
   const result = await ManageService.addTermsConditions(req.body);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Successful",
+    data: result.message ? result.message : result,
+  });
+});
+const addAboutUs = catchAsync(async (req, res) => {
+  console.log("req.body", req.body)
+  const result = await ManageService.addAboutUs(req.body);
 
   sendResponse(res, {
     statusCode: 200,
@@ -35,6 +47,15 @@ const getPrivacyPolicy = catchAsync(async (req, res) => {
 
 const getTermsConditions = catchAsync(async (req, res) => {
   const result = await ManageService.getTermsConditions();
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Successful",
+    data: result,
+  });
+});
+const getAboutUs = catchAsync(async (req, res) => {
+  const result = await ManageService.getAboutUs();
   sendResponse(res, {
     statusCode: 200,
     success: true,
@@ -137,6 +158,8 @@ const ManageController = {
   getSingleFaq,
   updateSingleFaq,
   deleteSingleFaq,
+  getAboutUs,
+  addAboutUs
 };
 
 module.exports = { ManageController };

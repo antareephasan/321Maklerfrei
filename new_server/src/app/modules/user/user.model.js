@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const config = require("../../../config");
 const validator = require("validator");
+const { paginate } = require("../../../plugins");
 
 const { Schema, model } = mongoose;
 
@@ -19,6 +20,9 @@ const UserSchema = new Schema(
     lastname: {
       type: String,
       required: true,
+    },
+    customerId: {
+      type: String,
     },
     email: {
       type: String,
@@ -63,6 +67,7 @@ const UserSchema = new Schema(
   }
 ); 
 
+UserSchema.plugin(paginate);
 // Model
 const User = model("User", UserSchema);
 

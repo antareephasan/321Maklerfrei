@@ -23,7 +23,7 @@ function CreateAccountForm() {
         password: "",
         confirmPassword: "",
         customCheckLogin: false,
-        role: "USER"
+        role: "ADMIN"
       }}
       validationSchema={Yup.object().shape({
         username: Yup.string().required(dictionary["createAccountForm"][languageReducer]["required"]),

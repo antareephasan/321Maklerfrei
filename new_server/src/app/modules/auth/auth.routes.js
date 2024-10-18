@@ -20,7 +20,7 @@ router.post("/forgot-resend", AuthController.resendCodeForgotAccount);
 router.post("/forgot-password", AuthController.forgotPass);
 router.patch(
   "/change-password",
-  auth(ENUM_USER_ROLE.USER),
+  auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.ADMIN),
   AuthController.changePassword
 );
 router.post(

@@ -2,8 +2,11 @@ const express = require("express");
 const auth = require("../../middlewares/auth");
 const { ENUM_USER_ROLE } = require("../../../utils/enums");
 const { ManageController } = require("./manage.controller");
+const bodyParser = require("body-parser");
 
 const router = express.Router();
+
+router.use(bodyParser.json())
 
 router.post(
   "/add-terms-conditions",
@@ -22,22 +25,28 @@ router.post(
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
   ManageController.addPrivacyPolicy
 );
+router.post(
+  "/add-about-us",
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  ManageController.addAboutUs
+);
 
 router.get(
   "/get-privacy-policy",
-  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.USER, ENUM_USER_ROLE.SUPER_ADMIN),
   ManageController.getPrivacyPolicy
+);
+router.get(
+  "/get-about-us",
+  ManageController.getAboutUs
 );
 
 router.get(
   "/get-support-contact",
-  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.USER, ENUM_USER_ROLE.SUPER_ADMIN),
   ManageController.getCustomerContact
 );
 
 router.get(
   "/get-terms-conditions",
-  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.USER, ENUM_USER_ROLE.SUPER_ADMIN),
   ManageController.getTermsConditions
 );
 

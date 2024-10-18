@@ -4,14 +4,12 @@ const { Schema, model } = mongoose;
 
 const UserListSchema = new Schema(
     {
-        // uniqId: {
-        //     type: String,
-        //     required: true
-        // },
-        userId: {
-            type: mongoose.Schema.ObjectId,
-            required: true,
-            ref: "User",
+        uniqId: {
+            type: String,
+            unique: true
+        },
+        email: {
+            type: String,
         },
         schema_name: {
             type: String,
@@ -19,31 +17,56 @@ const UserListSchema = new Schema(
         entityId: {
             type: String,
         },
-        subscriptionId: {
-            type: String,
-        },
         portalIds: {
             type: Array,
         },
+        paymentIntentId: {
+            type: String,
+        },
         subscription: {
             type: {
-                id: {
-                    type: String,
-                },
-                subscriptionType: {
-                    type: String,
-                    required: true,
-                },
+                type: String,
+                enum: ['BASIC', 'MEDIUM', 'PREMIUM', "FREE"],
+                default: "FREE" // Default to null, indicating no subscription
             },
-            default: {
-                subscriptionType: 'free',
-            },
+            // startDate: { type: Date, default: null },   // Can be null if no subscription
+            // endDate: { type: Date, default: null },     // Can be null if no subscription
+            // isActive: { type: Boolean, default: false } // False when no active subscription
         },
-        subscriptionExpire: {
+        // paymentStatus: { type: String, enum: ['pending', 'completed', 'failed'], default: 'pending' },
+        // subscriptionPause: {
+        //     type: Boolean,
+        //     default: false,
+        // },
+        subscriptionPause: {
+            type: Boolean,
+            default: false,
+        },
+        activeUntil: {
+            type: Date,
+            default: null
+        },
+        subscriptionUpdatedAt: {
+            type: Date
+        },
+        subscriptionExpired: {
             type: Boolean,
             require: true,
             default: false,
         },
+        inactive: {
+            type: Boolean,
+            default: false,
+        },
+        pending: {
+            type: Boolean,
+            default: false,
+        },
+        deleted: {
+            type: Boolean,
+            default: false
+        },
+
         listNumber: { type: Number },
         listingTitle: {
             type: String,
@@ -211,34 +234,6 @@ const UserListSchema = new Schema(
             type: [String],
             required: false,  // if required, set to true
         },
-        subscriptionPause: {
-            type: Boolean,
-            default: false,
-        },
-        activeUntil: {
-            type: Date,
-            default: null
-        },
-        subscriptionUpdatedAt: {
-            type: Date
-        },
-        subscriptionExpired: {
-            type: Boolean,
-            require: true,
-            default: false,
-        },
-        inactive: {
-            type: Boolean,
-            default: false,
-        },
-        pending: {
-            type: Boolean,
-            default: false,
-        },
-        deleted: {
-            type: Boolean,
-            default: false
-        },
         hideAddress: {
             type: Boolean,
             default: true
@@ -268,13 +263,6 @@ const UserListSchema = new Schema(
         estatetype: {
             type: String
         },
-        transitionId: {
-            type: String,  
-        },
-         payment:{
-            type: String,
-            enum: ['paddings', 'success ']
-         },
     },
     {
         timestamps: true,

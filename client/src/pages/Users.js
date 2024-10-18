@@ -54,8 +54,8 @@ function Users() {
       .getUsers(currentPage)
       .then((data) => {
         setRefreshing(false);
-        setUsers(data.results);
-        setTotalResults(data.totalResults);
+        setUsers(data.data.results);
+        setTotalResults(data.data.totalResults);
         return null;
       })
       .catch((err) => {
@@ -96,9 +96,11 @@ function Users() {
     const fetchData = async () => {
 
       try {
-        const response = await axios.get(`${apiUrl}/v1/auth/get/users`);
-        if(response.data.message === "success") {
-          setUserLists(response?.data?.user);
+        const response = await axios.get(`${apiUrl}/admin/users`);
+
+        console.log("userLists", response.data)
+        if(response.data.statusCode === 200) {
+          setUserLists(response?.data?.data?.results);
         } else {
           setNoData(true);
         }
@@ -192,8 +194,6 @@ function Users() {
   }
 
 
-
-
   const handleSearch = (event) => {
     if (event.target.value === "") {
       setSearchUsers("");
@@ -201,9 +201,17 @@ function Users() {
     } else {
       setValue(true);
       const searchText = event?.target.value;
+
+
+      console.log("Search text: ", searchText);
+      console.log("userLists:", userLists)
+
+
       const matchedUsers = userLists?.filter((user) =>
         user?.email.toLowerCase().includes(searchText.toLowerCase())
       );
+
+      console.log("matchedUers", matchedUsers)
       setSearchUsers(matchedUsers);
     }
   };

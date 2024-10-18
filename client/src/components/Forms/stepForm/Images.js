@@ -11,8 +11,6 @@ import { config } from '../../../assets/config/config';
 import { AuthContext } from '../../../context/AuthContext';
 import { LinearProgress, Typography } from '@mui/material';
 import { dictionary } from '../../../resources/multiLanguages';
-// import UploadWidget from '../../UploadWidget/UploadWidget';
-// import CloudinaryImageInput from '../../CloudinaryUpload/ImageUpload';
 
 const apiUrl = config.api.url;
 
@@ -71,101 +69,85 @@ export const Images = (props) => {
     }
   }, [enabled, openSnackbar, closeSnackbar]);
 
-  // const handleNext = async () => {
-
-  //   if (
-  //     !imgMultiStepForm.selectedType.length &&
-  //     !planMultiStepForm.selectedType.length
-  //   ) {
-  //     my_swiper.slideNext();
-  //     navigation.next();
-  //     return;
-  //   }
-
-  //   const isBelowMax = (f) => String(f).length < 3800;
-  //   const isBelowMaxF = (f) => f.size < 200000000;
-  //   let fields = Object.values(formData);
-
-  //   if (
-  //     imgMultiStepForm.selectedType.length > 50
-  //     // || !imgMultiStepForm.selectedType.every(isBelowMaxF)
-  //   ) {
-  //     setMaxFiles(true);
-  //     return;
-  //   }
-  //   if (
-  //     planMultiStepForm.selectedType.length > 10
-  //     // || !planMultiStepForm.selectedType.every(isBelowMaxF)
-  //   ) {
-  //     setMaxFiles(true);
-  //     return;
-  //   }
-  //   if (!fields.every(isBelowMax)) {
-  //     setMaxCharacters(true);
-  //     return;
-  //   }
-
-  //   // setEnabled(false);
-
-  //   setLoading(true);
-  //   const sendData = new FormData();
-  //   //request uniqId
-  //   let reqUniqId = await axios.post(
-  //     `${apiUrl}/userList/create?uniqId=true`,
-  //     {
-  //       email,
-  //     }
-  //   );
-
-  //   let uniqId = reqUniqId.data.uniqId;
-  //   let listNumber = reqUniqId.data.listNumber;
-  //   const data = { ...formData, email, uniqId, listNumber };
-  //   if (formData.energy === 'true') {
-  //     data.energy = true;
-  //   } else {
-  //     data.energy = false;
-  //   }
-
-
-  //   // let oldDate = Date.now();
-
-  //   let flowFactInfo = await flowFactService.publishImagesToFlowFact(
-  //     Object.assign(data, { phone }),
-  //     imgMultiStepForm,
-  //     planMultiStepForm,
-  //     openSnackbar,
-  //     t,
-  //     setLoadingTitle,
-  //     setCurrentImgIdx,
-  //     setCurrentImgForm,
-  //     setProgressValue
-  //   );
-
-
-  //   setFlowFactData({
-  //     data,
-  //     sendData,
-  //     flowFactInfo,
-  //     uniqId,
-  //     listNumber,
-  //   });
-
-  //   setTimeout(() => {
-  //     my_swiper.slideNext();
-
-  //     setLoading(false);
-
-  //     return navigation.next();
-  //   }, 500);
-  // };
-
-  // Custom handle next
-
-
   const handleNext = async () => {
-    my_swiper.slideNext();
-    navigation.next();
+    if (
+      !imgMultiStepForm.selectedType.length &&
+      !planMultiStepForm.selectedType.length
+    ) {
+      my_swiper.slideNext();
+      navigation.next();
+      return;
+    }
+
+    const isBelowMax = (f) => String(f).length < 3800;
+    const isBelowMaxF = (f) => f.size < 200000000;
+    let fields = Object.values(formData);
+    if (
+      imgMultiStepForm.selectedType.length > 50
+      // || !imgMultiStepForm.selectedType.every(isBelowMaxF)
+    ) {
+      setMaxFiles(true);
+      return;
+    }
+    if (
+      planMultiStepForm.selectedType.length > 10
+      // || !planMultiStepForm.selectedType.every(isBelowMaxF)
+    ) {
+      setMaxFiles(true);
+      return;
+    }
+    if (!fields.every(isBelowMax)) {
+      setMaxCharacters(true);
+      return;
+    }
+    // setEnabled(false);
+    setLoading(true);
+    const sendData = new FormData();
+    //request uniqId
+    let reqUniqId = await axios.post(
+      `${apiUrl}/userList/create?uniqId=true`,
+      {
+        email,
+      }
+    );
+    let uniqId = reqUniqId.data.uniqId;
+    let listNumber = reqUniqId.data.listNumber;
+    const data = { ...formData, email, uniqId, listNumber };
+    if (formData.energy === 'true') {
+      data.energy = true;
+    } else {
+      data.energy = false;
+    }
+    // let oldDate = Date.now();
+    let flowFactInfo = await flowFactService.publishImagesToFlowFact(
+      Object.assign(data, { phone }),
+      imgMultiStepForm,
+      planMultiStepForm,
+      openSnackbar,
+      t,
+      setLoadingTitle,
+      setCurrentImgIdx,
+      setCurrentImgForm,
+      setProgressValue
+    );
+
+    setFlowFactData({
+      data,
+      sendData,
+      flowFactInfo,
+      uniqId,
+      listNumber,
+    });
+
+    setTimeout(() => {
+      my_swiper.slideNext();
+
+      setLoading(false);
+
+      return navigation.next();
+    }, 500);
   };
+
 
   return (
     <div className='container mx-auto px-4 mt-4'>

@@ -5,6 +5,7 @@ const {
   TermsConditions,
   Customer,
   FAQ,
+  AboutUs,
 } = require("./manage.model");
 
 //! Privacy and policy
@@ -51,6 +52,26 @@ const addTermsConditions = async (payload) => {
 
 const getTermsConditions = async () => {
   return await TermsConditions.findOne();
+};
+//! Terms Conditions
+const addAboutUs = async (payload) => {
+  const checkIsExist = await AboutUs.findOne();
+  if (checkIsExist) {
+    await AboutUs.findOneAndUpdate({}, payload, {
+      new: true,
+      runValidators: true,
+    });
+
+    const message = { message: "About Us updated" };
+
+    return message;
+  } else {
+    return await AboutUs.create(payload);
+  }
+};
+
+const getAboutUs = async () => {
+  return await AboutUs.findOne();
 };
 
 const deleteTermsConditions = async (id) => {
@@ -131,6 +152,8 @@ const ManageService = {
   getSingleFaq,
   updateSingleFaq,
   deleteSingleFaq,
+  getAboutUs,
+  addAboutUs
 };
 
 module.exports = { ManageService };

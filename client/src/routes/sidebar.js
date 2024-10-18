@@ -17,6 +17,21 @@ const routes = [
     name: "Users",
   },
   {
+    path: "/app/terms-and-conditions",
+    icon: "FormsIcon",
+    name: "Terms and Conditions",
+  },
+  {
+    path: "/app/privacy-and-policy",
+    icon: "FormsIcon",
+    name: "Privacy and Policy",
+  },
+  {
+    path: "/app/imprint",
+    icon: "FormsIcon",
+    name: "Imprint",
+  },
+  {
     path: "/app/billing",
     icon: "FormsIcon",
     name: "Billing",

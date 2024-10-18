@@ -17,22 +17,26 @@ function UpdateUserForm({ formRef, callback, m_user }) {
     <Formik
       innerRef={formRef}
       initialValues={{
-        name: m_user ? m_user.name : '',
-        phone_number: m_user ? m_user.phone_number : '',
-        address: m_user ? m_user.address : '',
+        name: m_user?.name ? m_user.name : '',
+        lastname: m_user?.lastname ? m_user.lastname: '',
+        phone_number: m_user?.phone_number ? m_user.phone_number : '',
+        address: m_user?.address ? m_user.address : '',
       }}
       validationSchema={Yup.object().shape({
         name: Yup.string().required(dictionary["profile"][languageReducer]["userform"]["firstNameReq"]),
-        phone_number: Yup.string().required(dictionary["profile"][languageReducer]["userform"]["lastNameReq"]),
+        lastname: Yup.string().required(dictionary["profile"][languageReducer]["userform"]["lastNameReq"]),
+        phone_number: Yup.string(),
         address: Yup.string(),
       })}
-      onSubmit={({ name, phone_number, address }, { setStatus, setSubmitting }) => {
+      onSubmit={({ name, phone_number, address, lastname }, { setStatus, setSubmitting }) => {
         setSaved(false)
         setStatus()
         userService.updateUserDetails({
           name,
+          lastname,
           phone_number,
           address,
+          email: m_user.email
         })
           .then(
             response => {
@@ -62,7 +66,7 @@ function UpdateUserForm({ formRef, callback, m_user }) {
         <Form>
           <div className='flex flex-col gap-4'>
             <Label className='flex-1'>
-              <span>{t("Name")}:</span>
+              <span>{dictionary["profile"][languageReducer]["userform"]["firstName"]}:</span>
               <Field className="mt-1" as={Input} name="name" type="text" placeholder={dictionary["profile"][languageReducer]["userform"]["enterFirstName"]} />
               {errors.name && touched.name ? (
                 <div>
@@ -70,9 +74,20 @@ function UpdateUserForm({ formRef, callback, m_user }) {
                 </div>
               ) : null}
             </Label>
+
             <Label className='flex-1'>
-              <span>{t("Phone")}:</span>
-              <Field className="mt-1" as={Input} name="phone_number" type="text" placeholder={dictionary["profile"][languageReducer]["userform"]["enterLastName"]} />
+              <span>{dictionary["profile"][languageReducer]["userform"]["lastName"]}:</span>
+              <Field className="mt-1" as={Input} name="lastname" type="text" placeholder={dictionary["profile"][languageReducer]["userform"]["enterLastName"]} />
+              {errors.lastname && touched.lastname ? (
+                <div>
+                  <HelperText valid={false}>{t(errors.lastname)}</HelperText>
+                </div>
+              ) : null}
+            </Label>
+
+            <Label className='flex-1'>
+              <span>{dictionary["profile"][languageReducer]["userform"]["phone"]}:</span>
+              <Field className="mt-1" as={Input} name="phone_number" type="text" placeholder={dictionary["profile"][languageReducer]["userform"]["enterPhoneNumber"]} />
               {errors.phone_number && touched.phone_number ? (
                 <div>
                   <HelperText valid={false}>{t(errors.phone_number)}</HelperText>
@@ -82,8 +97,8 @@ function UpdateUserForm({ formRef, callback, m_user }) {
 
 
             <Label className='flex-1'>
-              <span>{t("Address")}:</span>
-              <Field className="mt-1" as={Input} name="address" type="text" placeholder={dictionary["profile"][languageReducer]["userform"]["enterFirstName"]} />
+              <span>{dictionary["profile"][languageReducer]["userform"]["address"]}:</span>
+              <Field className="mt-1" as={Input} name="address" type="text" placeholder={dictionary["profile"][languageReducer]["userform"]["enterAddress"]} />
               {errors.address && touched.address ? (
                 <div>
                   <HelperText valid={false}>{t(errors.address)}</HelperText>

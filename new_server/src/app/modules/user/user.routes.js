@@ -14,7 +14,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 // User routes
 router.patch(
   "/edit-profile",
-  auth(ENUM_USER_ROLE.USER),
+  auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.ADMIN),
   uploadFile(),
   UserController.updateProfile
 );

@@ -96,17 +96,19 @@ const registrationAccount = async (req) => {
   });
 
   // Role-based user creation
-  let result;
-  switch (role) {
-    case ENUM_USER_ROLE.USER:
-      result = await User.create(other);
-      break;
-    case ENUM_USER_ROLE.ADMIN:
-      result = await Admin.create(other);
-      break;
-    default:
-      throw new ApiError(400, "Invalid role provided!");
-  }
+  // let result;
+  // switch (role) {
+  //   case ENUM_USER_ROLE.USER:
+  //     result = await User.create(other);
+  //     break;
+  //   case ENUM_USER_ROLE.ADMIN:
+  //     result = await Admin.create(other);
+  //     break;
+  //   default:
+  //     throw new ApiError(400, "Invalid role provided!");
+  // }
+
+  const result = await User.create(other);
 
   // Final result
   console.log("User created successfully:", result);
@@ -114,7 +116,7 @@ const registrationAccount = async (req) => {
 };
 // Google - done
 const googleSignIn = async (req) => {
-  const { name, email, phone, img } = req.body;
+  const { name, email, phone, img, customerId } = req.body;
 
   console.log("req.body", req.body);
 
@@ -166,7 +168,7 @@ const googleSignIn = async (req) => {
         { email },
         { $set: updateData },
       )
-      : await User.create({ email, ...updateData });
+      : await User.create({ email, ...updateData, customerId });
 
     if (!isUserUpdated) {
       throw new ApiError(402, "User creation/update failed");
@@ -261,7 +263,18 @@ const loginAccount = async (payload) => {
   if (!isUserExist) {
     throw new ApiError(404, "User does not exist");
   }
+
+  // let userDetailsWithPassword;
+  
+  // if(checkUser.role === "USER") {
+  //   userDetailsWithPassword = await User.findOne({ authId: checkUser._id }).populate("authId");
+  // }else if(checkUser.role === "ADMIN") {
+  //   userDetailsWithPassword = await Admin.findOne({ authId: checkUser._id }).populate("authId");
+  // }
+
+
   const userDetailsWithPassword = await User.findOne({ authId: checkUser._id }).populate("authId");
+
   // Exclude the password field
   const { password: pass, ...userDetails } = userDetailsWithPassword._doc;
   if (
@@ -489,27 +502,59 @@ const resetPassword = async (req) => {
 };
 
 // Change password
-const changePassword = async (user, payload) => {
+const changePassword = async (req) => {
+  const passwordData = req.body;
+  const { userId, authId  } = req.user;
 
-  const { authId } = user;
+  const { oldPassword, newPassword, confirmPassword, email } = passwordData;
 
-  const { oldPassword, newPassword, confirmPassword } = payload;
+
+
   if (newPassword !== confirmPassword) {
     throw new ApiError(
       httpStatus.BAD_REQUEST,
       "Password and confirm password do not match"
     );
   }
-  const isUserExist = await Auth.findById(authId).select("+password");
+
+  const checkUser = await User.findById(userId);
+
+  if(!checkUser) {
+    throw new ApiError(403, "Unauthorized");
+  }
+  
+  const checkAuth = await Auth.findById(authId);
+
+  if(!checkAuth) {
+    throw new ApiError(403, "Unauthorized");
+  }
+  
+  const user = await User.findOne({email});
+
+
+  if(!user) {
+    throw new ApiError(403, "Unauthorized");
+  }
+
+  const isUserExist = await Auth.findById(user.authId).select("password");
+
   if (!isUserExist) {
     throw new ApiError(404, "Account does not exist!");
   }
+
+
+  if(checkAuth.role === "USER" && checkAuth.email !== email) {
+    throw new ApiError(403, "You are not authorized")
+  }
+
   if (
     isUserExist.password &&
     !(await Auth.isPasswordMatched(oldPassword, isUserExist.password))
   ) {
     throw new ApiError(402, "Old password is incorrect");
   }
+
+
   isUserExist.password = newPassword;
   await isUserExist.save();
 };

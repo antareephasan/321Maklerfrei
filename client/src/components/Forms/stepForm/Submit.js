@@ -20,7 +20,7 @@ import 'react-tabs/style/react-tabs.css';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
-function Products({ products, listData, enabled, PricingCardCallback, pages, subscriptionPeriod }) {
+function Products({ products, listData, enabled, PricingCardCallback, pages, subscriptionDuration }) {
   const languageReducer= "de";
 
   let listingType;
@@ -43,13 +43,13 @@ function Products({ products, listData, enabled, PricingCardCallback, pages, sub
             return null;
           }
 
-          if (product.subscriptionType !== subscriptionPeriod) return null;
+          if (product.subscriptionDuration !== subscriptionDuration) return null;
           console.log(listingType)
-          console.log(product.subscriptionType)
+          console.log(product.subscriptionDuration)
 
-          const month = product.subscriptionType === "one-month"
+          const month = product.subscriptionDuration === 1
             ? dictionary["prices"][languageReducer]["month1"]
-            : product.subscriptionType === "two-months"
+            : product.subscriptionType === 2
               ? dictionary["prices"][languageReducer]["month2"]
               : dictionary["prices"][languageReducer]["month3"]
           ;
@@ -60,9 +60,7 @@ function Products({ products, listData, enabled, PricingCardCallback, pages, sub
               packageId={product._id}
               key={i}
               title={product.packageName}
-              type={product.subscriptionType}
-              paypalId={product.paypalId}
-              stripeId={product.stripeId}
+              type={product.subscriptionDuration}
               value={product.price + ' ' + '€'}
               enabled={enabled}
               listData={listData}
@@ -109,7 +107,7 @@ const ProductsSection = ({
         <TabPanel>
           <Products
             products={products}
-            subscriptionPeriod="one-month"
+            subscriptionDuration={1}
             pages={pages}
             listData={listData}
             uniqId={listData.uniqId}
@@ -120,7 +118,7 @@ const ProductsSection = ({
         <TabPanel>
           <Products
             products={products}
-            subscriptionPeriod="two-months"
+            subscriptionDuration={2}
             pages={pages}
             listData={listData}
             uniqId={listData.uniqId}
@@ -131,7 +129,7 @@ const ProductsSection = ({
         <TabPanel>
           <Products
             products={products}
-            subscriptionPeriod="three-months"
+            subscriptionDuration={3}
             pages={pages}
             listData={listData}
             uniqId={listData.uniqId}
@@ -166,14 +164,7 @@ export const Submit = ({ listData, setListData, pages }) => {
     }
   }, [enabled, openSnackbar, closeSnackbar]);
 
-
-
-
-
   const [errorMessage, setErrorMessage] = useState(false);
-
-
-
 
   const PricingCardCallback = async (packageId, listingId) => {
     try {

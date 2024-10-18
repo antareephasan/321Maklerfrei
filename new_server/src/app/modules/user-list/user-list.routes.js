@@ -14,21 +14,22 @@ router.use(bodyParser.urlencoded({ extended: true }));
 // User routes
 router.post(
   "/create",
+  uploadFile(),
   auth(ENUM_USER_ROLE.USER),
   UserListController.createList
 );
 // User routes
 router.patch(
-  "/update/:listId",
+  "/update/:uniqId",
   uploadFile(),
   auth(ENUM_USER_ROLE.USER),
   UserListController.updateList
 );
  
 router.patch(
-  "/removeImage/:listId/",
+  "/image",
   auth(ENUM_USER_ROLE.USER),
-  UserListController.removeImage
+  UserListController.deleteImage
 );
  
 router.get(
@@ -37,9 +38,9 @@ router.get(
   UserListController.getMyList
 );
 router.delete(
-  "/deleteList/:listId",
+  "/deleteList/:uniqId",
   auth(ENUM_USER_ROLE.USER),
-  UserListController.deleteList
+  UserListController.deleteUserList
 );
  
 

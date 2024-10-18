@@ -43,9 +43,19 @@ router.delete(
 );
  
 router.get(
-  "/get_all_user",
+  "/users",
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
   AdminController.getAllUsers
+); 
+router.post(
+  "/users",
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  AdminController.createUser
+); 
+router.delete(
+  "/users/:userId",
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  AdminController.deleteUser
 ); 
 
 router.get(

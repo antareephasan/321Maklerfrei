@@ -197,6 +197,7 @@ const myTheme = {
       active: 'active:bg-blue-600 hover:bg-blue-700 focus:ring focus:ring-blue-300',
       disabled: 'opacity-50 cursor-not-allowed',
     },
+
     outline: {
       base: 'text-gray-600 border-gray-300 border dark:text-gray-400 focus:outline-none',
       active:

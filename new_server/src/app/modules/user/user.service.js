@@ -27,6 +27,10 @@ const updateProfile = async (req) => {
   if (!checkAuth) {
     throw new ApiError(404, "You are not authorized");
   } 
+
+  if(checkUser.email !== data.email && checkAuth.role !== "ADMIN"){
+    throw new ApiError(403, "You are not authorized");
+  }
   
   let profile_image = undefined;
   if (files && files.profile_image) {
@@ -37,33 +41,19 @@ const updateProfile = async (req) => {
 
   const updatedData = { ...data };
 
-
-   // Split the name into words
-   const nameParts = updatedData.name.trim().split(" ");
-
-   // Extract first name and last name
-   const firstName = nameParts.shift(); // First element
-   const lastName = nameParts.join(" "); // Remaining part, could be empty or multiple words
- 
    await Auth.findOneAndUpdate(
-    { _id: authId },
-    {name: firstName },
-    {lastname: lastName },
+    { email:  updatedData.email},
+    {name: updatedData.name },
+    {lastname: updatedData.lastName },
     {
       new: true,
     }
   ); 
 
 
-  const userUpdateData = {
-    ...updatedData,
-    name:firstName,
-    lastname: lastName,
-  }
-
   const updateUser = await User.findOneAndUpdate(
-    {_id: userId },
-    { profile_image, ...userUpdateData },
+    {email: updatedData.email },
+    { profile_image, ...updatedData },
     {
       new: true,
     }
@@ -103,10 +93,29 @@ const deleteMyAccount = async (payload) => {
   return await Auth.deleteOne({ email });
 };
 
+const getUserByEmail = async (email) => {
+  return User.findOne({ email });
+};
+
+const queryUsers = async (filter, options) => {
+  // const users = await User.paginate(filter, options);
+  const users = await User.paginate(
+    filter,
+    {
+      ...options,
+    }
+  );
+
+  return users;
+};
+
+
 const UserService = { 
   getProfile, 
   deleteMyAccount, 
-  updateProfile
+  updateProfile,
+  getUserByEmail,
+  queryUsers
 };
 
 module.exports = { UserService };

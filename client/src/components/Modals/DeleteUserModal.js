@@ -15,7 +15,7 @@ export default function DeleteUserModal({isOpen, onClose, onAction, m_user}) {
 
   const handleModalAction = () => {
     setEnabled(false)
-    userService.deleteUser(m_user.id)
+    userService.deleteUser(m_user._id)
     .then(() => {
       setEnabled(true)
       setError(null)

@@ -2,12 +2,14 @@ const { AuthService } = require("./auth.service");
 const sendResponse = require("../../../shared/sendResponse");
 const catchAsync = require("../../../shared/catchasync");
 const config = require("../../../config");
+const shortid = require('shortid');
 
 const registrationAccount = catchAsync(async (req, res) => {
- const {role} =  await AuthService.registrationAccount(req);
- const message = role === "ADMIN"
- ? "Your account is awaiting admin approval."
- : "Please check your email for the activation link.";
+  req.body.customerId = shortid.generate();
+  const { role } = await AuthService.registrationAccount(req);
+  const message = role === "ADMIN"
+    ? "Your account is awaiting admin approval."
+    : "Please check your email for the activation link.";
 
   sendResponse(res, {
     statusCode: 200,
@@ -17,7 +19,8 @@ const registrationAccount = catchAsync(async (req, res) => {
   });
 });
 const googleSignIn = catchAsync(async (req, res) => {
- const result =  await AuthService.googleSignIn(req);
+  req.body.customerId = shortid.generate();
+  const result = await AuthService.googleSignIn(req);
 
   sendResponse(res, {
     statusCode: 200,
@@ -74,16 +77,14 @@ const loginAccount = catchAsync(async (req, res) => {
 });
 
 const changePassword = catchAsync(async (req, res) => {
-  const passwordData = req.body;
-  const user = req.user;
-  await AuthService.changePassword(user, passwordData);
+  await AuthService.changePassword(req);
   sendResponse(res, {
     statusCode: 200,
     success: true,
     message: "Password changed successfully!",
   });
 });
- 
+
 const forgotPass = catchAsync(async (req, res) => {
   await AuthService.forgotPass(req.body);
   sendResponse(res, {
@@ -125,7 +126,7 @@ const resendCodeForgotAccount = catchAsync(async (req, res) => {
   });
 });
 
- 
+
 
 const resendActivationCode = catchAsync(async (req, res) => {
   const data = req.body;
@@ -161,13 +162,13 @@ const blockAccount = catchAsync(async (req, res) => {
 const AuthController = {
   registrationAccount,
   activateAccount,
-  loginAccount, 
+  loginAccount,
   changePassword,
   forgotPass,
   resetPassword,
   resendActivationCode,
-  checkIsValidForgetActivationCode, 
-  blockAccount, 
+  checkIsValidForgetActivationCode,
+  blockAccount,
   deleteAccount,
   resendCodeActivationAccount,
   resendCodeForgotAccount,

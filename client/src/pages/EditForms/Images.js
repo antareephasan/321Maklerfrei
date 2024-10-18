@@ -19,7 +19,6 @@ import ImageType from '../../components/Forms/stepForm/imageType';
 import { BsPencil } from 'react-icons/bs';
 import { flowFactService } from '../../services/flowfact.service';
 import { SnackbarContext } from '../../context/SnackbarContext';
-import UploadImageToCloudinary from '../../components/CloudinaryUpload/ImageUpload';
 const apiUrl = config.api.url;
 const Inpt = ({ init, type, uniqId, t, setEnabled }) => {
   const [value, setValue] = useState(init.title);
@@ -62,10 +61,11 @@ const Inpt = ({ init, type, uniqId, t, setEnabled }) => {
       <Button
         layout=''
         onClick={updateText}
-        className={`${!read
-          ? 'bg-blue-500 hover:bg-blue-600 text-white'
-          : 'text-gray hover:bg-gray-300'
-          }  mt-1 w-full px-0`}
+        className={`${
+          !read
+            ? 'bg-green-500 hover:bg-green-600 text-white'
+            : 'text-gray hover:bg-gray-300'
+        }  mt-1 w-full px-0`}
         size='small'
       >
         {read && <EditIcon className='w-4 mr-1' />}
@@ -75,7 +75,7 @@ const Inpt = ({ init, type, uniqId, t, setEnabled }) => {
   );
 };
 export const Images = ({ data, imagesList }) => {
-  const { _id: uniqId } = data;
+  const { uniqId } = data;
   const history = useHistory();
   const imgMultiStepForm = useMultiStepForm('img');
   const planMultiStepForm = useMultiStepForm('plan');
@@ -87,17 +87,17 @@ export const Images = ({ data, imagesList }) => {
     } else {
       openSnackbar(t('Updating Please Wait...'));
     }
-  }, [enabled]);
+  }, [enabled, openSnackbar, closeSnackbar]);
   const { t } = useTranslation();
   //now we have renderType
 
   const renderPhotosFromDb = (imagesList, remove, type) => {
-    return imagesList.map((photo, index) => {
+    return imagesList.map((photo, key) => {
       return (
-        <div key={index}>
+        <div key={photo.id}>
           <img
-            src={photo}
-            alt={"image"}
+            src={photo.fileReference}
+            alt={photo.title}
             className='mx-2 object-cover'
           />
           <Inpt init={photo} uniqId={uniqId} t={t} setEnabled={setEnabled} />
@@ -121,14 +121,15 @@ export const Images = ({ data, imagesList }) => {
   //lets remove image
   const removeImage = (photo, uniqId) => {
     //send the image details to backend
-    // setEnabled(false);
+    setEnabled(false);
     let data = {
-      imageToRemove: photo
+      id: photo.id,
+      uniqId,
     };
     axios
-      .patch(`${apiUrl}/userList/removeImage/${uniqId}`, data)
+      .patch(`${apiUrl}/userList/image`, data)
       .then((response) => {
-        const newImages = images.filter((item) => item !== photo);
+        const newImages = images.filter((item) => item.id !== photo.id);
         setImages(newImages);
         // if (type == "plan") {
         //   setDbPlans(x);
@@ -136,7 +137,7 @@ export const Images = ({ data, imagesList }) => {
         //   const x = dbImages.filter((item) => item._id !== photo._id);
         //   setDbImages(x);
         // }
-        // setEnabled(true);
+        setEnabled(true);
       })
       .catch((error) => console.log(error));
   };
@@ -160,80 +161,36 @@ export const Images = ({ data, imagesList }) => {
     }
     setMaxFiles(false);
     setEnabled(false);
-
-
-    //Custom code for cloudinary image upload
-    const uploadedAdImageUrls = [];
-    const uploadedFloorPlanUrls = [];
-
-
-
-    for (let i = 0; i < imgMultiStepForm.selectedType.length; i++) {
-      const file = imgMultiStepForm.selectedType[i];
-      try {
-        const url = await UploadImageToCloudinary(file);
-        uploadedAdImageUrls.push(url); // Save the uploaded image URL
-      } catch (error) {
-        console.error('Image upload failed', error);
-        // Handle the error (e.g., show a notification)
-      }
-    }
-
-    for (let i = 0; i < imgMultiStepForm.selectedType.length; i++) {
-      const file = planMultiStepForm.selectedType[i];
-      try {
-        const url = await UploadImageToCloudinary(file);
-        uploadedFloorPlanUrls.push(url); // Save the uploaded image URL
-      } catch (error) {
-        console.error('Image upload failed', error);
-        // Handle the error (e.g., show a notification)
-      }
-    }
-
-    for (let pic of uploadedAdImageUrls) {
-      sendData.append("imgCollection", pic);
-    }
-    for (let pic of uploadedFloorPlanUrls) {
-      sendData.append("planCollection", pic);
-    }
-
-    try {
-      const reponse = await axios.patch(`${apiUrl}/userList/update/${uniqId}`, sendData);
-      window.location.reload();
-    } catch (error) {
-      console.error('Image upload failed', error);
-    }
-
-
     //update images
-    // try {
-    //   //{ imgMultiStepForm, planMultiStepForm }
-    //   await flowFactService.updateFlowFactListDetails(
-    //     data,
-    //     imgMultiStepForm,
-    //     planMultiStepForm,
-    //     true,
-    //     openSnackbar,
-    //     t
-    //   );
-    //   // for (let pic of imgMultiStepForm.selectedType) {
-    //   //   sendData.append("imgCollection", pic);
-    //   // }
-    //   // for (let pic of planMultiStepForm.selectedType) {
-    //   //   sendData.append("planCollection", pic);
-    //   // }
-    //   // for (let details of imgMultiStepForm.formValuesType) {
-    //   //   sendData.append("imgDetails", JSON.stringify(details));
-    //   // }
-    //   // for (let details of planMultiStepForm.formValuesType) {
-    //   //   sendData.append("planDetails", JSON.stringify(details));
-    //   // }
-    //   // history.push('/app');
-    //   // history.replace('/app/userLists');
-    //   setEnabled(true);
-    // } catch (er) {
-    //   console.log(er);
-    // }
+    try {
+      console.log("I was in handleUpdateList in images edit form")
+      //{ imgMultiStepForm, planMultiStepForm }
+      await flowFactService.updateFlowFactListDetails(
+        data,
+        imgMultiStepForm,
+        planMultiStepForm,
+        true,
+        openSnackbar,
+        t
+      );
+      // for (let pic of imgMultiStepForm.selectedType) {
+      //   sendData.append("imgCollection", pic);
+      // }
+      // for (let pic of planMultiStepForm.selectedType) {
+      //   sendData.append("planCollection", pic);
+      // }
+      // for (let details of imgMultiStepForm.formValuesType) {
+      //   sendData.append("imgDetails", JSON.stringify(details));
+      // }
+      // for (let details of planMultiStepForm.formValuesType) {
+      //   sendData.append("planDetails", JSON.stringify(details));
+      // }
+      history.push('/app');
+      history.replace('/app/userLists');
+      setEnabled(true);
+    } catch (er) {
+      console.log(er);
+    }
   };
   return (
     <div className='container mt-4 mx-auto px-4'>

@@ -4,6 +4,9 @@ import { lazy } from 'react'
 const Logout = lazy(() => import('../pages/Logout'))
 const Profile = lazy(() => import('../pages/Profile'))
 const Users = lazy(() => import('../pages/Users'))
+const TermsAndConditions = lazy(() => import('../pages/TermsAndConditions'))
+const PrivacyAndPolicy = lazy(() => import('../pages/PrivacyAndPolicy'))
+const Imprint = lazy(() => import('../pages/Imprint'))
 const Billing = lazy(() => import('../pages/Billing'))
 const Dashboard = lazy(() => import('../pages/Dashboard'))
 const DashboardUser = lazy(() => import('../components/Dashboard/DashboardUser'))
@@ -34,6 +37,18 @@ const routes = [
   {
     path: '/users',
     component: Users,
+  },
+  {
+    path: '/terms-and-conditions',
+    component: TermsAndConditions,
+  },
+  {
+    path: '/privacy-and-policy',
+    component: PrivacyAndPolicy,
+  },
+  {
+    path: '/imprint',
+    component: Imprint,
   },
   {
     path: '/billing',

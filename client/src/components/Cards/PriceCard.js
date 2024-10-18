@@ -3,7 +3,7 @@ import { Button, Card, CardBody } from "@windmill/react-ui";
 import { CheckIcon, DeleteIcon } from "../../icons";
 
 
-const PriceCard = ({ packageTitle, price, plan, month, options, highlight }) => {
+const PriceCard = ({ packageName, packageDescription, price, month, options, highlight }) => {
 
 
 
@@ -14,14 +14,14 @@ const PriceCard = ({ packageTitle, price, plan, month, options, highlight }) => 
           className={`py-4 rounded-sm  text-center text-gray-100 text-sm w-full ${highlight ? "bg-blue-600" : "bg-gray-600"}`}
           type="success"
         >
-          {packageTitle}
+          {packageDescription}
         </span>
       </div>
       <CardBody>
         <div className="w-full py-2 justify-center flex-grow">
           <div className="block">
             <p className="text-center font-bold text-base uppercase mb-1">
-              {plan}
+              {packageName}
             </p>
             <p className="text-center font-bold text-4xl lg:text-5xl">{price}€</p>
             <p className="text-center font-regular text-sm mb-5">

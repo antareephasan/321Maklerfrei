@@ -11,7 +11,7 @@ import { SnackbarContext } from "../../context/SnackbarContext";
 export const Address = ({ data, fRequired, setFRequired }) => {
   const history = useHistory()
   const {
-    _id: uniqId
+    uniqId
   } = data;
   const { t } = useTranslation();
   const { openSnackbar, closeSnackbar } = useContext(SnackbarContext);

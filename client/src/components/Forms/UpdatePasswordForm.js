@@ -38,7 +38,7 @@ function UpdatePasswordForm({formRef, callback, m_user}) {
 
         setSaved(false)
         setStatus()
-        userService.updateUserPassword(oldPassword, newPassword, confirmPassword)
+        userService.updateUserPassword(oldPassword, newPassword, confirmPassword, m_user.email)
         .then(
           result => {
             setSaved(true)
@@ -46,9 +46,11 @@ function UpdatePasswordForm({formRef, callback, m_user}) {
             if(callback) callback(result.data)
           },
           error => {
+            console.log("ERRROR")
+            console.log(error.response)
             setSubmitting(false);
             if(error.response) {
-              setStatus(error.response.data)
+              setStatus(error.response.data.message)
             } else {
               setStatus("Some error occured.")
             }

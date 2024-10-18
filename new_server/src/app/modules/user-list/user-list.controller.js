@@ -9,10 +9,12 @@ const createList = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: 200,
     success: true,
-    message: "Userlist created successfully",
+    message: "List created successfully",
     data: result,
   });
 });
+
+
 const getMyList = catchAsync(async (req, res) => {
   const result = await UserListService.getMyList(req);
   sendResponse(res, {
@@ -32,8 +34,8 @@ const updateList = catchAsync(async (req, res) => {
     data: result,
   });
 });
-const removeImage = catchAsync(async (req, res) => {
-  const result = await UserListService.removeImage(req);
+const deleteImage = catchAsync(async (req, res) => {
+  const result = await UserListService.deleteImage(req);
   sendResponse(res, {
     statusCode: 200,
     success: true,
@@ -42,8 +44,8 @@ const removeImage = catchAsync(async (req, res) => {
   });
 });
 
-const deleteList = catchAsync(async (req, res) => {
-  const result = await UserListService.deleteList(req);
+const deleteUserList = catchAsync(async (req, res) => {
+  const result = await UserListService.deleteUserList(req);
   sendResponse(res, {
     statusCode: 200,
     success: true,
@@ -66,9 +68,9 @@ const UserListController = {
   createList,
   cognitoToken,
   getMyList,
-  deleteList,
+  deleteUserList,
   updateList,
-  removeImage
+  deleteImage
 };
 
 module.exports = { UserListController };

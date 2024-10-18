@@ -12,7 +12,7 @@ import 'react-phone-number-input/style.css';
 import PhoneInput, { isValidPhoneNumber }  from 'react-phone-number-input';
 export const Contact = ({ data, fRequired, setFRequired }) => {
   const history = useHistory();
-  const { _id: uniqId } = data;
+  const { uniqId } = data;
   const [phoneNumber, setPhone] = useState(data.phone);
   const { t } = useTranslation();
   Object.assign(defaultData, data);

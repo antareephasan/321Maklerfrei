@@ -15,13 +15,6 @@ const PackagesSchema = Schema(
       type: String,
       required: true,
     },
-    // stripeId: {
-    //   type: String,
-    //   required: true,
-    // },
-    // paypalId: {
-    //   type: String,
-    // },
     price: {
       type: String,
       required: true,
@@ -30,12 +23,13 @@ const PackagesSchema = Schema(
       type: String,
       enum: ['rent', 'sale'],
     },
-    type: {
-      type: String,
-      default: 'recurring',
-    },
     subscriptionType: {
       type: String,
+      enum: ["BASIC", "MEDIUM", "PREMIUM"]
+    },
+    subscriptionDuration: {
+      type: Number,
+      enum: [1,2,3,4,5,6,7,8,9,10,11,12]
     },
   },
   {

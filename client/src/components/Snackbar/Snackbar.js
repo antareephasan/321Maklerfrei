@@ -29,6 +29,7 @@ export const SuccessIcon = (props) => (
 );
 
 function Snackbar({ message, isOpen, onClose, type }) {
+  
   const alert = {
     base: 'p-4 pl-12 relative rounded-lg leading-5',
     withClose: 'pr-12',
@@ -73,7 +74,7 @@ function Snackbar({ message, isOpen, onClose, type }) {
   }
 
   if (!isOpen) {
-    return <></>;
+    return null;
   }
 
   return (
@@ -101,7 +102,7 @@ function Snackbar({ message, isOpen, onClose, type }) {
               </svg>
             </button>
           )}
-          <Icon className={iconCls} />
+          {/* <Icon className={iconCls} /> */}
           {message}
         </div>
       </div>

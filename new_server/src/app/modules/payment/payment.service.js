@@ -6,6 +6,7 @@ const User = require("../user/user.model");
 const Payment = require("./payment.model");
 const Packages = require("../packages/packages.model");
 const UserList = require("../user-list/user-list.model");
+const { generateCognitoToken } = require("../flowfact/flowfact.service");
 const stripe = require("stripe")(config.stripe.stripe_secret_key);
 
 const YOUR_DOMAIN = process.env.RESET_PASS_UI_LINK;
@@ -16,12 +17,9 @@ const createCheckoutSession = async (req) => {
     const { packageId, listingId } = req.body
     const { userId } = req.user
 
-    console.log("listingId(client_reference_id)", listingId);
-
     const user = await User.findById(userId)
 
-    console.log("UserId: ", userId);
-    console.log("User: ", user);
+
     const package = await Packages.findById(packageId)
     if (!package) {
       throw new ApiError(httpStatus.NOT_FOUND, 'invalid package ID.');
@@ -37,6 +35,7 @@ const createCheckoutSession = async (req) => {
       cancel_url: `${YOUR_DOMAIN}app/userLists?canceled=true`,
       customer_email: `${user.email}`,
       client_reference_id: listingId,
+      metadata: { packageId: package._id.toString() },
       line_items: [
         {
           price_data: {
@@ -63,9 +62,18 @@ const createCheckoutSession = async (req) => {
 const checkAndUpdateStatusByWebhook = async (req) => {
   const sig = req.headers['stripe-signature'];
   let event;
+  console.log("I was in webhook");
+  console.log("I was in webhook");
+  console.log("I was in webhook");
+  console.log("I was in webhook");
+  console.log("I was in webhook");
+  console.log("I was in webhook");
+  console.log("I was in webhook");
+  console.log("I was in webhook");
+  console.log("I was in webhook");
   try {
-    event = stripe.webhooks.constructEvent(req.body, sig, config.stripe.endpoint_secret);
     // event = stripe.webhooks.constructEvent(req.body, sig, config.stripe.endpoint_secret);
+    event = stripe.webhooks.constructEvent(req.body, sig, 'whsec_9d3f294e767ee851892730c440f5bc9936aee58afb59ef536aaf6de952698b7e');
   } catch (err) {
     console.error(`Webhook signature verification failed: ${err.message}`);
     throw new ApiError(400, `Webhook Error: ${err.message}`);
@@ -74,29 +82,71 @@ const checkAndUpdateStatusByWebhook = async (req) => {
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;
     const listingId = session.client_reference_id;
-    const transactionId = session.payment_intent;
+    const paymentIntentId = session.payment_intent;
+    const packageId = session.metadata.packageId; 
     
     console.log("session: ", session);
     console.log("listingId: ", listingId);
     console.log("transactionId: ", transactionId);
+    console.log("packageId: ", packageId);
+
 
     try {
-      const updateOrder = await UserList.findByIdAndUpdate(
+
+      const package = await Packages.findById(packageId);
+      if (!package) {
+        throw new ApiError(404, 'Package not found');
+      }
+
+      const subscriptionType = package.subscriptionType; // assuming packageName holds BASIC, MEDIUM, PREMIUM
+      const subscriptionStartDate = new Date();
+      const subscriptionEndDate = new Date(subscriptionStartDate);
+      
+      // Add subscription duration logic (assuming package has a duration in months)
+      subscriptionEndDate.setMonth(subscriptionEndDate.getMonth() + package.subscriptionDuration);
+
+      const updatedUserList = await UserList.findByIdAndUpdate(
         listingId,
         {
           $set: {
-            transitionId: transactionId,
-            status: 'Paid',
+            paymentIntentId: paymentIntentId,
+            payemntStatus: 'completed',
+            subscription: {
+              type: subscriptionType,
+            },
+            subscriptionUpdatedAt: subscriptionStartDate,
+            activeUntil: subscriptionEndDate,
+            inactive: false
           },
         },
         { new: true }
       );
 
-      if (!updateOrder) {
+      if (!updatedUserList) {
         throw new ApiError(404, 'UserList entry not found');
       }
 
-      console.log(`Order updated successfully: ${updateOrder}`);
+      switch (package.subscriptionType) {
+        case 'BASIC':
+          await publishTo3Platforms(data, true, false);
+          break;
+        case 'MEDIUM':
+          await publishTo3Platforms(data, true, true);
+          break;
+        case 'PREMIUM':
+          await publishTo3Platforms(data, true, true);
+          //and we need to send email with {data} to manually publish to premuim portal
+          // let formData = {
+          //   title: data.listingTitle,
+          //   uniqId: data.uniqId,
+          //   email: data.formEmail,
+          // };
+          // await new emailService({ name: 'Dominik', email: 'buchung@321maklerfrei.de' }).EmailMePremium(formData);
+          break;
+      }
+      
+
+      console.log(`Order updated successfully: ${updatedUserList}`);
     } catch (err) {
       console.error(`Error updating UserList: ${err.message}`);
       throw new ApiError(500, `Database Error: ${err.message}`);
@@ -106,34 +156,63 @@ const checkAndUpdateStatusByWebhook = async (req) => {
   }
 }
 
-// router.post("/stripe/webhook", bodyParser.raw({ type: 'application/json' }), async (req, res) => {
-//   const sig = req.headers['stripe-signature'];
-//   let event;
-//   const webhook_signin_secret = 'whsec_9d3f294e767ee851892730c440f5bc9936aee58afb59ef536aaf6de952698b7e';
-//   try {
-//       event = stripe.webhooks.constructEvent(req.body, sig, webhook_signin_secret);
-//   } catch (error) {
-//       console.error(`Webhook signature verification failed: ${error.message}`);
-//       res.status(400).json({ success: false });
-//       return
-//   }
+async function flowFactPlatform(id, data, cognitoToken) {
+  try {
+    await axios.post(
+      `https://api.production.cloudios.flowfact-prod.cloud/portal-management-service/publish`,
+      {
+        entries: [
+          {
+            entityId: data.entityId,
+            showAddress: data.hideAddress ? false : true,
+            targetStatus: data.status ? 'ONLINE' : 'OFFLINE',
+            publishChannels:
+              id === process.env.IMMOSCOUT24_ID
+                ? [
+                    { type: 'SCOUT', channelIdentifier: '10000' },
+                    { type: 'HOMEPAGE', channelIdentifier: '10001' },
+                  ]
+                : [],
+          },
+        ],
+        portalId: id,
+      },
+      {
+        headers: {
+          cognitoToken,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+  } catch (er) {
+    console.log(er, 'flowFactPlatform');
+  }
+}
 
-//   console.log(event.type);
-//   console.log(event.data.object);
-//   console.log(event.data.object.id);
 
-//   res.json({
-//       success: true
-//   })
-
-// });
+async function publishTo3Platforms(data, immoscot, immowelt, ebay) {
+  try {
+    const cognitoToken = await generateCognitoToken();
+    //process.env.IMMOSCOUT24_ID
+    if (immoscot) {
+      await flowFactPlatform(process.env.IMMOSCOUT24_ID, data, cognitoToken);
+    }
+    if (immowelt) {
+      await flowFactPlatform(process.env.IMMOWELT_IMMONET_ID, data, cognitoToken);
+    }
+    // if (ebay) {
+    //   await flowFactPlatform(process.env.EBAY_KLEINANZEIGEN_ID, data, cognitoToken);
+    // }
+  } catch (er) {
+    console.log(er);
+    return true;
+  }
+}
 
 
 const PaymentService = {
   createCheckoutSession,
   checkAndUpdateStatusByWebhook,
-  // savePaymentUpdateSpending,
-  // updateTotalEarning,
 };
 
 module.exports = PaymentService;

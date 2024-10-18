@@ -4,26 +4,28 @@ import { config } from '../assets/config/config'
 const apiUrl = config.api.url
 
 const getUsers = (page) => {
-	return axios.get(`${apiUrl}/users?limit=${config.users.resultsPerPage}&page=${page}`, {})
+	return axios.get(`${apiUrl}/admin/users?limit=${config.users.resultsPerPage}&page=${page}`, {})
 		.then(response => {
 	    return response.data
 	  })
 }
 
-const createUser = (username, email, password, role) => {
-	return axios.post(`${apiUrl}/users`, {
+const createUser = (username, lastname, email, password, role) => {
+	return axios.post(`${apiUrl}/admin/users`, {
     name: username,
+    lastname: lastname,
     email: email,
     password: password,
     role: role
   })
 }
 
-const updateUserPassword = (oldPassword, newPassword, confirmPassword) => {
+const updateUserPassword = (oldPassword, newPassword, confirmPassword, email) => {
 	return axios.patch(`${apiUrl}/auth/change-password`, {
     oldPassword,
     newPassword,
-    confirmPassword
+    confirmPassword,
+    email
   })
 }
 
@@ -37,7 +39,7 @@ const updateUserDetails = (data) => {
 
 
 const deleteUser = (userId) => {
-	return axios.delete(`${apiUrl}/users/${userId}`, {})
+	return axios.delete(`${apiUrl}/admin/users/${userId}`, {})
 }
 const deleteUserList = (uniqId) => {
 	return axios.delete(`${apiUrl}/userList/deleteList/${uniqId}`, {})

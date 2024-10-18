@@ -2,9 +2,20 @@ const sendResponse = require("../../../shared/sendResponse");
 const { AdminService } = require("./admin.service");
 const catchAsync = require("../../../shared/catchasync");
 const config = require("../../../config");
+const shortid = require("shortid");
 
  
 
+const createUser = catchAsync(async (req, res) => {
+  req.body.customerId = shortid.generate();
+  const result = await AdminService.createUser(req);
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "User created successfully",
+    data: result,
+  });
+});
 const updateProfile = catchAsync(async (req, res) => {
   const result = await AdminService.updateProfile(req);
   sendResponse(res, {
@@ -27,13 +38,12 @@ const myProfile = catchAsync(async (req, res) => {
 });
 
 const getAllUsers = catchAsync(async (req, res) => {
-  const result = await AdminService.getAllUsers(req.query);
+  const result = await AdminService.getAllUsers(req);
   sendResponse(res, {
     statusCode: 200,
     success: true,
     message: "User retrieved successfully",
-    data: result.data,
-    meta: result.meta,
+    data: result,
   });
 }); 
  
@@ -70,8 +80,7 @@ const deleteAdmin = catchAsync(async (req, res) => {
 }); 
 
 const deleteUser = catchAsync(async (req, res) => {
-  const email = req.params.email;
-  const result = await AdminService.deleteUser(email);
+  const result = await AdminService.deleteUser(req);
   sendResponse(res, {
     statusCode: 200,
     success: true,
@@ -100,7 +109,8 @@ const AdminController = {
   getAllAdmins,
   myProfile, 
   deleteAdmin, 
-  approveAdmins
+  approveAdmins,
+  createUser
 };
 
 module.exports = { AdminController };

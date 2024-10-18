@@ -11,15 +11,17 @@ const AdminSchema = new Schema(
       required: true,
       ref: "Auth",
     }, 
-    user_name: {
-      type: String,
-      unique: true,
-      sparse: true,
-    }, 
     name: {
       type: String,
       required: true,
     }, 
+    lastname: {
+      type: String,
+      required: true,
+    },
+    customerId: {
+      type: String,
+    },
     email: {
       type: String,
       required: true,

@@ -10,12 +10,14 @@ function CreateUserForm({formRef, callback}) {
       innerRef={formRef}
       initialValues={{
         username: '',
+        lastname: '',
         email: '',
         password: '',
-        role: 'user',
+        role: 'USER',
       }}
       validationSchema={Yup.object().shape({
         username: Yup.string().required('Username is required'),
+        lastname: Yup.string().required('Lastname is required'),
         email: Yup.string().email().required('Email is required'),
         password: Yup.string().min(8)
           .matches('^.*[0-9].*$', 'Atleast one number required')
@@ -23,9 +25,9 @@ function CreateUserForm({formRef, callback}) {
           .required('Password is required'),
         role: Yup.string().required('Role is required'),          
       })}
-      onSubmit={async ({ username, email,  password, role }, { setStatus, setSubmitting }) => {
+      onSubmit={async ({ username, lastname, email,  password, role }, { setStatus, setSubmitting }) => {
         setStatus();
-        await userService.createUser(username, email, password, role.toLowerCase())
+        await userService.createUser(username, lastname, email, password, role.toUpperCase())
           .then(
             response => {
               callback(true);
@@ -44,11 +46,21 @@ function CreateUserForm({formRef, callback}) {
       {({ errors, status, touched, isSubmitting }) => (
         <Form>
           <Label>
-            <span>Name</span>
-            <Field className="mt-1" as={Input} name="username" type="text" placeholder="John Doe" />
+            <span>First Name</span>
+            <Field className="mt-1" as={Input} name="username" type="text" placeholder="John" />
             {errors.username && touched.username ? (
               <div>   
                 <HelperText valid={false}>{errors.username}</HelperText>
+              </div>
+            ) : null}
+          </Label>
+
+          <Label>
+            <span>Lastname Name</span>
+            <Field className="mt-1" as={Input} name="lastname" type="text" placeholder="Doe" />
+            {errors.lastname && touched.lastname ? (
+              <div>   
+                <HelperText valid={false}>{errors.lastname}</HelperText>
               </div>
             ) : null}
           </Label>
@@ -76,8 +88,8 @@ function CreateUserForm({formRef, callback}) {
           <Label className="mt-4">
             <span>Role</span>
             <Field className="mt-1" as={Select} name="role">
-              <option val="user">User</option>
-              <option val="admin">Admin</option>
+              <option val="USER">User</option>
+              <option val="ADMIN">Admin</option>
             </Field>
           </Label>
 

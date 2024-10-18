@@ -56,7 +56,7 @@ const handleSendEmail = (data) =>{
           <TableCell>
             <div className="flex items-center text-sm">
               <div>
-                <p className="font-semibold">{user?.name}</p>
+                <p className="font-semibold">{`${user?.name} ${user?.lastname}`}</p>
               </div>
             </div>
           </TableCell>
@@ -64,7 +64,7 @@ const handleSendEmail = (data) =>{
             <span className="text-sm">{user.email}</span>
           </TableCell>
           <TableCell>
-            <Badge type={user.role === "admin" ? "primary" : "neutral"}>{user.role}</Badge>
+            <Badge type={user?.authId?.role === "ADMIN" ? "primary" : "neutral"}>{user?.authId?.role}</Badge>
           </TableCell>
           <TableCell>
             <div className="flex items-center space-x-4"> 
@@ -119,7 +119,7 @@ const handleSendEmail = (data) =>{
             <span className="text-sm">{user.email}</span>
           </TableCell>
           <TableCell>
-            <Badge type={user.role === "admin" ? "primary" : "neutral"}>{user.role}</Badge>
+            <Badge type={user?.authId?.role === "ADMIN" ? "primary" : "neutral"}>{user?.authId?.role}</Badge>
           </TableCell>
           <TableCell>
             <div className="flex items-center space-x-4">
