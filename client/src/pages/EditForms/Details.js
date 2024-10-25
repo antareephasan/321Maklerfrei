@@ -36,14 +36,14 @@ export const Details = ({ data, fRequired, setFRequired }) => {
   }, [enabled, openSnackbar, closeSnackbar]);
   const handleUpdateList = async (uniqId) => {
     setEnabled(false);
-    // await flowFactService.updateFlowFactListDetails(formData);
+    await flowFactService.updateFlowFactListDetails(formData);
     await userListService
       .updateUserListDetails(uniqId, formData)
       .then(async (res) => {
         setEnabled(true);
-        // history.push("/app");
-        // history.replace("/app/userLists");
-        window.location.reload();
+        history.push("/app");
+        history.replace("/app/userLists");
+        // window.location.reload();
       })
       .catch((err) => console.log(err));
   };

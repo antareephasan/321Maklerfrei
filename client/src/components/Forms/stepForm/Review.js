@@ -201,6 +201,7 @@ export const Review = (props) => {
     // let oldDate = Date.now();
 
     let info = flowFactData?.flowFactInfo;
+
     if (!info) {
       info = await flowFactService.publishImagesToFlowFact(
         Object.assign(data, { phone }),
@@ -222,20 +223,13 @@ export const Review = (props) => {
     data.rentPrice = data.rentPrice.replace(/\./g, '');
     data.newBuilding = data.newBuilding === "" ? false : data.newBuilding === "true" ? true : false;
     data.monumentProtection = data.monumentProtection === "" ? false : data.monumentProtection === "true" ? true : false;
-    
+
     const sendData = new FormData();
-    buildFormData(
+    await buildFormData(
       sendData,
       Object.assign(data, { phone })
     );
 
-    console.log("data", data)
-    console.log("Send Data", sendData)
-
-    console.log('Send Data contents:');
-    for (let pair of sendData.entries()) {
-      console.log(pair[0], pair[1]);
-    }
     axios
       .post(`${apiUrl}/userList/create`, sendData)
       .then((response) => {
@@ -244,6 +238,10 @@ export const Review = (props) => {
         // openSnackbar(t('List Is Created'), 'success', 3000);
         setLoading(false);
         // setEnabled(true);
+        window.localStorage.removeItem('formData');
+        window.localStorage.removeItem('entityId');
+        window.localStorage.removeItem('imgMultiStepForm');
+        window.localStorage.removeItem('planMultiStepForm');
 
         setIsSnackbarOpen(false)
         my_swiper.slideNext();

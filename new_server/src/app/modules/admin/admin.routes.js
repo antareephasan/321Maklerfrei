@@ -58,6 +58,36 @@ router.delete(
   AdminController.deleteUser
 ); 
 
+
+router.get(
+  "/userlists",
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  AdminController.getUserLists
+); 
+
+router.get(
+  "/packages",
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  AdminController.getPackages
+); 
+router.post(
+  "/packages",
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  AdminController.createPackage
+)
+router.patch(
+  "/packages/:id",
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  AdminController.updatePackage
+); 
+
+router.delete(
+  "/packages/:id",
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  AdminController.deletePackage
+); 
+
+
 router.get(
   "/get_all_admin",
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),

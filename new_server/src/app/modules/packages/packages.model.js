@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { paginate } = require('../../../plugins');
 
 
 const { Schema, model } = mongoose;
@@ -36,6 +37,8 @@ const PackagesSchema = Schema(
     timestamps: true,
   }
 );
+
+PackagesSchema.plugin(paginate);
 
 /**
  * @typedef User

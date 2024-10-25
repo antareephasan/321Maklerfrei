@@ -13,6 +13,8 @@ router.post("/stripe/create-checkout-session",
     auth(ENUM_USER_ROLE.USER),
     PaymentController.createCheckoutSession);
 
+router.post('/pause-subscription',bodyParser.json(), auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.ADMIN), PaymentController.pauseSubscription);
+router.post('/unpause-subscription',bodyParser.json(), auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.ADMIN), PaymentController.unpauseSubscription);
 
 
 

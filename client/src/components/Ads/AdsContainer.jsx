@@ -1,11 +1,13 @@
 // import { Button, FormControl, InputLabel, option, Select, Input } from '@mui/material';
-import React from 'react'
+import React, { useEffect } from 'react'
 import AdCard from './AdCard';
 import { useState } from 'react';
-import DemoImg from '../../assets/img/evaluation.jpg'
+import DemoImg from '../../assets/img/image-not-found.png'
 import { DesktopNavbar } from "../HeaderLanding";
 import { MobileNavbar } from "../HeaderLanding";
 import { Button, Input, Select } from '@windmill/react-ui';
+import axios from 'axios';
+import { config } from '../../assets/config/config';
 
 const AdsContainer = () => {
 
@@ -15,41 +17,77 @@ const AdsContainer = () => {
     const [postalCode, setPostalCode] = useState("");
     const [price, setPrice] = useState("");
     const [search, setSearch] = useState("");
+    const [currentPage, setCurrentPage] = useState(1); // Current page
+    const [totalPages, setTotalPages] = useState(1);   // Total number of pages
 
-    const ads = [
-        {
-            title: "Semi detached house is KAhl..",
-            objectCode: "2143343423",
-            postalCode: "12334",
-            location: "Saudi, 123. Street",
-            price: "51000",
-            img: DemoImg
-        },
-        {
-            title: "Semi detached house is KAhl..",
-            objectCode: "2143343423",
-            postalCode: "12334",
-            location: "Saudi, 123. Street",
-            price: "51000",
-            img: DemoImg
-        },
-        {
-            title: "Semi detached house is KAhl..",
-            objectCode: "2143343423",
-            postalCode: "12334",
-            location: "Saudi, 123. Street",
-            price: "51000",
-            img: DemoImg
-        },
-        {
-            title: "ASsds sds sd ",
-            objectCode: "2143343423",
-            postalCode: "12334",
-            location: "Saudi, 123. Street",
-            price: "51000",
-            img: DemoImg
-        },
-    ]
+
+    const [ads, setAds] = useState([]); // State to store ads from API
+    const [loading, setLoading] = useState(false); // Loading state for API requests
+
+
+    function useDebounce(value, delay) {
+        const [debouncedValue, setDebouncedValue] = useState(value);
+
+        useEffect(() => {
+            const handler = setTimeout(() => {
+                setDebouncedValue(value);
+            }, delay);
+
+            return () => {
+                clearTimeout(handler);
+            };
+        }, [value, delay]);
+
+        return debouncedValue;
+    }
+
+    const debouncedSearch = useDebounce(search, 500);
+
+    // Function to fetch ads based on filter criteria
+    const fetchAds = async (page = 1, limit = 12) => {
+        setLoading(true);
+        try {
+            const response = await axios.get(`${config.api.url}/userList`, {
+                params: {
+                    adType,       // Filters to be sent as query params
+                    propertyType,
+                    location,
+                    postalCode,
+                    price,
+                    search: debouncedSearch,
+                    page,
+                    limit
+                }
+            });
+            console.log(response.data.data.lists);
+            // Assuming the API returns ads in the response
+            setAds(response.data.data.lists);
+            setTotalPages(response.data.data.totalPages);
+            setCurrentPage(response.data.data.currentPage);
+        } catch (error) {
+            console.error('Error fetching ads:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+    // Optional: Fetch all ads when component mounts for the first time
+    useEffect(() => {
+        fetchAds();
+    }, [debouncedSearch, adType, propertyType, location, postalCode, price]); // Include dependencies to trigger API calls
+
+
+    // Call fetchAds when search button is clicked or when filter inputs change
+    const handleSearch = () => {
+        fetchAds(currentPage); // Call API when search button is clicked
+    };
+
+
+    // Function to handle page change
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage);
+        fetchAds(newPage);  // Fetch ads for the new page
+    };
+
 
     return (
         <div>
@@ -68,31 +106,49 @@ const AdsContainer = () => {
 
                         <div className='flex flex-col gap-4'>
                             <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 '>
-                                    <Select
-                                        id='select-ad-ic'
-                                        labelId='select-ad-id-label'
-                                        label="Art der Anzeige"
-                                        value={adType}
-                                        onChange={(event) => setAdType(event.target.value)}
-                                    >
-                                        <option value="">Art der Anzeige</option>
-                                        <option value={20}>Verkauf</option>
-                                        <option value={30}>Vermietung</option>
-                                    </Select>
+                                <Select
+                                    id='select-ad-ic'
+                                    labelId='select-ad-id-label'
+                                    label="Art der Anzeige"
+                                    value={adType || ""}
+                                    onChange={(event) => setAdType(event.target.value)}
+                                >
+                                    <option value="">Art der Anzeige</option>
+                                    <option value={"sale"}>Verkauf</option>
+                                    <option value={"rent"}>Vermietung</option>
+                                </Select>
 
-                                    <Select
-                                        id='select-property-id'
-                                        labelId='select-property-id-label'
-                                        label="Immoilienart"
-                                        value={propertyType}
-                                        onChange={(event) => setPropertyType(event.target.value)}
-                                    >
-                                        <option value={20}>Immoilienart</option>
-                                        <option value={20}>Haus</option>
-                                        <option value={30}>Wohnung</option>
-                                        <option value={30}>Grundstuck</option>
-                                    </Select>
+                                {
+                                    adType === "rent" ? (
+                                        <Select
+                                            id='select-property-id'
+                                            labelId='select-property-id-label'
+                                            label="Immoilienart"
+                                            value={propertyType | ""}
+                                            onChange={(event) => setPropertyType(event.target.value)}
+                                        >
+                                            <option value={""}>Immoilienart</option>
+                                            <option value={"house_rent"}>Haus</option>
+                                            <option value={"flat_rent"}>Wohnung</option>
+                                            <option value={"land_rent"}>Grundstuck</option>
+                                        </Select>
 
+                                    ) : (
+                                        <Select
+                                            id='select-property-id'
+                                            labelId='select-property-id-label'
+                                            label="Immoilienart"
+                                            value={propertyType | ""}
+                                            onChange={(event) => setPropertyType(event.target.value)}
+                                        >
+                                            <option value={""}>Immoilienart</option>
+                                            <option value={"house_purchase"}>Haus</option>
+                                            <option value={"flat_purchase"}>Wohnung</option>
+                                            <option value={"land_purchase"}>Grundstuck</option>
+                                        </Select>
+
+                                    )
+                                }
 
                                 <Input
                                     className='w-full'
@@ -130,6 +186,7 @@ const AdsContainer = () => {
                                 />
 
                                 <Button
+                                    onClick={handleSearch}
                                     variant='contained'
                                 >
                                     Search
@@ -139,17 +196,55 @@ const AdsContainer = () => {
 
 
                         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-5'>
-                            {ads.map((ad) => (
-                                <AdCard
-                                    title={ad.title}
-                                    objectCode={ad.objectCode}
-                                    postalCode={ad.postalCode}
-                                    location={ad.location}
-                                    price={ad.price}
-                                    img={ad.img}
-                                />
-                            ))}
+                            {loading ? (
+                                <p>Loading ads...</p> // Show loading state while fetching
+                            ) : ads.length > 0 ? (
+                                ads.map((ad) => (
+                                    <AdCard
+                                        key={ad._id}
+                                        id={ad._id}
+                                        entityId={ad.entityId}
+                                        title={ad.listingTitle}
+                                        objectCode={ad.uniqId}
+                                        postalCode={ad.zip}
+                                        location={ad.location}
+                                        price={ad.listingPrice}
+                                        img={ad.img || DemoImg} // Fallback to demo image if no image is provided
+                                    />
+                                ))
+                            ) : (
+                                <p>No ads found.</p> // Show message when no ads are found
+                            )}
                         </div>
+
+                        <div className="flex justify-center mt-5">
+                            <button
+                                disabled={currentPage === 1}
+                                onClick={() => handlePageChange(currentPage - 1)}
+                                className="mr-2 px-4 py-2 bg-gray-200 rounded"
+                            >
+                                Previous
+                            </button>
+
+                            {[...Array(totalPages)].map((_, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => handlePageChange(index + 1)}
+                                    className={`mx-1 px-4 py-2 ${currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+                                >
+                                    {index + 1}
+                                </button>
+                            ))}
+
+                            <button
+                                disabled={currentPage === totalPages}
+                                onClick={() => handlePageChange(currentPage + 1)}
+                                className="ml-2 px-4 py-2 bg-gray-200 rounded"
+                            >
+                                Next
+                            </button>
+                        </div>
+
 
                     </div>
 

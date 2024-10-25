@@ -4,6 +4,9 @@ import { lazy } from 'react'
 const Logout = lazy(() => import('../pages/Logout'))
 const Profile = lazy(() => import('../pages/Profile'))
 const Users = lazy(() => import('../pages/Users'))
+const Messages = lazy(() => import('../pages/Messages'))
+const PackageManagement = lazy(() => import('../pages/PackageManagement'))
+const UserListManagement = lazy(() => import('../pages/UserListManagement'))
 const TermsAndConditions = lazy(() => import('../pages/TermsAndConditions'))
 const PrivacyAndPolicy = lazy(() => import('../pages/PrivacyAndPolicy'))
 const Imprint = lazy(() => import('../pages/Imprint'))
@@ -39,6 +42,18 @@ const routes = [
     component: Users,
   },
   {
+    path: '/user-list-management',
+    component: UserListManagement,
+  },
+  {
+    path: '/messages',
+    component: Messages,
+  },
+  {
+    path: '/package-management',
+    component: PackageManagement,
+  },
+  {
     path: '/terms-and-conditions',
     component: TermsAndConditions,
   },
@@ -58,14 +73,14 @@ const routes = [
     path: '/logout',
     component: Logout,
   },
-  {
-    path: '/adminDashboard', // the url
-    component: Dashboard, // view rendered
-  },
-  {
-    path: '/user_dashboard', // the url
-    component: DashboardUser, // view rendered
-  },
+  // {
+  //   path: '/adminDashboard', // the url
+  //   component: Dashboard, // view rendered
+  // },
+  // {
+  //   path: '/user_dashboard', // the url
+  //   component: DashboardUser, // view rendered
+  // },
   {
     path: '/forms',
     component: Forms,

@@ -1,6 +1,5 @@
  
 const { errorLogger, logger } = require("./shared/logger");  
-const cron = require("node-cron");
 
 // Create an Express app
 const app = require("./app");

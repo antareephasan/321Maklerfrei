@@ -15,9 +15,6 @@ const generateCognitoToken = async () => {
           token: process.env.FLOWFACT_TOKEN
         }
       });
-
-      console.log("----------------------");
-      console.log("Req data",req);
       return req.data;
     }catch(er){
       // throw new ApiError(404, er.message);

@@ -13,7 +13,35 @@ const createList = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const getUserList = catchAsync(async (req, res) => {
+  const result = await UserListService.getUserList(req);
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Retrieved user listing successfully",
+    data: result,
+  });
+});
+const getLatestUserList = catchAsync(async (req, res) => {
+  const result = await UserListService.getLatestUserList(req);
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Retrieved  latest listing successfully",
+    data: result,
+  });
+});
 
+
+const getUserListById = catchAsync(async (req, res) => {
+  const result = await UserListService.getUserListById(req);
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Userlist fetched successfully",
+    data: result,
+  });
+});
 
 const getMyList = catchAsync(async (req, res) => {
   const result = await UserListService.getMyList(req);
@@ -54,7 +82,6 @@ const deleteUserList = catchAsync(async (req, res) => {
   });
 });
 
-
 const cognitoToken = catchAsync(async (req, res) => {
   console.log("I was in user lis const")
   const cognitoToken = await generateCognitoToken();
@@ -70,7 +97,10 @@ const UserListController = {
   getMyList,
   deleteUserList,
   updateList,
-  deleteImage
+  deleteImage,
+  getUserList,
+  getUserListById,
+  getLatestUserList,
 };
 
 module.exports = { UserListController };

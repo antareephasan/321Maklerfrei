@@ -12,35 +12,38 @@ import PageTitle from "../components/Typography/PageTitle";
 import { AuthContext } from "../context/AuthContext";
 import { SnackbarContext } from "../context/SnackbarContext";
 import { SearchIcon } from "../icons/index.js";
-import { userService } from "../services";
+import { packageService, userService } from "../services";
 import PageError from "./Error";
 import axios from "axios";
+import PackagesTable from "../components/Tables/PackagesTable.js";
+import DeletePackageModal from "../components/Modals/DeletePackageModal.js";
+import UpdatePackageModal from "../components/Modals/UpdatePackageModal.js";
+import CreatePackageModal from "../components/Modals/CreatePackageModal.js";
 
-function Users() {
+function PackageManagement() {
   const { openSnackbar, closeSnackbar } = useContext(SnackbarContext);
   const { logout } = useContext(AuthContext);
   const [isLoaded, setIsLoaded] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showUpdatePasswordModal, setShowUpdatePasswordModal] = useState(false);
-  const [activeUser, setActiveUser] = useState(null);
-  const [users, setUsers] = useState(null);
+  const [activePackage, setActivePackage] = useState(null);
+  const [packages, setPackages] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
   const [error, setError] = useState(null);
   const [resfreshing, setRefreshing] = useState(false);
-  const [searchUsers, setSearchUsers] = useState("");
+  const [searchPackages, setSearchPackages] = useState("");
   const [value, setValue] = useState(false);
   const apiUrl = config.api.url;
-  const [userLists, setUserLists] = useState([]);
+  const [packageLists, setPackageLists] = useState([]);
 
-  console.log('userLists', userLists)
+  console.log('packageLists', packageLists)
   const [noData, setNoData] = useState(false);
 
   useEffect(() => {
     if (resfreshing) {
-      openSnackbar("Refresing users..");
+      openSnackbar("Refresing packages..");
     } else {
       closeSnackbar();
     }
@@ -48,13 +51,13 @@ function Users() {
 
 
 
-  const refreshUsers = useCallback(() => {
+  const refreshPackages = useCallback(() => {
     setRefreshing(true);
-    return userService
-      .getUsers(currentPage)
+    return packageService
+      .getPackages(currentPage)
       .then((data) => {
         setRefreshing(false);
-        setUsers(data.data.results);
+        setPackages(data.data.results);
         setTotalResults(data.data.totalResults);
         return null;
       })
@@ -66,28 +69,25 @@ function Users() {
   }, [currentPage]);
 
   useEffect(() => {
-    refreshUsers().then(() => {
+    refreshPackages().then(() => {
       setIsLoaded(true);
     });
-  }, [refreshUsers]);
+  }, [refreshPackages]);
 
   const handleAction = (user, type) => {
-    setActiveUser(user);
+    setActivePackage(user);
     switch (type) {
-      case "createUser":
+      case "createPackage":
         setShowCreateModal(true);
         break;
-      case "updateUser":
+      case "updatePackage":
         setShowUpdateModal(true);
         break;
-      case "updatePassword":
-        setShowUpdatePasswordModal(true);
-        break;
-      case "deleteUser":
+      case "deletePackage":
         setShowDeleteModal(true);
         break;
       default:
-        setActiveUser(null);
+        setActivePackage(null);
         break;
     }
   };
@@ -96,17 +96,30 @@ function Users() {
     const fetchData = async () => {
 
       try {
-        const response = await axios.get(`${apiUrl}/admin/users`);
+        // const response = await axios.get(`${apiUrl}/admin/packages`);
+        const response = await axios.get(`${apiUrl}/package/getAllPackages`);
+        
 
-        console.log("userLists", response.data)
-        if (response.data.statusCode === 200) {
-          setUserLists(response?.data?.data?.results);
+        console.log("First fetch packages", response.data)
+        if(response.data.status === '200') {
+          setPackageLists(response?.data?.data);
         } else {
           setNoData(true);
         }
       } catch (error) {
         console.log(error);
       }
+      // axios
+      //   .get(`${apiUrl}/v1/auth/get/users`)
+      //   .then((response) => {
+
+      //     if (response.data.message === 'success') {
+      //       setUserLists(response?.data?.user);
+      //       return
+      //     }
+      //     setNoData(true);
+      //   })
+      //   .catch((error) => console.log(error));
     }
 
     fetchData()
@@ -118,18 +131,15 @@ function Users() {
   };
 
   const onModalClose = (type) => {
-    setActiveUser(null);
+    setActivePackage(null);
     switch (type) {
-      case "createUser":
+      case "createPackage":
         setShowCreateModal(false);
         break;
-      case "updateUser":
+      case "updatePackage":
         setShowUpdateModal(false);
         break;
-      case "updatePassword":
-        setShowUpdatePasswordModal(false);
-        break;
-      case "deleteUser":
+      case "deletePackage":
         setShowDeleteModal(false);
         break;
       default:
@@ -138,22 +148,19 @@ function Users() {
   };
 
   const onModalAction = (type) => {
-    setActiveUser(null);
+    setActivePackage(null);
     switch (type) {
-      case "createUser":
+      case "createPackage":
         setShowCreateModal(false);
-        refreshUsers();
+        refreshPackages();
         break;
-      case "updateUser":
+      case "updatePackage":
         setShowUpdateModal(false);
-        refreshUsers();
+        refreshPackages();
         break;
-      case "updatePassword":
-        setShowUpdatePasswordModal(false);
-        break;
-      case "deleteUser":
+      case "deletePackage":
         setShowDeleteModal(false);
-        refreshUsers();
+        refreshPackages();
         break;
       default:
         break;
@@ -172,7 +179,7 @@ function Users() {
           return <Redirect to="/auth" />;
         case 403:
           return (
-            <PageError message="Unauthorized : Only admin can view/update all users." />
+            <PageError message="Unauthorized : Only admin can view/update all packages." />
           );
         default:
           return <PageError message="Some error occured : please try again." />;
@@ -181,14 +188,14 @@ function Users() {
       return <PageError message="Some error occured : please try again." />;
     }
   }
-
   const escapeRegExp = (string) => {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // Escapes special characters
   };
 
+
   const handleSearch = (event) => {
     if (event.target.value === "") {
-      setSearchUsers("");
+      setSearchPackages("");
       setValue(false);
     } else {
       setValue(true);
@@ -196,34 +203,41 @@ function Users() {
 
 
       console.log("Search text: ", searchText);
-      console.log("userLists:", userLists)
+      console.log("In search Packages packageLists:", packageLists)
 
-      // Escaping special characters in the search text
-      const escapedSearchText = escapeRegExp(searchText);
+        // Escaping special characters in the search text
+        const escapedSearchText = escapeRegExp(searchText);
 
-      // Creating a case-insensitive regular expression from the escaped search text
-      const regex = new RegExp(escapedSearchText, "i");
+        // Creating a case-insensitive regular expression from the escaped search text
+        const regex = new RegExp(escapedSearchText, "i");
+  
+        const matchedPackages = packageLists?.filter((user) => {
+          // Checking if any of the fields match the regular expression
+          return (
+            regex.test(user?.packageName) ||
+            regex.test(user?.packageDescription) ||
+            regex.test(user?.listingType) ||
+            regex.test(user?.subscriptionType) ||
+            regex.test(user?.subscriptionDuration) ||
+            regex.test(user?.price)
+          );
+        });
+  
 
-      const matchedUsers = userLists?.filter((user) => {
-        // Checking if any of the fields match the regular expression
-        return (
-          regex.test(user?.email) ||
-          regex.test(user?.name) ||
-          regex.test(user?.lastname) ||
-          regex.test(user?.phone_number) ||
-          regex.test(user?.authId?.role)
-        );
-      });
 
-      console.log("matchedUers", matchedUsers)
-      setSearchUsers(matchedUsers);
+      // const matchedPackages = packageLists?.filter((pkg) =>
+      //   pkg?.packageName.toLowerCase().includes(searchText.toLowerCase())
+      // );
+
+      console.log("matchedPackages", matchedPackages)
+      setSearchPackages(matchedPackages);
     }
   };
 
   return (
     <>
       <div className="flex justify-between items-center gap-16">
-        <PageTitle>All Users</PageTitle>
+        <PageTitle>All Packages</PageTitle>
         <div className="w-96">
           <Label>
             <div className="relative w-full focus-within:text-blue-400">
@@ -232,7 +246,7 @@ function Users() {
               </div>
               <Input
                 className="p-2 pl-3 border border-solid border-gray-300 focus-within:text-gray-700"
-                placeholder="Search for users..."
+                placeholder="Search for packages..."
                 component="form"
                 onChange={handleSearch}
               />
@@ -244,47 +258,41 @@ function Users() {
           <Button
             onClick={(e) => {
               e.preventDefault();
-              handleAction(null, "createUser");
+              handleAction(null, "createPackage");
             }}
           >
-            Create User
+            Create Package
           </Button>
         </div>
       </div>
-      <UserTable
-        users={users}
+      <PackagesTable
+        packages={packages}
         resultsPerPage={config.users.resultsPerPage}
         totalResults={totalResults}
         onAction={handleAction}
         onPageChange={handlePageChange}
         value={value}
-        searchUsers={searchUsers}
+        searchPackages={searchPackages}
       />
-      <CreateUserModal
+      <CreatePackageModal
         isOpen={showCreateModal}
         onClose={onModalClose}
         onAction={onModalAction}
       />
-      <UpdateUserModal
+      <UpdatePackageModal
         isOpen={showUpdateModal}
         onClose={onModalClose}
         onAction={onModalAction}
-        m_user={activeUser}
+        m_package={activePackage}
       />
-      <UpdatePasswordModal
-        isOpen={showUpdatePasswordModal}
-        onClose={onModalClose}
-        onAction={onModalAction}
-        m_user={activeUser}
-      />
-      <DeleteUserModal
+      <DeletePackageModal
         isOpen={showDeleteModal}
         onClose={onModalClose}
         onAction={onModalAction}
-        m_user={activeUser}
+        m_package={activePackage}
       />
     </>
   );
 }
 
-export default Users;
+export default PackageManagement;

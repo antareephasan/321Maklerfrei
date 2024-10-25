@@ -12,35 +12,36 @@ import PageTitle from "../components/Typography/PageTitle";
 import { AuthContext } from "../context/AuthContext";
 import { SnackbarContext } from "../context/SnackbarContext";
 import { SearchIcon } from "../icons/index.js";
-import { userService } from "../services";
 import PageError from "./Error";
 import axios from "axios";
+import MessageTable from "../components/Tables/MessageTable.js";
+import { messageService } from "../services/message.service.js";
+import MessageModal from "../components/Modals/MessageModal.js";
 
-function Users() {
+function Messages() {
   const { openSnackbar, closeSnackbar } = useContext(SnackbarContext);
   const { logout } = useContext(AuthContext);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [showUpdateModal, setShowUpdateModal] = useState(false);
-  const [showCreateModal, setShowCreateModal] = useState(false);
+
+  const [showMessageModal, setShowMessageModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showUpdatePasswordModal, setShowUpdatePasswordModal] = useState(false);
-  const [activeUser, setActiveUser] = useState(null);
-  const [users, setUsers] = useState(null);
+  const [activeMessage, setActiveMessage] = useState(null);
+  const [messages, setMessages] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
   const [error, setError] = useState(null);
   const [resfreshing, setRefreshing] = useState(false);
-  const [searchUsers, setSearchUsers] = useState("");
+  const [searchMessages, setSearchMessages] = useState("");
   const [value, setValue] = useState(false);
   const apiUrl = config.api.url;
-  const [userLists, setUserLists] = useState([]);
+  const [messageLists, setMessageLists] = useState([]);
 
-  console.log('userLists', userLists)
+  console.log('messageLists', messageLists)
   const [noData, setNoData] = useState(false);
 
   useEffect(() => {
     if (resfreshing) {
-      openSnackbar("Refresing users..");
+      openSnackbar("Refresing messages..");
     } else {
       closeSnackbar();
     }
@@ -48,13 +49,13 @@ function Users() {
 
 
 
-  const refreshUsers = useCallback(() => {
+  const refreshMessages = useCallback(() => {
     setRefreshing(true);
-    return userService
-      .getUsers(currentPage)
+    return messageService
+      .getMessages(currentPage)
       .then((data) => {
         setRefreshing(false);
-        setUsers(data.data.results);
+        setMessages(data.data.results);
         setTotalResults(data.data.totalResults);
         return null;
       })
@@ -66,28 +67,22 @@ function Users() {
   }, [currentPage]);
 
   useEffect(() => {
-    refreshUsers().then(() => {
+    refreshMessages().then(() => {
       setIsLoaded(true);
     });
-  }, [refreshUsers]);
+  }, [refreshMessages]);
 
   const handleAction = (user, type) => {
-    setActiveUser(user);
+    setActiveMessage(user);
     switch (type) {
-      case "createUser":
-        setShowCreateModal(true);
+      case "viewMessage":
+        setShowMessageModal(true);
         break;
-      case "updateUser":
-        setShowUpdateModal(true);
-        break;
-      case "updatePassword":
-        setShowUpdatePasswordModal(true);
-        break;
-      case "deleteUser":
+      case "deleteMessage":
         setShowDeleteModal(true);
         break;
       default:
-        setActiveUser(null);
+        setActiveMessage(null);
         break;
     }
   };
@@ -96,11 +91,11 @@ function Users() {
     const fetchData = async () => {
 
       try {
-        const response = await axios.get(`${apiUrl}/admin/users`);
+        const response = await axios.get(`${apiUrl}/message/all`);
 
-        console.log("userLists", response.data)
+        console.log("messages", response.data)
         if (response.data.statusCode === 200) {
-          setUserLists(response?.data?.data?.results);
+          setMessageLists(response?.data?.data);
         } else {
           setNoData(true);
         }
@@ -118,18 +113,12 @@ function Users() {
   };
 
   const onModalClose = (type) => {
-    setActiveUser(null);
+    setActiveMessage(null);
     switch (type) {
-      case "createUser":
-        setShowCreateModal(false);
+      case "viewMessage":
+        setShowMessageModal(false);
         break;
-      case "updateUser":
-        setShowUpdateModal(false);
-        break;
-      case "updatePassword":
-        setShowUpdatePasswordModal(false);
-        break;
-      case "deleteUser":
+      case "deleteMessage":
         setShowDeleteModal(false);
         break;
       default:
@@ -138,22 +127,14 @@ function Users() {
   };
 
   const onModalAction = (type) => {
-    setActiveUser(null);
+    setActiveMessage(null);
     switch (type) {
-      case "createUser":
-        setShowCreateModal(false);
-        refreshUsers();
+      case "viewMessage":
+        setShowMessageModal(false);
         break;
-      case "updateUser":
-        setShowUpdateModal(false);
-        refreshUsers();
-        break;
-      case "updatePassword":
-        setShowUpdatePasswordModal(false);
-        break;
-      case "deleteUser":
+      case "deleteMessage":
         setShowDeleteModal(false);
-        refreshUsers();
+        refreshMessages();
         break;
       default:
         break;
@@ -172,7 +153,7 @@ function Users() {
           return <Redirect to="/auth" />;
         case 403:
           return (
-            <PageError message="Unauthorized : Only admin can view/update all users." />
+            <PageError message="Unauthorized : Only admin can view/update all messages." />
           );
         default:
           return <PageError message="Some error occured : please try again." />;
@@ -186,9 +167,10 @@ function Users() {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // Escapes special characters
   };
 
+
   const handleSearch = (event) => {
     if (event.target.value === "") {
-      setSearchUsers("");
+      setSearchMessages("");
       setValue(false);
     } else {
       setValue(true);
@@ -196,7 +178,7 @@ function Users() {
 
 
       console.log("Search text: ", searchText);
-      console.log("userLists:", userLists)
+      console.log("messageLists:", messageLists)
 
       // Escaping special characters in the search text
       const escapedSearchText = escapeRegExp(searchText);
@@ -204,26 +186,25 @@ function Users() {
       // Creating a case-insensitive regular expression from the escaped search text
       const regex = new RegExp(escapedSearchText, "i");
 
-      const matchedUsers = userLists?.filter((user) => {
+      const matchedMessages = messageLists?.filter((user) => {
         // Checking if any of the fields match the regular expression
         return (
           regex.test(user?.email) ||
           regex.test(user?.name) ||
-          regex.test(user?.lastname) ||
-          regex.test(user?.phone_number) ||
-          regex.test(user?.authId?.role)
+          regex.test(user?.uniqId) ||
+          regex.test(user?.telephone)
         );
       });
 
-      console.log("matchedUers", matchedUsers)
-      setSearchUsers(matchedUsers);
+      console.log("matchedUers", matchedMessages)
+      setSearchMessages(matchedMessages);
     }
   };
 
   return (
     <>
       <div className="flex justify-between items-center gap-16">
-        <PageTitle>All Users</PageTitle>
+        <PageTitle>All Messages</PageTitle>
         <div className="w-96">
           <Label>
             <div className="relative w-full focus-within:text-blue-400">
@@ -232,7 +213,7 @@ function Users() {
               </div>
               <Input
                 className="p-2 pl-3 border border-solid border-gray-300 focus-within:text-gray-700"
-                placeholder="Search for users..."
+                placeholder="Search for messages..."
                 component="form"
                 onChange={handleSearch}
               />
@@ -240,7 +221,7 @@ function Users() {
           </Label>
         </div>
 
-        <div className="my-6">
+        {/* <div className="my-6">
           <Button
             onClick={(e) => {
               e.preventDefault();
@@ -249,42 +230,32 @@ function Users() {
           >
             Create User
           </Button>
-        </div>
+        </div> */}
       </div>
-      <UserTable
-        users={users}
+      <MessageTable
+        messages={messages}
         resultsPerPage={config.users.resultsPerPage}
         totalResults={totalResults}
         onAction={handleAction}
         onPageChange={handlePageChange}
         value={value}
-        searchUsers={searchUsers}
+        searchMessages={searchMessages}
       />
-      <CreateUserModal
-        isOpen={showCreateModal}
+      <MessageModal
+        isOpen={showMessageModal}
         onClose={onModalClose}
         onAction={onModalAction}
+        m_message={activeMessage}
       />
-      <UpdateUserModal
-        isOpen={showUpdateModal}
-        onClose={onModalClose}
-        onAction={onModalAction}
-        m_user={activeUser}
-      />
-      <UpdatePasswordModal
-        isOpen={showUpdatePasswordModal}
-        onClose={onModalClose}
-        onAction={onModalAction}
-        m_user={activeUser}
-      />
+
       <DeleteUserModal
         isOpen={showDeleteModal}
         onClose={onModalClose}
         onAction={onModalAction}
-        m_user={activeUser}
+        m_user={activeMessage}
       />
     </>
   );
 }
 
-export default Users;
+export default Messages;

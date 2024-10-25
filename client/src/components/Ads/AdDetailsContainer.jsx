@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useState } from 'react';
 // import DemoImg from '../../assets/img/evaluation.jpg'
 import { DesktopNavbar } from "../HeaderLanding";
@@ -8,15 +8,109 @@ import { LocationOn } from '@mui/icons-material';
 import { ReactPhotoGallery } from '../PhotoGallery/ReactPhotoGallery';
 import { Badge, Button, Label } from '@windmill/react-ui';
 import { Input } from '@windmill/react-ui'
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import { config } from '../../assets/config/config';
+import { flowFactService } from '../../services';
+import toast from 'react-hot-toast';
+import { AuthContext } from '../../context/AuthContext';
 
 const AdsContainer = () => {
+    const { id } = useParams();
+
+    const { user } = useContext(AuthContext);
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [telephone, setTelephone] = useState("");
     const [message, setMessage] = useState("");
 
+    const [adDetails, setAdDetails] = useState(null);
 
+    const [imagesList, setImagesList] = useState([]);
+
+
+    const handleSendMessage = async () => {
+        try {
+            const response = await axios.post(`${config.api.url}/message`, {
+                name,
+                email,
+                telephone,
+                message,
+                uniqId: adDetails.uniqId
+            })
+
+            toast.success("Message sent");
+            setName("");
+            setEmail("");
+            setTelephone("");
+            setMessage("");
+        } catch (error) {
+            toast.error("Failed to send message");
+            console.log(error)
+        }
+    }
+
+
+    const fetchImages = () => {
+        flowFactService.generateCognitoToken().then((cognitoToken) => {
+            axios
+                .get(
+                    `https://api.production.cloudios.flowfact-prod.cloud/multimedia-service/items/entities/${adDetails.entityId}`,
+                    {
+                        headers: {
+                            cognitoToken,
+                        },
+                    }
+                )
+                .then((reqData) => {
+                    if (reqData?.data.length < 1) return;
+
+                    const images = reqData.data.map((img) => ({
+                        original: img.fileReference,        // Assuming imagesList has 'url' field for the original image
+                    }));
+                    console.log(images)
+                    setImagesList(images);
+                });
+        });
+    }
+
+    useEffect(() => {
+        if (adDetails?.entityId) {
+            fetchImages()
+        }
+    }, [adDetails])
+
+    const fillUserData = () => {
+        console.log(user)
+        if (user) {
+            setName(`${user.name} ${user.lastname}`)
+            setEmail(user.email)
+            setTelephone(user.phone_number)
+        }
+    }
+    useEffect(() => {
+        // Fetch the ad details from your API based on the ID from the URL
+        const fetchAdDetails = async () => {
+            try {
+                const response = await axios.get(`${config.api.url}/userList/details/${id}`); // Replace with your API endpoint
+                console.log(response.data.data);
+                setAdDetails(response.data.data);
+            } catch (error) {
+                console.log("Failed to fetch ad details", error);
+            }
+        };
+
+        fetchAdDetails();
+        fillUserData();
+
+    }, [id]);
+
+    if (!adDetails) {
+        return <div>Loading...</div>;
+    }
+
+    console.log(id);
     return (
         <div>
             <DesktopNavbar />
@@ -26,91 +120,108 @@ const AdsContainer = () => {
 
                     <div className='w-full md:w-11/12 lg:w-3/4 px-5 md:px-0 flex flex-col gap-10'>
 
-                        <div className='grid grid-cols-1 xl:grid-cols-3 gap-10'>
-                            <div className='xl:col-span-2 flex flex-col  items-center justify-center gap-5'>
-                                <div className='flex justify-start items-center'>
-                                    <ReactPhotoGallery />
-                                </div>
+                        <div className='xl:col-span-2 flex flex-col  items-center gap-5'>
+                            {/* Head text data */}
+                            <div className='flex flex-col gap-5 w-full'>
 
-                                {/* Head text data */}
-                                <div className='flex flex-col gap-5 w-full'>
-
-                                    <h1 className='text-left text-xl md:text-3xl lg:text:4xl text-gray-900 font-bold'>
-                                        Semi-detached house in Kehl/Kittersburg
-                                    </h1>
+                                <h1 className='text-left text-xl md:text-3xl lg:text:4xl text-gray-900 font-bold'>
+                                    {adDetails.listingTitle}
+                                </h1>
 
 
-                                    <div className='flex flex-row gap-2 justify-start'>
+                                <div className='flex flex-row gap-2 justify-start'>
 
-                                        <Badge className='px-4 py-1'>Verkauf</Badge>
+                                    <Badge className='px-4 py-1'>{adDetails.listingType}</Badge>
 
-                                        <div className='flex flex-row justify-center items-center gap-1'>
-                                            <LocationOn color='secondary' /> <span className='text-xs font-light text-gray-600'>Bad essen</span>
-                                        </div>
+                                    <div className='flex flex-row justify-center items-center gap-1'>
+                                        <LocationOn color='secondary' /> <span className='text-xs font-light text-gray-600'>{adDetails.city}</span>
                                     </div>
-                                    <h1 className='text-left text-xl md:text-2xl lg:text-3xl text-gray-900  font-bold'>565.000 €</h1>
                                 </div>
+                                <h1 className='text-left text-xl md:text-2xl lg:text-3xl text-gray-900  font-bold'>{adDetails.listingPrice} €</h1>
+                            </div>
+                            <div className='flex justify-start items-center w-full'>
+                                {
+                                    imagesList.length > 0 && <ReactPhotoGallery images={imagesList} />
+                                }
+                                {
+                                    imagesList.length === 0 && (
+                                        <p>No image availabe</p>
+                                    )
+                                }
                             </div>
 
+
+                        </div>
+                        <div className='w-full'>
+
                             {/* Information */}
-                            <div className='w-full'>
                                 <h1 className='w-full text-left font-semibold text-lg md:text-xl lg:text-2xl mb-4'>Information</h1>
-                                <div className='flex flex-col gap-5 items-center w-full'>
+                                {/* <div className='flex flex-col gap-5 items-center w-full'> */}
+                                <div className='grid grid-cols-1 xl:grid-cols-2 gap-x-10 gap-y-6'>
                                     <div className='flex flex-row justify-between gap-2  items-center w-full'>
                                         <h1 className='lg:text-md text-gray-600'>Objektnummer: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>TFMwnJdK3Ew9-2</p>
+                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.uniqId}</p>
                                     </div>
                                     <div className='flex flex-row justify-between gap-2  items-center w-full'>
                                         <h1 className='lg:text-md text-gray-600'>Stadt: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>Bad essen</p>
+                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.city}</p>
                                     </div>
                                     <div className='flex flex-row justify-between gap-2  items-center w-full'>
                                         <h1 className='lg:text-md text-gray-600'>Wohnfläche: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>165</p>
+                                        <p className='lg:text-md text-gray-900 font-semibold'> {adDetails?.livingArea}</p>
                                     </div>
                                     <div className='flex flex-row justify-between gap-2  items-center w-full'>
                                         <h1 className='lg:text-md text-gray-600'>Energieausweis: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>liegt zur Besichtigung vor</p>
+                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.energy ? "available" : "not availabe"}</p>
                                     </div>
                                     <div className='flex flex-row justify-between gap-2  items-center w-full'>
                                         <h1 className='lg:text-md text-gray-600'>Badezimmer: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>3</p>
+                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.numberOfBathrooms}</p>
                                     </div>
                                     <div className='flex flex-row justify-between gap-2  items-center w-full'>
                                         <h1 className='lg:text-md text-gray-600'>Status: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>Verkauf</p>
+                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.listingType}</p>
                                     </div>
                                     <div className='flex flex-row justify-between gap-2  items-center w-full'>
                                         <h1 className='lg:text-md text-gray-600'>SStellplätze: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>2</p>
+                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.numberOfParkingSpaces}</p>
                                     </div>
                                     <div className='flex flex-row justify-between gap-2  items-center w-full'>
                                         <h1 className='lg:text-md text-gray-600'>Postleitzahl: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>49152</p>
+                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.zip}</p>
                                     </div>
                                     <div className='flex flex-row justify-between gap-2  items-center w-full'>
                                         <h1 className='lg:text-md text-gray-600'>Anzahl Zimmer: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>8</p>
+                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.numberOfRooms}</p>
                                     </div>
                                     <div className='flex flex-row justify-between gap-2  items-center w-full'>
                                         <h1 className='lg:text-md text-gray-600'>Anzahl Schlafzimmer: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>5</p>
+                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.numberOfBedrooms}</p>
                                     </div>
                                     <div className='flex flex-row justify-between  gap-2 items-center w-full'>
                                         <h1 className='lg:text-md text-gray-600'>Baujahr: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>2023</p>
+                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.yearOfBuilding}</p>
                                     </div>
                                     <div className='flex flex-row justify-between gap-2  items-center w-full'>
                                         <h1 className='lg:text-md text-gray-600'>Objektart: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>Haus</p>
+                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.buildingType}</p>
                                     </div>
                                     <div className='flex flex-row justify-between gap-2 items-center w-full'>
                                         <h1 className='lg:text-md text-gray-600'>Garage: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>2</p>
+                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.numberOfGarages}</p>
                                     </div>
-                                </div>
-
-
+                                    <div className='flex flex-row justify-between gap-2 items-center w-full'>
+                                        <h1 className='lg:text-md text-gray-600'>House fee: </h1>
+                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.monthlyHousepayment}</p>
+                                    </div>
+                                    <div className='flex flex-row justify-between gap-2 items-center w-full'>
+                                        <h1 className='lg:text-md text-gray-600'>Floors: </h1>
+                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.numberOfFloors}</p>
+                                    </div>
+                                    <div className='flex flex-row justify-between gap-2 items-center w-full'>
+                                        <h1 className='lg:text-md text-gray-600'>Usable area: </h1>
+                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.usableArea}</p>
+                                    </div>
                             </div>
                         </div>
 
@@ -124,7 +235,7 @@ const AdsContainer = () => {
                             <h1 className='text-lg md:text-xl lg:text-2xl xl:2xl font-semibold text-gray-900'>Beschreibung</h1>
 
                             <p className='text-sm md:text-base lg:text-lg font-normal text-gray-600'>
-                                Suchen Sie ein großzügiges, energieeffizientes Zuhause mit einem wunderschönen Garten und modernstem Komfort? Dann ist dieses freistehende Einfamilienhaus in Lintorf genau das Richtige für Sie! Ausstattung, die begeistert: Komplettsanierung: Das Haus wurde 2021/2022 aufwendig renoviert und präsentiert sich in einem nahezu neuwertigen Zustand. Energieeffizienz: Dank PV-Anlage mit Speicher, Wallbox für E-Autos und einem wasserführenden Kamin sind Ihre Energiekosten minimal. Moderne Technik: Fußbodenheizung, Klimaanlage und eine intelligente Bewässerungsanlage sorgen für höchsten Wohnkomfort. Großzügiger Wohnraum: Auf 165 m² Wohnfläche verteilen sich 6 Zimmer, 4 Schlafzimmer und 3 moderne Bäder mit ebenerdigen Duschen. Traumhafter Garten: Der 2023 neu gestaltete Garten lädt zum Entspannen ein. Der Pool bietet an heißen Tagen eine erfrischende Abkühlung. Ideale Lage: Lintorf bietet eine hervorragende Infrastruktur mit Kita, Schulen, Geschäften des täglichen Bedarfs und einer guten Anbindung an das öffentliche Verkehrsnetz. Weitere Highlights: Ausgebauter Dachboden: Bietet zusätzlichen Stauraum oder kann individuell gestaltet werden. Einbauküche: Hochwertig ausgestattet und perfekt in die Raumgestaltung integriert. Terrasse: Ideal zum Grillen und Entspannen. Garage/Stellplatz: Sicherer Stellplatz für Ihr Fahrzeug. Für wen dieses Haus perfekt ist: Dieses Haus eignet sich ideal für Familien, die Wert auf ein modernes, energieeffizientes Zuhause in ruhiger Lage legen. Auch für Paare, die viel Platz und Komfort suchen, ist dieses Angebot interessant. Hinweis: Eine Besichtigung ist nur nach vorheriger Vereinbarung und bei gesicherter Finanzierung möglich.
+                                {adDetails.description}
                             </p>
                         </div>
 
@@ -133,7 +244,8 @@ const AdsContainer = () => {
                             <h1 className='text-lg md:text-xl lg:text-2xl xl:2xl font-semibold text-gray-900'>Besonderheiten der Immobilie</h1>
 
                             <p className='text-sm md:text-base lg:text-lg font-normal text-gray-600'>
-                                Wasserführender Kamin Bewässerungsanlage PV Anlage 15,7 kW mit 10 Kw Speicher Wallbox Klimaanlage Dachboden ausgebaut                            </p>
+                                {adDetails.features}
+                            </p>
                         </div>
 
                         {/* Location of prop  */}
@@ -141,7 +253,9 @@ const AdsContainer = () => {
                             <h1 className='text-lg md:text-xl lg:text-2xl xl:2xl font-semibold text-gray-900'>Lage der Immobilie</h1>
 
                             <p className='text-sm md:text-base lg:text-lg font-normal text-gray-600'>
-                                Ruhige Siedlung
+                                {
+                                    adDetails.location
+                                }
                             </p>
                         </div>
 
@@ -155,7 +269,7 @@ const AdsContainer = () => {
                                 <Input
                                     className='w-full'
                                     type='text'
-                                    placeholder='Ort'
+                                    placeholder='Your name'
                                     size='small'
                                     onChange={(event) => setName(event.target.value)}
                                     value={name}
@@ -163,7 +277,7 @@ const AdsContainer = () => {
                                 <Input
                                     className='w-full'
                                     type='text'
-                                    placeholder='Postleitzahl'
+                                    placeholder='Your email address'
                                     size='small'
                                     onChange={(event) => setEmail(event.target.value)}
                                     value={email}
@@ -171,7 +285,7 @@ const AdsContainer = () => {
                                 <Input
                                     className='w-full'
                                     type='text'
-                                    placeholder='Preis'
+                                    placeholder='Your telephone number'
                                     size='small'
                                     onChange={(event) => setTelephone(event.target.value)}
                                     value={telephone}
@@ -179,7 +293,7 @@ const AdsContainer = () => {
                                 <Input
                                     className='w-full'
                                     type='text'
-                                    placeholder='Preis'
+                                    placeholder='Your message...'
                                     size='small'
                                     onChange={(event) => setMessage(event.target.value)}
                                     value={message}
@@ -195,7 +309,7 @@ const AdsContainer = () => {
 
                                 <div className='mt-2'>
 
-                                    <Button>
+                                    <Button onClick={handleSendMessage}>
                                         Send Message
                                     </Button>
                                 </div>

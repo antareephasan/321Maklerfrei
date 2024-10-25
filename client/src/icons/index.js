@@ -31,6 +31,7 @@ import { ReactComponent as CheckIcon } from './check.svg'
 import { ReactComponent as DeleteIcon } from './delete.svg'
 import { ReactComponent as QuestionMark } from './questionmark.svg'
 import { ReactComponent as PlayIcon } from './play.svg'
+import { ReactComponent as PauseIcon } from './pause.svg'
 import { ReactComponent as PlusIcon } from './plus.svg'
 import { ReactComponent as LineLeftIcon } from './line-angle-left.svg'
 import { ReactComponent as LineRightIcon } from './line-angle-right.svg'
@@ -46,6 +47,7 @@ export {
   NewTabIcon,
   EuroIcon,
   PlayIcon,
+  PauseIcon,
   StarIcon,
   QuestionMark,
   DeleteIcon,

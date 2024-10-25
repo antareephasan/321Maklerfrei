@@ -6,41 +6,44 @@ import CreateUserModal from "../components/Modals/CreateUserModal";
 import DeleteUserModal from "../components/Modals/DeleteUserModal";
 import UpdatePasswordModal from "../components/Modals/UpdatePasswordModal";
 import UpdateUserModal from "../components/Modals/UpdateUserModal";
-import UserTable from "../components/Tables/UserTable";
+import UserListTable from "../components/Tables/UserListTable.js";
 import ThemedSuspense from "../components/ThemedSuspense";
 import PageTitle from "../components/Typography/PageTitle";
 import { AuthContext } from "../context/AuthContext";
 import { SnackbarContext } from "../context/SnackbarContext";
 import { SearchIcon } from "../icons/index.js";
-import { userService } from "../services";
 import PageError from "./Error";
 import axios from "axios";
+import { userListService } from "../services/userList.service.js";
+import DeleteUserListModal from "../components/Modals/DeleteUserListModal.js";
+import PauseUserListModal from "../components/Modals/PauseUserListModal.js";
+import UnpauseUserListModal from "../components/Modals/UnpauseUserListModal.js";
 
-function Users() {
+function UserListManagement() {
   const { openSnackbar, closeSnackbar } = useContext(SnackbarContext);
   const { logout } = useContext(AuthContext);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [showUpdateModal, setShowUpdateModal] = useState(false);
-  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showApproveModal, setShowApproveModal] = useState(false);
+  const [showCancelModal, setShowCancelModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showUpdatePasswordModal, setShowUpdatePasswordModal] = useState(false);
-  const [activeUser, setActiveUser] = useState(null);
-  const [users, setUsers] = useState(null);
+  const [activeUserList, setActiveUserList] = useState(null);
+  const [userLists, setUserLists] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
   const [error, setError] = useState(null);
   const [resfreshing, setRefreshing] = useState(false);
-  const [searchUsers, setSearchUsers] = useState("");
+  const [searchUserLists, setSearchUserLists] = useState("");
   const [value, setValue] = useState(false);
   const apiUrl = config.api.url;
-  const [userLists, setUserLists] = useState([]);
+  const [userListings, setUserListings] = useState([]);
 
   console.log('userLists', userLists)
+
   const [noData, setNoData] = useState(false);
 
   useEffect(() => {
     if (resfreshing) {
-      openSnackbar("Refresing users..");
+      openSnackbar("Refresing UserLists..");
     } else {
       closeSnackbar();
     }
@@ -48,13 +51,13 @@ function Users() {
 
 
 
-  const refreshUsers = useCallback(() => {
+  const refreshUserLists = useCallback(() => {
     setRefreshing(true);
-    return userService
-      .getUsers(currentPage)
+    return userListService
+      .getUserLists(currentPage)
       .then((data) => {
         setRefreshing(false);
-        setUsers(data.data.results);
+        setUserLists(data.data.results);
         setTotalResults(data.data.totalResults);
         return null;
       })
@@ -66,28 +69,25 @@ function Users() {
   }, [currentPage]);
 
   useEffect(() => {
-    refreshUsers().then(() => {
+    refreshUserLists().then(() => {
       setIsLoaded(true);
     });
-  }, [refreshUsers]);
+  }, [refreshUserLists]);
 
-  const handleAction = (user, type) => {
-    setActiveUser(user);
+  const handleAction = (userList, type) => {
+    setActiveUserList(userList);
     switch (type) {
-      case "createUser":
-        setShowCreateModal(true);
+      case "pauseListing":
+        setShowApproveModal(true);
         break;
-      case "updateUser":
-        setShowUpdateModal(true);
+      case "unpauseListing":
+        setShowCancelModal(true);
         break;
-      case "updatePassword":
-        setShowUpdatePasswordModal(true);
-        break;
-      case "deleteUser":
+      case "deleteListing":
         setShowDeleteModal(true);
         break;
       default:
-        setActiveUser(null);
+        setActiveUserList(null);
         break;
     }
   };
@@ -96,11 +96,11 @@ function Users() {
     const fetchData = async () => {
 
       try {
-        const response = await axios.get(`${apiUrl}/admin/users`);
+        const response = await axios.get(`${apiUrl}/admin/userlists`);
 
         console.log("userLists", response.data)
         if (response.data.statusCode === 200) {
-          setUserLists(response?.data?.data?.results);
+          setUserListings(response?.data?.data?.results);
         } else {
           setNoData(true);
         }
@@ -118,18 +118,15 @@ function Users() {
   };
 
   const onModalClose = (type) => {
-    setActiveUser(null);
+    setActiveUserList(null);
     switch (type) {
-      case "createUser":
-        setShowCreateModal(false);
+      case "pauseListing":
+        setShowApproveModal(false);
         break;
-      case "updateUser":
-        setShowUpdateModal(false);
+      case "unpauseListing":
+        setShowCancelModal(false);
         break;
-      case "updatePassword":
-        setShowUpdatePasswordModal(false);
-        break;
-      case "deleteUser":
+      case "deleteListing":
         setShowDeleteModal(false);
         break;
       default:
@@ -138,22 +135,19 @@ function Users() {
   };
 
   const onModalAction = (type) => {
-    setActiveUser(null);
+    setActiveUserList(null);
     switch (type) {
-      case "createUser":
-        setShowCreateModal(false);
-        refreshUsers();
+      case "pauseListing":
+        setShowApproveModal(false);
+        refreshUserLists();
         break;
-      case "updateUser":
-        setShowUpdateModal(false);
-        refreshUsers();
-        break;
-      case "updatePassword":
-        setShowUpdatePasswordModal(false);
+      case "unpauseListing":
+        setShowCancelModal(false);
+        refreshUserLists();
         break;
       case "deleteUser":
         setShowDeleteModal(false);
-        refreshUsers();
+        refreshUserLists();
         break;
       default:
         break;
@@ -172,7 +166,7 @@ function Users() {
           return <Redirect to="/auth" />;
         case 403:
           return (
-            <PageError message="Unauthorized : Only admin can view/update all users." />
+            <PageError message="Unauthorized : Only admin can view/update all UserLists." />
           );
         default:
           return <PageError message="Some error occured : please try again." />;
@@ -181,14 +175,14 @@ function Users() {
       return <PageError message="Some error occured : please try again." />;
     }
   }
-
   const escapeRegExp = (string) => {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // Escapes special characters
   };
 
+
   const handleSearch = (event) => {
     if (event.target.value === "") {
-      setSearchUsers("");
+      setSearchUserLists("");
       setValue(false);
     } else {
       setValue(true);
@@ -196,7 +190,7 @@ function Users() {
 
 
       console.log("Search text: ", searchText);
-      console.log("userLists:", userLists)
+      console.log("userListings:", userListings)
 
       // Escaping special characters in the search text
       const escapedSearchText = escapeRegExp(searchText);
@@ -204,26 +198,28 @@ function Users() {
       // Creating a case-insensitive regular expression from the escaped search text
       const regex = new RegExp(escapedSearchText, "i");
 
-      const matchedUsers = userLists?.filter((user) => {
+      const matchedUserLists = userLists?.filter((user) => {
         // Checking if any of the fields match the regular expression
         return (
+          regex.test(user?.uniqId) ||
+          regex.test(user?.listingTitle) ||
+          regex.test(user?.listingType) ||
+          regex.test(user?.city) ||
+          regex.test(user?.listingPrice) ||
           regex.test(user?.email) ||
-          regex.test(user?.name) ||
-          regex.test(user?.lastname) ||
-          regex.test(user?.phone_number) ||
-          regex.test(user?.authId?.role)
+          regex.test(user?.subscription?.type)
         );
       });
 
-      console.log("matchedUers", matchedUsers)
-      setSearchUsers(matchedUsers);
+      console.log("matchedUers", matchedUserLists)
+      setSearchUserLists(matchedUserLists);
     }
   };
 
   return (
     <>
       <div className="flex justify-between items-center gap-16">
-        <PageTitle>All Users</PageTitle>
+        <PageTitle>All User Listing</PageTitle>
         <div className="w-96">
           <Label>
             <div className="relative w-full focus-within:text-blue-400">
@@ -232,14 +228,14 @@ function Users() {
               </div>
               <Input
                 className="p-2 pl-3 border border-solid border-gray-300 focus-within:text-gray-700"
-                placeholder="Search for users..."
+                placeholder="Search for UserLists..."
                 component="form"
                 onChange={handleSearch}
               />
             </div>
           </Label>
         </div>
-
+        {/* 
         <div className="my-6">
           <Button
             onClick={(e) => {
@@ -247,44 +243,39 @@ function Users() {
               handleAction(null, "createUser");
             }}
           >
-            Create User
+            Create UserList
           </Button>
-        </div>
+        </div> */}
       </div>
-      <UserTable
-        users={users}
+      <UserListTable
+        userLists={userLists}
         resultsPerPage={config.users.resultsPerPage}
         totalResults={totalResults}
         onAction={handleAction}
         onPageChange={handlePageChange}
         value={value}
-        searchUsers={searchUsers}
+        searchUserLists={searchUserLists}
       />
-      <CreateUserModal
-        isOpen={showCreateModal}
+      <PauseUserListModal
+        isOpen={showApproveModal}
         onClose={onModalClose}
         onAction={onModalAction}
+        m_list={activeUserList}
       />
-      <UpdateUserModal
-        isOpen={showUpdateModal}
+      <UnpauseUserListModal
+        isOpen={showCancelModal}
         onClose={onModalClose}
         onAction={onModalAction}
-        m_user={activeUser}
+        m_list={activeUserList}
       />
-      <UpdatePasswordModal
-        isOpen={showUpdatePasswordModal}
-        onClose={onModalClose}
-        onAction={onModalAction}
-        m_user={activeUser}
-      />
-      <DeleteUserModal
+      <DeleteUserListModal
         isOpen={showDeleteModal}
         onClose={onModalClose}
         onAction={onModalAction}
-        m_user={activeUser}
+        m_list={activeUserList}
       />
     </>
   );
 }
 
-export default Users;
+export default UserListManagement;

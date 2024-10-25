@@ -29,12 +29,11 @@ export const Address = ({ data, fRequired, setFRequired }) => {
   const handleUpdateList = async (uniqId) => {
     try {
       setEnabled(false)
-      // await flowFactService.updateFlowFactListDetails(formData);
+      await flowFactService.updateFlowFactListDetails(formData);
       await userListService.updateUserListDetails(uniqId, formData);
       setEnabled(true)
-      //  history.push('/app');
-      //  history.replace('/app/userLists');
-      window.location.reload();
+       history.push('/app');
+       history.replace('/app/userLists');
     } catch (er) {
       console.log(er);
     }

@@ -47,7 +47,6 @@ function Dashboard() {
   };
 
   const [activeListLength, setActiveListLength] = useState(0);
-  const [inactiveListLength, setInactiveListLength] = useState(0);
 
   useEffect(() => {
     let isMounted = true;
@@ -58,13 +57,12 @@ function Dashboard() {
           setUserLists(response.data.data);
           const activeList = response.data.data.filter(
             (list) =>
-              list.subscription.subscriptionType === "basic" ||
-              list.subscription.subscriptionType === "medium" ||
-              list.subscription.subscriptionType === "premium"
+              list.subscription.type === "BASIC" ||
+              list.subscription.type === "MEDIUM" ||
+              list.subscription.type === "PREMIUM"
           );
           setActiveListLength(activeList.length);
 
-          setInactiveListLength(response.data.data.length)
         })
         .catch((error) => console.log(error));
     }
@@ -88,7 +86,7 @@ function Dashboard() {
           <div className="block flex flex-wrap gap-4 mb-10">
             <div className="md:w-5/12 sm:w-12">
               <div className="whitespace h-4"></div>
-              <InfoCard title={dictionary["userDashboard"][languageReducer]["activeAds"]} value={activeListLength}>
+              <InfoCard title={dictionary["userDashboard"][languageReducer]["totalAds"]} value={userLists.length ? userLists.length : "0"}>
                 <RoundIcon
                   icon={HomeIcon}
                   iconColorClass="text-blue-500 dark:text-blue-100"
@@ -99,7 +97,7 @@ function Dashboard() {
             </div>
             <div className="md:w-5/12 sm:w-12">
               <div className="whitespace h-4"></div>
-              <InfoCard title={dictionary["userDashboard"][languageReducer]["inactiveAds"]} value={inactiveListLength}>
+              <InfoCard title={dictionary["userDashboard"][languageReducer]["activeAds"]} value={activeListLength}>
                 <RoundIcon
                   icon={HomeIcon}
                   iconColorClass="text-blue-500 dark:text-blue-100"
@@ -145,7 +143,7 @@ function Dashboard() {
                           {dictionary["userDashboard"][languageReducer]["noListingMessage"]}{" "}
                         </div>
                         <Button onClick={handlePush} className="mt-6">
-                          { dictionary["userDashboard"][languageReducer]["createAdBtn"] }
+                          {dictionary["userDashboard"][languageReducer]["createAdBtn"]}
                         </Button>
                       </div>
                       {/* <div className="block md:hidden mt-8">

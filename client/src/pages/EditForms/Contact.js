@@ -28,14 +28,14 @@ export const Contact = ({ data, fRequired, setFRequired }) => {
   }, [enabled, openSnackbar, closeSnackbar]);
   const handleUpdateList = async (uniqId) => {
     setEnabled(false)
-    // await flowFactService.updateFlowFactContact(Object.assign(formData, { phoneNumber }));
+    await flowFactService.updateFlowFactContact(Object.assign(formData, { phoneNumber }));
     await userListService
       .updateUserListDetails(uniqId, Object.assign(formData, { phone: phoneNumber?.length > 8 ? phoneNumber : "" }) )
       .then(async (res) => {
         setEnabled(true)
-        // history.push("/app");
-        // history.replace("/app/userLists");
-        window.location.reload();
+        history.push("/app");
+        history.replace("/app/userLists");
+        // window.location.reload();
       })
       .catch((err) => console.log(err));
   };
@@ -62,7 +62,7 @@ export const Contact = ({ data, fRequired, setFRequired }) => {
             className="w-1/2 mb-4 mt-1"
             placeholder={t("enter last name")}
             name="lastName"
-            value={formData.lastname}
+            value={formData.lastName}
             onChange={setForm}
             margin="normal"
             variant="outlined"

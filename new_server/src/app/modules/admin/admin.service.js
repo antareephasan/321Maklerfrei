@@ -8,6 +8,9 @@ const pick = require("../../../utils/pick.js");
 const { registrationSuccessEmailBody } = require("../../../mails/email.register.js");
 const { ENUM_USER_ROLE } = require("../../../utils/enums.js");
 const { sendEmail } = require("../../../utils/sendEmail.js");
+const { UserListService } = require("../user-list/user-list.service.js");
+const { PackageService } = require("../packages/packages.service.js");
+const Packages = require("../packages/packages.model.js");
 
 // Create activation token -done
 const createActivationToken = () => {
@@ -228,7 +231,7 @@ const deleteAdmin = async (email) => {
 const deleteUser = async (req) => {
   const { userId, authId } = req.user;
   const userToDeleteId = req.params.userId;
-  
+
   const checkUser = await User.findById(userId);
   if (!checkUser) {
     throw new ApiError(404, "User not found!");
@@ -239,11 +242,11 @@ const deleteUser = async (req) => {
     throw new ApiError(403, "You are not authorized");
   }
 
-  if(checkAuth.role !== "ADMIN"){
-    throw new 
-    ApiError(403, "You are not authorized");
+  if (checkAuth.role !== "ADMIN") {
+    throw new
+      ApiError(403, "You are not authorized");
   }
-  if(checkUser._id.toString() === userToDeleteId){
+  if (checkUser._id.toString() === userToDeleteId) {
     throw new ApiError(403, "Can't delete own account");
   }
   const deletedUser = await User.findByIdAndDelete(userToDeleteId)
@@ -269,6 +272,84 @@ const getAllUsers = async (req) => {
   const result = await UserService.queryUsers(filter, options);
   return result;
 };
+
+
+// Get all user list Complete By Antareep
+const getUserLists = async (req) => {
+  const filter = pick(req.query, ['name']);
+  const options = pick(req.query, ['sortBy', 'limit', 'page']);
+
+
+  // options.populate === "authId"
+
+  // options.populate = {
+  //   path: 'authId',
+  //   match: req.query.role ? { role: req.query.role } : {}, // Apply role filter if provided
+  //   select: 'name lastname email role isActive',  // Select necessary fields from Auth schema
+  // };
+
+  const result = await UserListService.queryUserLists(filter, options);
+  return result;
+};
+
+const getPackages = async (req) => {
+  const filter = pick(req.query, ['name']);
+  const options = pick(req.query, ['sortBy', 'limit', 'page']);
+
+  const result = await PackageService.queryPackages(filter, options);
+  return result;
+};
+
+const createPackage = async (req) => {
+  try {
+    const pkg = new Packages(req.body);
+    await pkg.save();
+    return pkg;
+  } catch (error) {
+    console.log(error)
+    throw new ApiError(500, "Something went wrong")
+  }
+};
+const deletePackage = async (req) => {
+  try {
+    const { id } = req.params; // Assuming the package ID is passed as a URL parameter
+    const updatedData = req.body;
+
+    // Find the package by its ID and update it with the new data
+    const pkg = await Packages.findByIdAndDelete(id);
+
+    if (!pkg) {
+      throw new ApiError(httpStatus.NOT_FOUND, "Package not found");
+    }
+
+    return pkg;
+  } catch (error) {
+    console.log(error);
+    throw new ApiError(500, "Something went wrong");
+  }
+};
+const updatePackage = async (req) => {
+  try {
+    const { id } = req.params; // Assuming the package ID is passed as a URL parameter
+    const updatedData = req.body;
+
+    // Find the package by its ID and update it with the new data
+    const pkg = await Packages.findByIdAndUpdate(id, updatedData, {
+      new: true, // Return the updated package after update
+      runValidators: true, // Ensure the update respects validation rules
+    });
+
+    if (!pkg) {
+      throw new ApiError(httpStatus.NOT_FOUND, "Package not found");
+    }
+
+    return pkg;
+  } catch (error) {
+    console.log(error);
+    throw new ApiError(500, "Something went wrong");
+  }
+};
+
 
 // Get all admin
 const getAllAdmin = async () => {
@@ -298,6 +379,11 @@ const AdminService = {
   getAllUsers,
   getAllAdmin,
   createUser,
+  getUserLists,
+  getPackages,
+  createPackage,
+  updatePackage,
+  deletePackage
 };
 
 module.exports = { AdminService };

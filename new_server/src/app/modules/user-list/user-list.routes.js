@@ -18,6 +18,22 @@ router.post(
   auth(ENUM_USER_ROLE.USER),
   UserListController.createList
 );
+router.get(
+  "/",
+  // uploadFile(),
+  // auth(ENUM_USER_ROLE.USER),
+  UserListController.getUserList
+);
+router.get(
+  "/latest",
+  UserListController.getLatestUserList
+);
+router.get(
+  "/details/:id",
+  // uploadFile(),
+  // auth(ENUM_USER_ROLE.USER),
+  UserListController.getUserListById
+);
 // User routes
 router.patch(
   "/update/:uniqId",

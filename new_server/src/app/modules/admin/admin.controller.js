@@ -3,6 +3,7 @@ const { AdminService } = require("./admin.service");
 const catchAsync = require("../../../shared/catchasync");
 const config = require("../../../config");
 const shortid = require("shortid");
+const { PackageService } = require("../packages/packages.service");
 
  
 
@@ -46,7 +47,7 @@ const getAllUsers = catchAsync(async (req, res) => {
     data: result,
   });
 }); 
- 
+
 const getAllAdmins = catchAsync(async (req, res) => {
   const result = await AdminService.getAllAdmin();
   sendResponse(res, {
@@ -56,6 +57,57 @@ const getAllAdmins = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
+const getUserLists = catchAsync(async (req, res) => {
+  const result = await AdminService.getUserLists(req);
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "User lists retrieved successfully",
+    data: result,
+  });
+}); 
+
+const getPackages = catchAsync(async (req, res) => {
+  const result = await AdminService.getPackages(req);
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Packages retrieved successfully",
+    data: result,
+  });
+}); 
+ 
+const createPackage = catchAsync(async (req, res) => {
+  const result = await AdminService.createPackage(req);
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Package created successfully",
+    data: result,
+  });
+}); 
+const updatePackage = catchAsync(async (req, res) => {
+  const result = await AdminService.updatePackage(req);
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Package updated successfully",
+    data: result,
+  });
+}); 
+ 
+const deletePackage = catchAsync(async (req, res) => {
+  const result = await AdminService.deletePackage(req);
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Package deleted successfully",
+    data: result,
+  });
+}); 
+ 
+ 
 
 const approveAdmins = catchAsync(async (req, res) => {
   const email = req.params.email;
@@ -110,7 +162,12 @@ const AdminController = {
   myProfile, 
   deleteAdmin, 
   approveAdmins,
-  createUser
+  createUser,
+  getUserLists,
+  getPackages,
+  updatePackage,
+  deletePackage,
+  createPackage
 };
 
 module.exports = { AdminController };

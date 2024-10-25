@@ -33,7 +33,7 @@ export const Data = ({ data, fRequired, setFRequired }) => {
   }
   const handleUpdateList = async (uniqId) => {
     setEnabled(false)
-    // await flowFactService.updateFlowFactListDetails(formData);
+    await flowFactService.updateFlowFactListDetails(formData);
     let data = formData;
 
     data.listingPrice = typeof data.listingPrice === 'string' ? data.listingPrice.replace(/\./g, "") : data.listingPrice;
@@ -42,8 +42,9 @@ export const Data = ({ data, fRequired, setFRequired }) => {
       .updateUserListDetails(uniqId, data)
       .then(async (res) => {
         setEnabled(true)
-        // history.push("/app");
-        window.location.reload();
+        history.push("/app");
+        history.replace("/app/userLists");
+        // window.location.reload();
       })
       .catch((err) => console.log(err));
   };

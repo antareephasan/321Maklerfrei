@@ -202,6 +202,9 @@ const formData = (data, contactId) => {
     headline: {
       values: [data.listingTitle],
     }, // Listing Title:
+    internaldescription: {
+      values: [data.listingTitle],
+    }, // Listing Title:
     livingarea: {
       values: [data.livingArea],
     }, // Living Area:
@@ -340,7 +343,7 @@ const publishImagesToFlowFact = async (
 ) => {
   // cognitoToken
   try {
-    console.log('data', data);
+    console.log('data from flowfact publishimage funtion', data);
     const cognitoToken = await generateCognitoToken();
     // test if we have contact
     let contact = await axios.get(
@@ -561,6 +564,16 @@ const publishImagesToFlowFact = async (
             entityId,
             schema_name,
             'portal',
+            ['main_image'],
+            i,
+            [id]
+          );
+          //mychanges
+          await assignMediaItems(
+            cognitoToken,
+            entityId,
+            schema_name,
+            'flowfact_client',
             ['main_image'],
             i,
             [id]
@@ -814,6 +827,16 @@ const publishImagesToFlowFact = async (
           entityId,
           schema_name,
           'portal',
+          ['main_image'],
+          i,
+          [id]
+        );
+        //mychanges
+        await assignMediaItems(
+          cognitoToken,
+          entityId,
+          schema_name,
+          'flowfact_client',
           ['main_image'],
           i,
           [id]
@@ -1098,8 +1121,7 @@ const publishToFlowFact = async (
         setCurrentImgForm('imgMultiStepForm');
         setCurrentImgIdx(i);
         openSnackbar(
-          `Bild ${i + 1} von ${
-            imgMultiStepForm.selectedType.length
+          `Bild ${i + 1} von ${imgMultiStepForm.selectedType.length
           } hochgeladen`,
           'success'
         );
@@ -1184,8 +1206,7 @@ const publishToFlowFact = async (
         setCurrentImgIdx(i);
 
         openSnackbar(
-          `Grundriss ${i + 1} von ${
-            planMultiStepForm.selectedType.length
+          `Grundriss ${i + 1} von ${planMultiStepForm.selectedType.length
           } hochgeladen`,
           'success'
         );
@@ -1407,8 +1428,7 @@ const publishToFlowFact = async (
       setCurrentImgIdx(i);
 
       openSnackbar(
-        `Grundriss ${i + 1} von ${
-          planMultiStepForm.selectedType.length
+        `Grundriss ${i + 1} von ${planMultiStepForm.selectedType.length
         } hochgeladen`,
         'success'
       );
@@ -1491,8 +1511,7 @@ const updateFlowFactListDetails = async (
     if (uploadImages) {
       for (let [i, pic] of imgMultiStepForm.selectedType.entries()) {
         openSnackbar(
-          `Bild ${i + 1} von ${
-            imgMultiStepForm.selectedType.length
+          `Bild ${i + 1} von ${imgMultiStepForm.selectedType.length
           } hochgeladen`,
           'success'
         );
@@ -1537,6 +1556,16 @@ const updateFlowFactListDetails = async (
             i,
             [id]
           );
+          //mychanges
+          await assignMediaItems(
+            cognitoToken,
+            data.entityId,
+            data.schema_name,
+            'flowfact_client',
+            ['main_image'],
+            i,
+            [id]
+          );
         } else {
           await assignMediaItems(
             cognitoToken,
@@ -1561,8 +1590,7 @@ const updateFlowFactListDetails = async (
       }
       for (let [i, pic] of planMultiStepForm.selectedType.entries()) {
         openSnackbar(
-          `Grundriss ${i + 1} von ${
-            planMultiStepForm.selectedType.length
+          `Grundriss ${i + 1} von ${planMultiStepForm.selectedType.length
           } hochgeladen`,
           'success'
         );

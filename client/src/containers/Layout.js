@@ -51,7 +51,7 @@ function Layout() {
                       key={i}
                       exact={true}
                       path={`/app${route.path}`}
-                      render={(props) => <route.component {...props} />}
+                    render={(props) => <route.component {...props} />}
                     />
                   ) : null
                 })
@@ -73,7 +73,8 @@ function Layout() {
               }
               {
                 user?.authId?.role === 'ADMIN' &&
-                <Redirect exact from="/app" to="/app/adminDashboard" />
+                // <Redirect exact from="/app" to="/app/adminDashboard" />
+                <Redirect exact from="/app" to="/app/user-list-management" />
               }
               {
                 user?.authId?.role === 'USER' &&

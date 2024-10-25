@@ -189,9 +189,6 @@ export const Submit = ({ listData, setListData, pages }) => {
     }
   };
 
-  console.log("Submit > listData", listData);
-  console.log("Submit > pages", pages);
-
   return (
     <>
       <div className='px-0  mt-4'>

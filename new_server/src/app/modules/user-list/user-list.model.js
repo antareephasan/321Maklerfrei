@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { paginate } = require("../../../plugins");
 
 const { Schema, model } = mongoose;
 
@@ -48,6 +49,11 @@ const UserListSchema = new Schema(
         },
         subscriptionUpdatedAt: {
             type: Date
+        },
+        subscriptionExpire: {
+            type: Boolean,
+            require: true,
+            default: false,
         },
         subscriptionExpired: {
             type: Boolean,
@@ -268,7 +274,7 @@ const UserListSchema = new Schema(
         timestamps: true,
     }
 );
-
+UserListSchema.plugin(paginate);
 const UserList = model('UserList', UserListSchema);
 
 module.exports = UserList;

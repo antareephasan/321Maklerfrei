@@ -22,34 +22,33 @@ const checkAndUpdateStatusByWebhook = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const pauseSubscription  = catchAsync(async (req, res) => {
+  const result = await PaymentService.pauseSubscription(req);
 
-// const savePaymentUpdateSpending = catchAsync(async (req, res) => {
-//   const result = await PaymentService.savePaymentUpdateSpending(req.body);
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Subscription paused successfully",
+    data: result,
+  });
+});
+const unpauseSubscription  = catchAsync(async (req, res) => {
+  const result = await PaymentService.unpauseSubscription(req);
 
-//   sendResponse(res, {
-//     statusCode: 200,
-//     success: true,
-//     message: "You payment is saved. Total spend amount updated successfully",
-//     data: result,
-//   });
-// });
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Subscription unpaused successfully",
+    data: result,
+  });
+});
 
-// const updateTotalEarning = catchAsync(async (req, res) => {
-//   const result = await PaymentService.updateTotalEarning(req.body);
-
-//   sendResponse(res, {
-//     statusCode: 200,
-//     success: true,
-//     message: "Total earning amount updated successfully",
-//     data: result,
-//   });
-// });
 
 const PaymentController = {
   createCheckoutSession,
   checkAndUpdateStatusByWebhook,
-  // savePaymentUpdateSpending,
-  // updateTotalEarning,
+  pauseSubscription,
+  unpauseSubscription
 };
 
 module.exports = PaymentController;

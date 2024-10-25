@@ -40,7 +40,7 @@ function App() {
           <Route exact path="/widerrufsbelehrung" component={Widerrufsbelehrung} />
           <Route exact path="/agb" component={Agb} />
           <Route exact path="/ads" component={Ads} />
-          <Route exact path="/ads/details" component={AdDetails} />
+          <Route exact path="/ads/:id" component={AdDetails} />
           {/* Place new routes over this */}
           <ProtectedRoute path="/app" component={Layout} />
           <Route exact path="/verify-email" component={EmailVerification} />

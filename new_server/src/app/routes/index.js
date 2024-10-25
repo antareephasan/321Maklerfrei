@@ -8,6 +8,7 @@ const DashboardRoutes = require("../modules/dashboard/dashboard.routes");
 const PaymentRoutes = require("../modules/payment/payment.routes");  
 const PackageRoutes = require("../modules/packages/packages.routes");  
 const ManageWebRoutes = require("../modules/manage-web/manage.routes");  
+const MessageRoutes = require("../modules/message/message.routes");  
 // Define routes--------------------
 
 const moduleRoutes = [
@@ -42,6 +43,10 @@ const moduleRoutes = [
   {
     path: "/manage-web",
     route: ManageWebRoutes,
+  },
+  {
+    path: "/message",
+    route: MessageRoutes,
   },
 ];
 

@@ -1,4 +1,6 @@
+const catchAsync = require('../../../shared/catchasync');
 const Packages = require('./packages.model');
+const { PackageService } = require('./packages.service');
 
 const AddProduct = async (req, res) => {
     try {
@@ -16,6 +18,8 @@ const AddProduct = async (req, res) => {
         });
     }
 };
+
+
 
 const GetAllProducts = async (req, res) => {
     try {

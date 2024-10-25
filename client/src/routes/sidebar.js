@@ -17,6 +17,21 @@ const routes = [
     name: "Users",
   },
   {
+    path: "/app/user-list-management",
+    icon: "TablesIcon",
+    name: "User Listing",
+  },
+  {
+    path: "/app/package-management",
+    icon: "CardsIcon",
+    name: "Packages",
+  },
+  {
+    path: "/app/messages",
+    icon: "ChatIcon",
+    name: "Messages",
+  },
+  {
     path: "/app/terms-and-conditions",
     icon: "FormsIcon",
     name: "Terms and Conditions",
@@ -26,80 +41,80 @@ const routes = [
     icon: "FormsIcon",
     name: "Privacy and Policy",
   },
-  {
-    path: "/app/imprint",
-    icon: "FormsIcon",
-    name: "Imprint",
-  },
-  {
-    path: "/app/billing",
-    icon: "FormsIcon",
-    name: "Billing",
-  },
+  // {
+  //   path: "/app/imprint",
+  //   icon: "FormsIcon",
+  //   name: "Imprint",
+  // },
+  // {
+  //   path: "/app/billing",
+  //   icon: "FormsIcon",
+  //   name: "Billing",
+  // },
   {
     path: "/app/logout",
     icon: "OutlineLogoutIcon",
     name: "Logout",
   },
-  {
-    icon: "HomeIcon",
-    name: "Dashboards",
-    routes: [
-      {
-        path: "/app/adminDashboard", // the url
-        name: "Admin Dashboard", // name that appear in Sidebar
-      },
-      {
-        path: "/app/create_ads",
-        name: "User Dashboard",
-      },
-    ],
-  },
-  {
-    path: "/app/forms",
-    icon: "FormsIcon",
-    name: "Forms",
-  },
-  {
-    path: "/app/cards",
-    icon: "CardsIcon",
-    name: "Cards",
-  },
-  {
-    path: "/app/charts",
-    icon: "ChartsIcon",
-    name: "Charts",
-  },
-  {
-    path: "/app/buttons",
-    icon: "ButtonsIcon",
-    name: "Buttons",
-  },
-  {
-    path: "/app/modals",
-    icon: "ModalsIcon",
-    name: "Modals",
-  },
-  {
-    path: "/app/tables",
-    icon: "TablesIcon",
-    name: "Tables",
-  },
-  {
-    icon: "PagesIcon",
-    name: "Pages",
-    routes: [
-      // submenu
-      {
-        path: "/app/404",
-        name: "404",
-      },
-      {
-        path: "/app/blank",
-        name: "Blank",
-      },
-    ],
-  },
+  // {
+  //   icon: "HomeIcon",
+  //   name: "Dashboards",
+  //   routes: [
+  //     {
+  //       path: "/app/adminDashboard", // the url
+  //       name: "Admin Dashboard", // name that appear in Sidebar
+  //     },
+  //     {
+  //       path: "/app/create_ads",
+  //       name: "User Dashboard",
+  //     },
+  //   ],
+  // },
+  // {
+  //   path: "/app/forms",
+  //   icon: "FormsIcon",
+  //   name: "Forms",
+  // },
+  // {
+  //   path: "/app/cards",
+  //   icon: "CardsIcon",
+  //   name: "Cards",
+  // },
+  // {
+  //   path: "/app/charts",
+  //   icon: "ChartsIcon",
+  //   name: "Charts",
+  // },
+  // {
+  //   path: "/app/buttons",
+  //   icon: "ButtonsIcon",
+  //   name: "Buttons",
+  // },
+  // {
+  //   path: "/app/modals",
+  //   icon: "ModalsIcon",
+  //   name: "Modals",
+  // },
+  // {
+  //   path: "/app/tables",
+  //   icon: "TablesIcon",
+  //   name: "Tables",
+  // },
+  // {
+  //   icon: "PagesIcon",
+  //   name: "Pages",
+  //   routes: [
+  //     // submenu
+  //     {
+  //       path: "/app/404",
+  //       name: "404",
+  //     },
+  //     {
+  //       path: "/app/blank",
+  //       name: "Blank",
+  //     },
+  //   ],
+  // },
 ];
 
 export default routes;

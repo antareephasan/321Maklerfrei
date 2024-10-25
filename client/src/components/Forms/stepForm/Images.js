@@ -119,6 +119,7 @@ export const Images = (props) => {
       data.energy = false;
     }
     // let oldDate = Date.now();
+    
     let flowFactInfo = await flowFactService.publishImagesToFlowFact(
       Object.assign(data, { phone }),
       imgMultiStepForm,
