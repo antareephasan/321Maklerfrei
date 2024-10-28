@@ -28,7 +28,7 @@ const createActivationToken = () => {
 const registrationAccount = async (req) => {
   const { gender, role, password, confirmPassword, email, ...other } = req.body;
   const { files } = req;
-  
+
   if (!role || !Object.values(ENUM_USER_ROLE).includes(role)) {
     throw new ApiError(400, "Valid Role is required!");
   }
@@ -61,14 +61,12 @@ const registrationAccount = async (req) => {
     expirationTime: Date.now() + 3 * 60 * 1000,
   };
 
-  if (role !== "ADMIN") {
-    const emailPromise = sendEmail({
-      email: auth.email,
-      subject: "Activate Your Account",
-      html: registrationSuccessEmailBody({ user: { name: auth.name }, activationCode }),
-    }).catch(error => console.error("Failed to send email:", error.message));
 
-  }
+  const emailPromise = sendEmail({
+    email: auth.email,
+    subject: "Activate Your Account",
+    html: registrationSuccessEmailBody({ user: { name: auth.name }, activationCode }),
+  }).catch(error => console.error("Failed to send email:", error.message));
 
   // Create auth record
   const createAuth = await Auth.create(auth);
@@ -266,7 +264,7 @@ const loginAccount = async (payload) => {
   }
 
   // let userDetailsWithPassword;
-  
+
   // if(checkUser.role === "USER") {
   //   userDetailsWithPassword = await User.findOne({ authId: checkUser._id }).populate("authId");
   // }else if(checkUser.role === "ADMIN") {
@@ -505,7 +503,7 @@ const resetPassword = async (req) => {
 // Change password
 const changePassword = async (req) => {
   const passwordData = req.body;
-  const { userId, authId  } = req.user;
+  const { userId, authId } = req.user;
 
   const { oldPassword, newPassword, confirmPassword, email } = passwordData;
 
@@ -520,20 +518,20 @@ const changePassword = async (req) => {
 
   const checkUser = await User.findById(userId);
 
-  if(!checkUser) {
+  if (!checkUser) {
     throw new ApiError(403, "Unauthorized");
   }
-  
+
   const checkAuth = await Auth.findById(authId);
 
-  if(!checkAuth) {
+  if (!checkAuth) {
     throw new ApiError(403, "Unauthorized");
   }
-  
-  const user = await User.findOne({email});
+
+  const user = await User.findOne({ email });
 
 
-  if(!user) {
+  if (!user) {
     throw new ApiError(403, "Unauthorized");
   }
 
@@ -544,7 +542,7 @@ const changePassword = async (req) => {
   }
 
 
-  if(checkAuth.role === "USER" && checkAuth.email !== email) {
+  if (checkAuth.role === "USER" && checkAuth.email !== email) {
     throw new ApiError(403, "You are not authorized")
   }
 

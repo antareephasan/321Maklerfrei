@@ -8,8 +8,11 @@ import { MobileNavbar } from "../HeaderLanding";
 import { Button, Input, Select } from '@windmill/react-ui';
 import axios from 'axios';
 import { config } from '../../assets/config/config';
+import { dictionary } from '../../resources/multiLanguages';
+import ThemedSuspense from '../ThemedSuspense';
 
 const AdsContainer = () => {
+    const languageReducer = "de";
 
     const [adType, setAdType] = useState();
     const [propertyType, setPropertyType] = useState()
@@ -178,7 +181,7 @@ const AdsContainer = () => {
                             <div className='flex flex-row gap-2 justify-between'>
                                 <Input
                                     type='text'
-                                    placeholder='Search'
+                                    placeholder={dictionary["ads"][languageReducer]["search"]}
                                     className='w-full'
                                     size='small'
                                     onChange={(event) => setSearch(event.target.value)}
@@ -189,7 +192,7 @@ const AdsContainer = () => {
                                     onClick={handleSearch}
                                     variant='contained'
                                 >
-                                    Search
+                                    {dictionary["ads"][languageReducer]["search"]}
                                 </Button>
                             </div>
                         </div>
@@ -197,7 +200,7 @@ const AdsContainer = () => {
 
                         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-5'>
                             {loading ? (
-                                <p>Loading ads...</p> // Show loading state while fetching
+                                <ThemedSuspense />
                             ) : ads.length > 0 ? (
                                 ads.map((ad) => (
                                     <AdCard
@@ -213,7 +216,9 @@ const AdsContainer = () => {
                                     />
                                 ))
                             ) : (
-                                <p>No ads found.</p> // Show message when no ads are found
+                                <p>
+                                    {dictionary["ads"][languageReducer]["noadsfound"]}
+                                </p> // Show message when no ads are found
                             )}
                         </div>
 
@@ -223,7 +228,7 @@ const AdsContainer = () => {
                                 onClick={() => handlePageChange(currentPage - 1)}
                                 className="mr-2 px-4 py-2 bg-gray-200 rounded"
                             >
-                                Previous
+                                {dictionary["ads"][languageReducer]["previous"]}
                             </button>
 
                             {[...Array(totalPages)].map((_, index) => (
@@ -241,7 +246,7 @@ const AdsContainer = () => {
                                 onClick={() => handlePageChange(currentPage + 1)}
                                 className="ml-2 px-4 py-2 bg-gray-200 rounded"
                             >
-                                Next
+                                {dictionary["ads"][languageReducer]["next"]}
                             </button>
                         </div>
 

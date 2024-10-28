@@ -30,7 +30,7 @@ function Products({ products, listData, enabled, PricingCardCallback, pages, sub
     listingType = 'sale';
   }
 
-
+  console.log("Listing type", listingType)
 
 
   console.log("--------------------------------------");
@@ -39,9 +39,13 @@ function Products({ products, listData, enabled, PricingCardCallback, pages, sub
     <div className={`grid gap-2 lg:gap-3 xl:gap-4 mb-4 grid-cols-1 xl:grid-cols-3`}>
       {products &&
         products.map(function (product, i) {
+          console.log(product);
+          console.log(product.listingType);
           if (listingType !== product.listingType) {
             return null;
           }
+
+          console.log("inside map")
 
           if (product.subscriptionDuration !== subscriptionDuration) return null;
           console.log(listingType)

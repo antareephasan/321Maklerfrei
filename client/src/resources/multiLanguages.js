@@ -329,6 +329,8 @@ export const dictionary = {
       packageTitle2: "Our bestseller",
       packageTitle3: "Up to 2x more inquiries",
       cardBtn: "REGISTRATION PAGE",
+      sale: "Sale",
+      rent: "Rent"
     },
     de: {
       title: "Unsere Preise",
@@ -345,6 +347,8 @@ export const dictionary = {
       packageTitle2: "Unsere Empfehlung & Bestseller",
       packageTitle3: "Maximale Sichtbarkeit",
       cardBtn: "Immobilie inserieren",
+      sale: "Verkaufen",
+      rent: "Vermieten"
     },
   },
 
@@ -1272,6 +1276,21 @@ export const dictionary = {
     },
     de: {
       title: "Paket und Laufzeit auswählen"
+    }
+  },
+
+  ads: {
+    en: {
+      next: "Zurück",
+      previous: "Previous",
+      noadsdound: "No ads found",
+      search: "Search"
+    },
+    de: {
+      next: "Weiter",
+      previous: "Zurück",
+      noadsdound: "Keine Anzeigen gefunden",
+      search: "Suche"
     }
   }
 

@@ -30,7 +30,7 @@ const PricingSection = () => {
                     {
                         listingTypes.map((listingType) => (
                             <Tab className="cursor-pointer bg-gray-100 text-gray-700 px-5 py-2 rounded-l-lg text-sm font-normal">
-                                {listingType}
+                                {listingType === "rent" ? dictionary["prices"][languageReducer].rent: dictionary["prices"][languageReducer].sale}
                             </Tab>
                         ))
                     }
