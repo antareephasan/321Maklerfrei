@@ -28,7 +28,7 @@ const createActivationToken = () => {
 const registrationAccount = async (req) => {
   const { gender, role, password, confirmPassword, email, ...other } = req.body;
   const { files } = req;
-
+  
   if (!role || !Object.values(ENUM_USER_ROLE).includes(role)) {
     throw new ApiError(400, "Valid Role is required!");
   }
@@ -67,6 +67,7 @@ const registrationAccount = async (req) => {
       subject: "Activate Your Account",
       html: registrationSuccessEmailBody({ user: { name: auth.name }, activationCode }),
     }).catch(error => console.error("Failed to send email:", error.message));
+
   }
 
   // Create auth record
@@ -416,7 +417,7 @@ const forgotPass = async (payload) => {
               <div class="footer">
                 <p>Thank you,</p>
                 <p>321maklerfrei.de</p>
-                <p><a href="https://yourwebsite.com">Visit our website</a></p>
+                <p><a href="https://321maklerfrei.de/>Visit our website</a></p>
               </div>
             </div>
           </body>
