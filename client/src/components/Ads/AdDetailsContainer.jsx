@@ -120,7 +120,7 @@ const AdsContainer = () => {
 
                     <div className='w-full md:w-11/12 lg:w-3/4 px-5 md:px-0 flex flex-col gap-10'>
 
-                        <div className='xl:col-span-2 flex flex-col  items-center gap-5'>
+                        <div className='flex flex-col  items-center gap-5'>
                             {/* Head text data */}
                             <div className='flex flex-col gap-5 w-full'>
 
@@ -139,89 +139,81 @@ const AdsContainer = () => {
                                 </div>
                                 <h1 className='text-left text-xl md:text-2xl lg:text-3xl text-gray-900  font-bold'>{adDetails.listingPrice} €</h1>
                             </div>
-                            <div className='flex justify-start items-center w-full'>
-                                {
-                                    imagesList.length > 0 && <ReactPhotoGallery images={imagesList} />
-                                }
-                                {
-                                    imagesList.length === 0 && (
-                                        <p>No image availabe</p>
-                                    )
-                                }
-                            </div>
+
+                            <ReactPhotoGallery images={imagesList} />
 
 
                         </div>
                         <div className='w-full'>
 
                             {/* Information */}
-                                <h1 className='w-full text-left font-semibold text-lg md:text-xl lg:text-2xl mb-4'>Information</h1>
-                                {/* <div className='flex flex-col gap-5 items-center w-full'> */}
-                                <div className='grid grid-cols-1 xl:grid-cols-2 gap-x-10 gap-y-6'>
-                                    <div className='flex flex-row justify-between gap-2  items-center w-full'>
-                                        <h1 className='lg:text-md text-gray-600'>Objektnummer: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.uniqId}</p>
-                                    </div>
-                                    <div className='flex flex-row justify-between gap-2  items-center w-full'>
-                                        <h1 className='lg:text-md text-gray-600'>Stadt: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.city}</p>
-                                    </div>
-                                    <div className='flex flex-row justify-between gap-2  items-center w-full'>
-                                        <h1 className='lg:text-md text-gray-600'>Wohnfläche: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'> {adDetails?.livingArea}</p>
-                                    </div>
-                                    <div className='flex flex-row justify-between gap-2  items-center w-full'>
-                                        <h1 className='lg:text-md text-gray-600'>Energieausweis: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.energy ? "available" : "not availabe"}</p>
-                                    </div>
-                                    <div className='flex flex-row justify-between gap-2  items-center w-full'>
-                                        <h1 className='lg:text-md text-gray-600'>Badezimmer: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.numberOfBathrooms}</p>
-                                    </div>
-                                    <div className='flex flex-row justify-between gap-2  items-center w-full'>
-                                        <h1 className='lg:text-md text-gray-600'>Status: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.listingType}</p>
-                                    </div>
-                                    <div className='flex flex-row justify-between gap-2  items-center w-full'>
-                                        <h1 className='lg:text-md text-gray-600'>SStellplätze: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.numberOfParkingSpaces}</p>
-                                    </div>
-                                    <div className='flex flex-row justify-between gap-2  items-center w-full'>
-                                        <h1 className='lg:text-md text-gray-600'>Postleitzahl: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.zip}</p>
-                                    </div>
-                                    <div className='flex flex-row justify-between gap-2  items-center w-full'>
-                                        <h1 className='lg:text-md text-gray-600'>Anzahl Zimmer: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.numberOfRooms}</p>
-                                    </div>
-                                    <div className='flex flex-row justify-between gap-2  items-center w-full'>
-                                        <h1 className='lg:text-md text-gray-600'>Anzahl Schlafzimmer: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.numberOfBedrooms}</p>
-                                    </div>
-                                    <div className='flex flex-row justify-between  gap-2 items-center w-full'>
-                                        <h1 className='lg:text-md text-gray-600'>Baujahr: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.yearOfBuilding}</p>
-                                    </div>
-                                    <div className='flex flex-row justify-between gap-2  items-center w-full'>
-                                        <h1 className='lg:text-md text-gray-600'>Objektart: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.buildingType}</p>
-                                    </div>
-                                    <div className='flex flex-row justify-between gap-2 items-center w-full'>
-                                        <h1 className='lg:text-md text-gray-600'>Garage: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.numberOfGarages}</p>
-                                    </div>
-                                    <div className='flex flex-row justify-between gap-2 items-center w-full'>
-                                        <h1 className='lg:text-md text-gray-600'>House fee: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.monthlyHousepayment}</p>
-                                    </div>
-                                    <div className='flex flex-row justify-between gap-2 items-center w-full'>
-                                        <h1 className='lg:text-md text-gray-600'>Floors: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.numberOfFloors}</p>
-                                    </div>
-                                    <div className='flex flex-row justify-between gap-2 items-center w-full'>
-                                        <h1 className='lg:text-md text-gray-600'>Usable area: </h1>
-                                        <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.usableArea}</p>
-                                    </div>
+                            <h1 className='w-full text-left font-semibold text-lg md:text-xl lg:text-2xl mb-4'>Information</h1>
+                            {/* <div className='flex flex-col gap-5 items-center w-full'> */}
+                            <div className='grid grid-cols-1 xl:grid-cols-2 gap-x-10 gap-y-6'>
+                                <div className='flex flex-row justify-between gap-2  items-center w-full'>
+                                    <h1 className='lg:text-md text-gray-600'>Objektnummer: </h1>
+                                    <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.uniqId}</p>
+                                </div>
+                                {adDetails?.city && (<div className='flex flex-row justify-between gap-2  items-center w-full'>
+                                    <h1 className='lg:text-md text-gray-600'>Stadt: </h1>
+                                    <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.city}</p>
+                                </div>)}
+                                {adDetails?.livingArea && (<div className='flex flex-row justify-between gap-2  items-center w-full'>
+                                    <h1 className='lg:text-md text-gray-600'>Wohnfläche: </h1>
+                                    <p className='lg:text-md text-gray-900 font-semibold'> {adDetails?.livingArea}</p>
+                                </div>)}
+                                {adDetails?.energy && (<div className='flex flex-row justify-between gap-2  items-center w-full'>
+                                    <h1 className='lg:text-md text-gray-600'>Energieausweis: </h1>
+                                    <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.energy ? "available" : "not availabe"}</p>
+                                </div>)}
+                               {adDetails?.numberOfBathrooms && ( <div className='flex flex-row justify-between gap-2  items-center w-full'>
+                                    <h1 className='lg:text-md text-gray-600'>Badezimmer: </h1>
+                                    <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.numberOfBathrooms}</p>
+                                </div>)}
+                               {adDetails?.listingType && ( <div className='flex flex-row justify-between gap-2  items-center w-full'>
+                                    <h1 className='lg:text-md text-gray-600'>Status: </h1>
+                                    <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.listingType}</p>
+                                </div>)}
+                               {adDetails?.numberOfParkingSpaces && ( <div className='flex flex-row justify-between gap-2  items-center w-full'>
+                                    <h1 className='lg:text-md text-gray-600'>SStellplätze: </h1>
+                                    <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.numberOfParkingSpaces}</p>
+                                </div>)}
+                               {adDetails.zip && ( <div className='flex flex-row justify-between gap-2  items-center w-full'>
+                                    <h1 className='lg:text-md text-gray-600'>Postleitzahl: </h1>
+                                    <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.zip}</p>
+                                </div>)}
+                               {adDetails?.numberOfRooms && ( <div className='flex flex-row justify-between gap-2  items-center w-full'>
+                                    <h1 className='lg:text-md text-gray-600'>Anzahl Zimmer: </h1>
+                                    <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.numberOfRooms}</p>
+                                </div>)}
+                                {adDetails?.numberOfBedrooms && (<div className='flex flex-row justify-between gap-2  items-center w-full'>
+                                    <h1 className='lg:text-md text-gray-600'>Anzahl Schlafzimmer: </h1>
+                                    <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.numberOfBedrooms}</p>
+                                </div>)}
+                                {adDetails?.yearOfBuilding && (<div className='flex flex-row justify-between  gap-2 items-center w-full'>
+                                    <h1 className='lg:text-md text-gray-600'>Baujahr: </h1>
+                                    <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.yearOfBuilding}</p>
+                                </div>)}
+                                {adDetails?.buildingType && (<div className='flex flex-row justify-between gap-2  items-center w-full'>
+                                    <h1 className='lg:text-md text-gray-600'>Objektart: </h1>
+                                    <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.buildingType}</p>
+                                </div>)}
+                               {adDetails?.numberOfGarages && ( <div className='flex flex-row justify-between gap-2 items-center w-full'>
+                                    <h1 className='lg:text-md text-gray-600'>Garage: </h1>
+                                    <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.numberOfGarages}</p>
+                                </div>)}
+                                {adDetails?.monthlyHousepayment && (<div className='flex flex-row justify-between gap-2 items-center w-full'>
+                                    <h1 className='lg:text-md text-gray-600'>House fee: </h1>
+                                    <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.monthlyHousepayment}</p>
+                                </div>)}
+                               {adDetails?.numberOfFloors && ( <div className='flex flex-row justify-between gap-2 items-center w-full'>
+                                    <h1 className='lg:text-md text-gray-600'>Floors: </h1>
+                                    <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.numberOfFloors}</p>
+                                </div>)}
+                               {adDetails?.usableArea && ( <div className='flex flex-row justify-between gap-2 items-center w-full'>
+                                    <h1 className='lg:text-md text-gray-600'>Usable area: </h1>
+                                    <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.usableArea}</p>
+                                </div>)}
                             </div>
                         </div>
 

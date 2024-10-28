@@ -13,10 +13,11 @@ export const FlowFactProvider = ({ children }) => {
 
   useEffect(() => {
     axios
-      .get(`${apiUrl}/v1/userList/immobilien/recent`)
+      .get(`${apiUrl}/userList/latest`)
       .then((response) => {
-        if(response.data.message === 'success'){
-          setRecentImmobilien(response.data.recentImmobilien)
+        console.log(response.data)
+        if(response.data.statusCode === 200){
+          setRecentImmobilien(response.data.data)
           return
         }
       })

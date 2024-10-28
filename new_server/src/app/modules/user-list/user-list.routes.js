@@ -55,7 +55,7 @@ router.get(
 );
 router.delete(
   "/deleteList/:uniqId",
-  auth(ENUM_USER_ROLE.USER),
+  auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.ADMIN),
   UserListController.deleteUserList
 );
  

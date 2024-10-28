@@ -238,10 +238,6 @@ export const Review = (props) => {
         // openSnackbar(t('List Is Created'), 'success', 3000);
         setLoading(false);
         // setEnabled(true);
-        window.localStorage.removeItem('formData');
-        window.localStorage.removeItem('entityId');
-        window.localStorage.removeItem('imgMultiStepForm');
-        window.localStorage.removeItem('planMultiStepForm');
 
         setIsSnackbarOpen(false)
         my_swiper.slideNext();
@@ -257,10 +253,17 @@ export const Review = (props) => {
         );
       })
       .finally(() => {
-        window.localStorage.removeItem('formData');
-        window.localStorage.removeItem('entityId');
-        window.localStorage.removeItem('imgMultiStepForm');
-        window.localStorage.removeItem('planMultiStepForm');
+        console.log("I was in finally block in Review.js handleSubmit")
+        localStorage.removeItem('formData');
+        localStorage.removeItem('entityId');
+        // localStorage.removeItem('imgMultiStepForm');
+        // localStorage.removeItem('planMultiStepForm');
+
+        setTimeout(() => {
+          localStorage.removeItem('imgMultiStepForm');
+          localStorage.removeItem('planMultiStepForm');
+        }, 100); 
+        console.log("After clearing local in Review.js handleSubmit");
       });
   };
 

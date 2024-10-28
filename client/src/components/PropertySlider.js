@@ -10,30 +10,33 @@ import axios from "axios";
 
 import DemoImg from '../assets/img/image-not-found.png'
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { config } from '../assets/config/config';
+import { useContext, useEffect, useState } from 'react';
+// import { config } from '../assets/config/config';
 import AdCard from './Ads/AdCard';
+import { FlowFactContext } from '../context/FlowFactContext';
 
 SwiperCore.use([Autoplay]);
 
 const PropertySlider = () => {
 
-    const [latestAds, setLatestAds] = useState([]);
+    const {recentImmobilien} = useContext(FlowFactContext);
 
-    const fetchLatestAds = async () => {
-        try {
-            const response = await axios.get(`${config.api.url}/userList/latest`);
-            console.log(response.data);
-            setLatestAds(response.data.data);
+    // const [latestAds, setLatestAds] = useState([]);
 
-        } catch (error) {
-            console.log(error);
+    // const fetchLatestAds = async () => {
+    //     try {
+    //         const response = await axios.get(`${config.api.url}/userList/latest`);
+    //         console.log(response.data);
+    //         setLatestAds(response.data.data);
 
-        }
-    }
-    useEffect(() => {
-        fetchLatestAds();
-    }, []);
+    //     } catch (error) {
+    //         console.log(error);
+
+    //     }
+    // }
+    // useEffect(() => {
+    //     fetchLatestAds();
+    // }, []);
 
 
     return (
@@ -51,7 +54,7 @@ const PropertySlider = () => {
                     </Link>
                 </div>
 
-                {latestAds?.length === 0 ? (
+                {recentImmobilien?.length === 0 ? (
                     <p>No recent ads found</p>
                 ) : (
                     <Swiper
@@ -82,7 +85,7 @@ const PropertySlider = () => {
                             },
                         }}
                     >
-                        {latestAds.map((ad, i) => (
+                        {recentImmobilien.map((ad, i) => (
                             <SwiperSlide key={i}>
                                 <AdCard
                                     entityId={ad.entityId}

@@ -1,7 +1,41 @@
-/* @import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lightgallery.css');
-@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lg-zoom.css');
-@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lg-video.css');
-*/
-/* .gallery-item {
-  margin: 5px;
-}  */
+/* .image-gallery {
+  width: 100%;
+  height: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-gallery-slide img {
+  width: 100%;
+  height: 100%;
+  height: 50vh;
+  object-fit: cover;
+  overflow: hidden;
+  object-position: center center;
+}
+
+.fullscreen .image-gallery-slide img {
+  max-height: 100vh;
+  height: 100%;
+  width: auto;
+} */
+.image-gallery {
+  width: 60%;
+  height: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-gallery-slide img {
+  /* width: 100%;
+  height: 60vh; */
+  object-fit: cover;
+  overflow: hidden;
+  object-position: center center;
+}
+
+.fullscreen .image-gallery-slide img {
+  /* height: 100vh;
+  width: 100%; */
+  /* height: 100%; */
+}

@@ -35,10 +35,12 @@ export default function UserList() {
 
     if (success) {
       toast.success("Payment was successful!");
+      console.log("I was success UserList.js")
     }
 
     if (canceled) {
       toast.error("Payment was canceled.");
+      console.log("I was canceled UserList.js")
     }
   }, [location.search]);
 

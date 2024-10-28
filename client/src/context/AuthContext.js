@@ -128,6 +128,8 @@ export const AuthProvider = ({ children }) => {
       // window.localStorage.setItem("logout", moment());
       localStorage.setItem("accessToken", null);
       localStorage.setItem("user", null);
+      localStorage.setItem('imgMultiStepForm', null);
+      localStorage.setItem('planMultiStepForm', null);
       setAccessToken(null);
       setUser(null);
       // })

@@ -156,6 +156,7 @@ export const Submit = ({ listData, setListData, pages }) => {
   const { t } = useTranslation();
 
   const languageReducer = "de";
+
   useEffect(() => {
     if (enabled) {
       closeSnackbar();
