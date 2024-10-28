@@ -92,7 +92,7 @@ const PropertySlider = () => {
                                     id={ad._id}
                                     location={ad.city}
                                     postalCode={ad.zip}
-                                    price={ad.price}
+                                    price={ad.listingPrice}
                                     title={ad.listingTitle}
                                     objectCode={ad.uniqId}
                                     img={DemoImg}

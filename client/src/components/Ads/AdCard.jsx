@@ -59,7 +59,7 @@ const AdCard = ({
                             Location: {location}
                         </p>
                         <p className='w-full text-left text-xs md:text-sm'>
-                            Price: {price}
+                            Price: {price}&#8364;
                         </p>
 
                     </div>
