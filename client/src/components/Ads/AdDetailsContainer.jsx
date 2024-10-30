@@ -14,6 +14,7 @@ import { config } from '../../assets/config/config';
 import { flowFactService } from '../../services';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../context/AuthContext';
+import ThemedSuspense from '../ThemedSuspense';
 
 const AdsContainer = () => {
     const { id } = useParams();
@@ -28,6 +29,7 @@ const AdsContainer = () => {
     const [adDetails, setAdDetails] = useState(null);
 
     const [imagesList, setImagesList] = useState([]);
+    const [loading, setLoaing] = useState(true);
 
 
     const handleSendMessage = async () => {
@@ -71,6 +73,8 @@ const AdsContainer = () => {
                     }));
                     console.log(images)
                     setImagesList(images);
+                }).finally(() => {
+                    setLoaing(false)
                 });
         });
     }
@@ -107,7 +111,7 @@ const AdsContainer = () => {
     }, [id]);
 
     if (!adDetails) {
-        return <div>Loading...</div>;
+        return <ThemedSuspense />;
     }
 
     console.log(id);
@@ -140,7 +144,13 @@ const AdsContainer = () => {
                                 <h1 className='text-left text-xl md:text-2xl lg:text-3xl text-gray-900  font-bold'>{adDetails.listingPrice} €</h1>
                             </div>
 
-                            <ReactPhotoGallery images={imagesList} />
+                            {
+                                loading ? (
+                                    <ThemedSuspense />
+                                ) : (
+                                    <ReactPhotoGallery images={imagesList} />
+                                )
+                            }
 
 
                         </div>
@@ -166,23 +176,23 @@ const AdsContainer = () => {
                                     <h1 className='lg:text-md text-gray-600'>Energieausweis: </h1>
                                     <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.energy ? "available" : "not availabe"}</p>
                                 </div>)}
-                               {adDetails?.numberOfBathrooms && ( <div className='flex flex-row justify-between gap-2  items-center w-full'>
+                                {adDetails?.numberOfBathrooms && (<div className='flex flex-row justify-between gap-2  items-center w-full'>
                                     <h1 className='lg:text-md text-gray-600'>Badezimmer: </h1>
                                     <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.numberOfBathrooms}</p>
                                 </div>)}
-                               {adDetails?.listingType && ( <div className='flex flex-row justify-between gap-2  items-center w-full'>
+                                {adDetails?.listingType && (<div className='flex flex-row justify-between gap-2  items-center w-full'>
                                     <h1 className='lg:text-md text-gray-600'>Status: </h1>
                                     <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.listingType}</p>
                                 </div>)}
-                               {adDetails?.numberOfParkingSpaces && ( <div className='flex flex-row justify-between gap-2  items-center w-full'>
+                                {adDetails?.numberOfParkingSpaces && (<div className='flex flex-row justify-between gap-2  items-center w-full'>
                                     <h1 className='lg:text-md text-gray-600'>SStellplätze: </h1>
                                     <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.numberOfParkingSpaces}</p>
                                 </div>)}
-                               {adDetails.zip && ( <div className='flex flex-row justify-between gap-2  items-center w-full'>
+                                {adDetails.zip && (<div className='flex flex-row justify-between gap-2  items-center w-full'>
                                     <h1 className='lg:text-md text-gray-600'>Postleitzahl: </h1>
                                     <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.zip}</p>
                                 </div>)}
-                               {adDetails?.numberOfRooms && ( <div className='flex flex-row justify-between gap-2  items-center w-full'>
+                                {adDetails?.numberOfRooms && (<div className='flex flex-row justify-between gap-2  items-center w-full'>
                                     <h1 className='lg:text-md text-gray-600'>Anzahl Zimmer: </h1>
                                     <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.numberOfRooms}</p>
                                 </div>)}
@@ -198,7 +208,7 @@ const AdsContainer = () => {
                                     <h1 className='lg:text-md text-gray-600'>Objektart: </h1>
                                     <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.buildingType}</p>
                                 </div>)}
-                               {adDetails?.numberOfGarages && ( <div className='flex flex-row justify-between gap-2 items-center w-full'>
+                                {adDetails?.numberOfGarages && (<div className='flex flex-row justify-between gap-2 items-center w-full'>
                                     <h1 className='lg:text-md text-gray-600'>Garage: </h1>
                                     <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.numberOfGarages}</p>
                                 </div>)}
@@ -206,11 +216,11 @@ const AdsContainer = () => {
                                     <h1 className='lg:text-md text-gray-600'>House fee: </h1>
                                     <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.monthlyHousepayment}</p>
                                 </div>)}
-                               {adDetails?.numberOfFloors && ( <div className='flex flex-row justify-between gap-2 items-center w-full'>
+                                {adDetails?.numberOfFloors && (<div className='flex flex-row justify-between gap-2 items-center w-full'>
                                     <h1 className='lg:text-md text-gray-600'>Floors: </h1>
                                     <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.numberOfFloors}</p>
                                 </div>)}
-                               {adDetails?.usableArea && ( <div className='flex flex-row justify-between gap-2 items-center w-full'>
+                                {adDetails?.usableArea && (<div className='flex flex-row justify-between gap-2 items-center w-full'>
                                     <h1 className='lg:text-md text-gray-600'>Usable area: </h1>
                                     <p className='lg:text-md text-gray-900 font-semibold'>{adDetails.usableArea}</p>
                                 </div>)}

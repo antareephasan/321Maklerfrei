@@ -13,7 +13,9 @@ app.use(
       'https://321-maklerfrei.vercel.app',
       'https://321-maklerfrei.vercel.app/*',
       "http://localhost:3000",
-      "http://localhost*"
+      "http://localhost*",
+      // "http://207.154.229.20:5000",
+      // "http://207.154.229.20:5000/",
     ],
     credentials: true,
   }),
