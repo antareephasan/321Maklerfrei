@@ -29,6 +29,8 @@ const registrationAccount = async (req) => {
   const { gender, role, password, confirmPassword, email, ...other } = req.body;
   const { files } = req;
 
+  console.log("rrrrrrrrrr", role)
+
   if (!role || !Object.values(ENUM_USER_ROLE).includes(role)) {
     throw new ApiError(400, "Valid Role is required!");
   }
@@ -61,12 +63,13 @@ const registrationAccount = async (req) => {
     expirationTime: Date.now() + 3 * 60 * 1000,
   };
 
+  console.log("auth", auth.email)
 
-  const emailPromise = sendEmail({
+ sendEmail({
     email: auth.email,
     subject: "Activate Your Account",
     html: registrationSuccessEmailBody({ user: { name: auth.name }, activationCode }),
-  }).catch(error => console.error("Failed to send email:", error.message));
+  }).catch(error => console.error("Failed to send email:", error));
 
   // Create auth record
   const createAuth = await Auth.create(auth);
@@ -76,7 +79,7 @@ const registrationAccount = async (req) => {
   }
 
   // Ensure authId and email are set before proceeding
-  console.log("Auth created successfully:", createAuth);
+  // console.log("Auth created successfully:", createAuth);
 
   other.authId = createAuth._id;
   other.email = email;
