@@ -17,7 +17,7 @@ async function main() {
  
 
     // Start the server------------------
-    const server = app.listen(port, config.base_url, () => {
+    const server = app.listen(port, () => {
       logger.info(`App listening on http://${config.base_url}:${config.port}`);
     });
   
