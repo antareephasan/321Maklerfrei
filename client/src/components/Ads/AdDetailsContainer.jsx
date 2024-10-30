@@ -147,9 +147,13 @@ const AdsContainer = () => {
                             {
                                 loading ? (
                                     <ThemedSuspense />
-                                ) : (
-                                    <ReactPhotoGallery images={imagesList} />
-                                )
+                                ) : 
+                                    imagesList.length !== 0  ? (
+                                        <ReactPhotoGallery images = { imagesList } />
+                                    ) : (
+                                        null
+                                    )
+                                
                             }
 
 
@@ -323,9 +327,9 @@ const AdsContainer = () => {
 
 
                 </div>
-            </main>
+            </main >
 
-        </div>
+        </div >
     )
 }
 

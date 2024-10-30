@@ -198,29 +198,31 @@ const AdsContainer = () => {
                         </div>
 
 
-                        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-5'>
-                            {loading ? (
-                                <ThemedSuspense />
-                            ) : ads.length > 0 ? (
-                                ads.map((ad) => (
-                                    <AdCard
-                                        key={ad._id}
-                                        id={ad._id}
-                                        entityId={ad.entityId}
-                                        title={ad.listingTitle}
-                                        objectCode={ad.uniqId}
-                                        postalCode={ad.zip}
-                                        location={ad.location}
-                                        price={ad.listingPrice}
-                                        img={ad.img || DemoImg} // Fallback to demo image if no image is provided
-                                    />
-                                ))
-                            ) : (
-                                <p>
-                                    {dictionary["ads"][languageReducer]["noadsfound"]}
-                                </p> // Show message when no ads are found
-                            )}
-                        </div>
+                        {loading ? (
+                            <ThemedSuspense />
+                        ) : ads.length > 0 ? (
+                            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-5'>
+                                {
+                                    ads.map((ad) => (
+                                        <AdCard
+                                            key={ad._id}
+                                            id={ad._id}
+                                            entityId={ad.entityId}
+                                            title={ad.listingTitle}
+                                            objectCode={ad.uniqId}
+                                            postalCode={ad.zip}
+                                            location={ad.location}
+                                            price={ad.listingPrice}
+                                            img={ad.img || DemoImg} // Fallback to demo image if no image is provided
+                                        />
+                                    ))
+                                }
+                            </div>
+                        ) : (
+                            <p>
+                                {dictionary["ads"][languageReducer]["noadsfound"]}
+                            </p> // Show message when no ads are found
+                        )}
 
                         <div className="flex justify-center mt-5">
                             <button
