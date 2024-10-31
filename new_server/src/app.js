@@ -16,7 +16,7 @@ app.use(
       "http://localhost*",
       // "http://207.154.229.20:5000",
       // "http://207.154.229.20:5000/",
-      "http://207.154.229.20:3000",
+      "http://46.101.162.177:3000",
       "http://321maklerfrei.de"
     ],
     credentials: true,
