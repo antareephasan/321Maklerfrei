@@ -41,21 +41,21 @@ const routes = [
     icon: "FormsIcon",
     name: "Privacy and Policy",
   },
-  // {
-  //   path: "/app/imprint",
-  //   icon: "FormsIcon",
-  //   name: "Imprint",
-  // },
-  // {
-  //   path: "/app/billing",
-  //   icon: "FormsIcon",
-  //   name: "Billing",
-  // },
+  {
+    path: "/app/imprint",
+    icon: "FormsIcon",
+    name: "Imprint",
+  },
   {
     path: "/app/logout",
     icon: "OutlineLogoutIcon",
     name: "Logout",
   },
+  // {
+  //   path: "/app/billing",
+  //   icon: "FormsIcon",
+  //   name: "Billing",
+  // },
   // {
   //   icon: "HomeIcon",
   //   name: "Dashboards",
