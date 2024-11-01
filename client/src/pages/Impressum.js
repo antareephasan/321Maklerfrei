@@ -19,7 +19,7 @@ function SectionFeaturesGrid({ children }) {
     // Fetch Terms and Conditions
     const fetchContact = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/manage-web/get-contact`); // Adjust this URL as needed        console.log("response", response)
+        const response = await axios.get(`${apiUrl}/manage-web/get-about-us`); // Adjust this URL as needed        console.log("response", response)
         setContact(response.data.data.description);
       } catch (error) {
         console.error("Error fetching contact:", error);
