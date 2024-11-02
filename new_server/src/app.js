@@ -19,6 +19,8 @@ app.use(
       "www.321maklerfrei.de", 
       "http://64.226.82.90",
       "https://64.226.82.90",
+      "http://64.226.82.90:3000",
+      "https://64.226.82.90:3000" 
   
     ],
     credentials: true,
